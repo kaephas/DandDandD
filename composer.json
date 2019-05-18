@@ -1,0 +1,20 @@
+{
+  "name" : "kaephas/IT328/dating",
+  "authors" : [
+    {
+      "name": "Kaephas",
+      "email":"kkain@mail.greenriver.edu"
+    },
+    {
+      "name": "Zane",
+      "email": "zane@grc"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  },
+  "autoload": {
+    "classmap": ["classes/"]
+  }
+
+}
