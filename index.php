@@ -14,6 +14,7 @@ error_reporting(E_ALL);
 //require autoload file
 require_once 'vendor/autoload.php';
 require_once 'model/validate.php';
+require_once 'model/option_functions.php';
 
 session_start();
 
@@ -28,3 +29,17 @@ $f3->route('GET /', function()
     $view = new Template();
     echo $view->render('views/home.html');
 });
+
+$f3->route('GET|POST /get_drink', function()
+{
+   $view = new Template();
+   echo $view->render('views/get_drink.html');
+});
+
+$f3->route('GET|POST /add_drink', function()
+{
+    $view = new Template();
+    echo $view->render('views/add_drink.html');
+});
+
+$f3->run();
