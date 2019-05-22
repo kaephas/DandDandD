@@ -10,6 +10,7 @@
 function generateClasses()
 {
     $classes = array();
+    $classes[] = "Artificer";
     $classes[] = "Barbarian";
     $classes[] = "Bard";
     $classes[] = "Cleric";
@@ -22,7 +23,6 @@ function generateClasses()
     $classes[] = "Sorcerer";
     $classes[] = "Warlock";
     $classes[] = "Wizard";
-    $classes[] = "Artificer";
 
     return $classes;
 }
@@ -43,6 +43,8 @@ function generateStats()
 function generateSubClasses()
 {
     $subClass = array();
+    $subClass['Artificer'] =
+        array('Alchemist', 'Archivist', 'Artillerist', 'Battle Smith');
     $subClass['Barbarian'] =
         array('Ancestral Guardian', 'Battlerager', 'Berserker', 'Storm Herald', 'Totem Warrior', 'Zealot');
     $subClass['Bard'] =
@@ -74,8 +76,6 @@ function generateSubClasses()
         array('School of Abjuration', 'School of Conjuration', 'School of Divination', 'School of Enchantment',
             'School of Evocation', 'School of Illusion', 'School of Invention', 'School of Necromancy',
             'School of Transmutation', 'War Magic');
-    $subClass['Artificer'] =
-        array('Alchemist', 'Archivist', 'Artillerist', 'Battle Smith');
 
     return $subClass;
 }
