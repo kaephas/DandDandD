@@ -33,7 +33,7 @@ $f3->route('GET /', function()
 $f3->route('GET|POST /get_drink', function()
 {
    $view = new Template();
-   echo $view->render('views/get_drink.html');
+   echo $view->render('views/character.html');
 });
 
 $f3->route('GET|POST /add_drink', function()
