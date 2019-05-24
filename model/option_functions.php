@@ -6,6 +6,20 @@
  * Time: 10:03
  */
 
+// Create list of stats
+function generateStats()
+{
+    $stats = array();
+    $stats[] = 'Strength';
+    $stats[] = 'Dexterity';
+    $stats[] = 'Constitution';
+    $stats[] = 'Intelligence';
+    $stats[] = 'Wisdom';
+    $stats[] = 'Charisma';
+
+    return $stats;
+}
+
 // Create list of classes
 function generateClasses()
 {
@@ -25,18 +39,6 @@ function generateClasses()
     $classes[] = "Wizard";
 
     return $classes;
-}
-
-// Create list of stats
-function generateStats()
-{
-    $stats = array();
-    $stats[] = 'Strength';
-    $stats[] = 'Dexterity';
-    $stats[] = 'Constitution';
-    $stats[] = 'Intelligence';
-    $stats[] = 'Wisdom';
-    $stats[] = 'Charisma';
 }
 
 // Create list of subclasses
@@ -93,9 +95,11 @@ function generateAlignments()
     $alignments[] = 'Chaotic Good';
     $alignments[] = 'Chaotic Neutral';
     $alignments[] = 'Chaotic Evil';
+
+    return $alignments;
 }
 
-// TODO: Create list of backgrounds   (assoc array or 2 separate index based)
+// list of backgrounds
 function generateBackgrounds()
 {
     $backgrounds = array();
@@ -130,9 +134,25 @@ function generateBackgrounds()
     $backgrounds[] = 'Urchin';
     $backgrounds[] = 'Uthgardt Tribe Member';
     $backgrounds[] = 'Waterdhavian Noble';
+
+    return $backgrounds;
 }
 
+// Glasses
+function generateGlasses() {
+    $glasses[] = array('Cocktail', 'Highball', 'Collins', 'Lowball', 'Mug', 'Margarita',
+                        'Hurricane', 'Shotglass', 'Coupe', 'Pint', 'Julep'
+    );
 
-// TODO: (Maybe) Create list of background descriptions
+    return $glasses;
+}
 
-// TODO: List of Ingredients for Add Drink page
+// List of Ingredient Types
+function generateIngTypes() {
+    $categories[] = array(
+        'cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice', 'liquor', 'milk/cream', 'mint',
+        'soft drink', 'sweetener', 'tonic', 'vermouth'
+    );
+
+    return $categories;
+}
