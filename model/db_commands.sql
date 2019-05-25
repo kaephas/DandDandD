@@ -1,9 +1,10 @@
 CREATE TABLE drink (
-  name VARCHAR(40) PRIMARY KEY NOT NULL,
-  glass VARCHAR(20) NOT NULL,
-  image VARCHAR(40) DEFAULT 'images/default.jpg',
-  recipe TEXT NOT NULL,
-  alcoholic TINYINT(1) DEFAULT 1
+   name VARCHAR(40) PRIMARY KEY NOT NULL,
+   glass VARCHAR(20) NOT NULL,
+   image VARCHAR(40) DEFAULT 'images/default.jpg',
+   recipe TEXT NOT NULL,
+   alcoholic TINYINT(1) DEFAULT 1,
+   shots DOUBLE DEFAULT 0
 );
 
 CREATE TABLE ingredient (
@@ -25,154 +26,154 @@ CREATE TABLE characteristic (
 
 # characteristics to ingredient type map
 INSERT INTO characteristic (trait, type) VALUES
-  ('Alchemist', 'sweetener'),
-  ('Archivist', 'gin'),
-  ('Artillerist', 'rum'),
-  ('Battle Smith', 'bitters'),
+('Alchemist', 'sweetener'),
+('Archivist', 'gin'),
+('Artillerist', 'rum'),
+('Battle Smith', 'bitters'),
 
-  ('Ancestral', 'pisco'),
-  ('Battlerager', 'liquor'),
-  ('Berserker', 'whiskey'),
-  ('Storm Herald', 'liquor'),
-  ('Totem Warrior', 'vermouth'),
-  ('Zealot', 'tonic'),
+('Ancestral', 'pisco'),
+('Battlerager', 'liquor'),
+('Berserker', 'whiskey'),
+('Storm Herald', 'liquor'),
+('Totem Warrior', 'vermouth'),
+('Zealot', 'tonic'),
 
-  ('Glamour', 'tequila'),
-  ('Lore', 'fruit'),
-  ('Swords', 'whiskey'),
-  ('Valor', 'fruit'),
-  ('Whispers', 'fruit'),
+('Glamour', 'tequila'),
+('Lore', 'fruit'),
+('Swords', 'whiskey'),
+('Valor', 'fruit'),
+('Whispers', 'fruit'),
 
-  ('Arcana', 'gin'),
-  ('Death', 'kahlua'),
-  ('Forge', 'liquor'),
-  ('Grave', 'coffee'),
-  ('Knowledge', 'gin'),
-  ('Life', 'milk/cream'),
-  ('Light', 'sweetener'),
-  ('Nature', 'mint'),
-  ('Tempest', 'rum'),
-  ('Trickery', 'sugar'),
-  ('War', 'whiskey'),
+('Arcana', 'gin'),
+('Death', 'kahlua'),
+('Forge', 'liquor'),
+('Grave', 'coffee'),
+('Knowledge', 'gin'),
+('Life', 'milk/cream'),
+('Light', 'sweetener'),
+('Nature', 'mint'),
+('Tempest', 'rum'),
+('Trickery', 'sugar'),
+('War', 'whiskey'),
 
-  ('Dreams', 'vodka'),
-  ('Spores', 'cognac'),
-  ('Land', 'fruit'),
-  ('Moon', 'fruit'),
-  ('Shepherd', 'fruit'),
+('Dreams', 'vodka'),
+('Spores', 'cognac'),
+('Land', 'fruit'),
+('Moon', 'fruit'),
+('Shepherd', 'fruit'),
 
-  ('Arcane Archer', 'vermouth'),
-  ('Battle Master', 'gin'),
-  ('Brute', 'vodka'),
-  ('Cavalier', 'sweetener'),
-  ('Champion', 'soft drink'),
-  ('Eldritch Knight', 'gin'),
-  ('Gunslinger', 'whiskey'),
-  ('Purple Dragon Knight', 'pisco'),
-  ('Samurai', 'bitters'),
+('Arcane Archer', 'vermouth'),
+('Battle Master', 'gin'),
+('Brute', 'vodka'),
+('Cavalier', 'sweetener'),
+('Champion', 'soft drink'),
+('Eldritch Knight', 'gin'),
+('Gunslinger', 'whiskey'),
+('Purple Dragon Knight', 'pisco'),
+('Samurai', 'bitters'),
 
-  ('Way of the Shadow', 'bitters'),
-  ('Way of the Drunken Master', 'whiskey'),
-  ('Way of the Elements', 'fruit'),
-  ('Way of the Kensei', 'tonic'),
-  ('Way of the Long Death', 'kahlua'),
-  ('Way of the Sun Soul', 'rum'),
+('Way of the Shadow', 'bitters'),
+('Way of the Drunken Master', 'whiskey'),
+('Way of the Elements', 'fruit'),
+('Way of the Kensei', 'tonic'),
+('Way of the Long Death', 'kahlua'),
+('Way of the Sun Soul', 'rum'),
 
-  ('Conquest', 'rum'),
-  ('Devotion', 'fruit'),
-  ('Redemption', 'egg'),
-  ('Ancients', 'whiskey'),
-  ('Crown', 'gin'),
-  ('Vengeance', 'fruit'),
-  ('Oathbreaker', 'brandy'),
+('Conquest', 'rum'),
+('Devotion', 'fruit'),
+('Redemption', 'egg'),
+('Ancients', 'whiskey'),
+('Crown', 'gin'),
+('Vengeance', 'fruit'),
+('Oathbreaker', 'brandy'),
 
-  ('Beast Master', 'liquor'),
-  ('Gloom Stalker', 'fruit'),
-  ('Horizon Walker', 'fruit'),
-  ('Hunter', 'soft drink'),
-  ('Monster Slayer', 'sweetener'),
+('Beast Master', 'liquor'),
+('Gloom Stalker', 'fruit'),
+('Horizon Walker', 'fruit'),
+('Hunter', 'soft drink'),
+('Monster Slayer', 'sweetener'),
 
-  ('Arcane Trickster', 'cognac'),
-  ('Assassin', 'bitters'),
-  ('Inquisitive', 'gin'),
-  ('Mastermind', 'cognac'),
-  ('Scout', 'soft drink'),
-  ('Swashbuckler', 'rum'),
-  ('Thief', 'sweetener'),
+('Arcane Trickster', 'cognac'),
+('Assassin', 'bitters'),
+('Inquisitive', 'gin'),
+('Mastermind', 'cognac'),
+('Scout', 'soft drink'),
+('Swashbuckler', 'rum'),
+('Thief', 'sweetener'),
 
-  ('Divine Soul', 'soft drink'),
-  ('Draconic', 'whiskey'),
-  ('Giant', 'liquor'),
-  ('Shadow', 'egg'),
-  ('Storm', 'rum'),
-  ('Wild', 'vodka'),
+('Divine Soul', 'soft drink'),
+('Draconic', 'whiskey'),
+('Giant', 'liquor'),
+('Shadow', 'egg'),
+('Storm', 'rum'),
+('Wild', 'vodka'),
 
-  ('Archfey', 'fruit'),
-  ('Celestial', 'milk/cream'),
-  ('Fiend', 'sweetener'),
-  ('Old One', 'vodka'),
-  ('Hexblade', 'soft drink'),
-  ('Undying', 'kahlua'),
+('Archfey', 'fruit'),
+('Celestial', 'milk/cream'),
+('Fiend', 'sweetener'),
+('Old One', 'vodka'),
+('Hexblade', 'soft drink'),
+('Undying', 'kahlua'),
 
-  ('Abjuration', 'pisco'),
-  ('Conjuration', 'soft drink'),
-  ('Divination', 'tonic'),
-  ('Enchantment', 'gin'),
-  ('Evocation', 'tequila'),
-  ('Illusion', 'club soda'),
-  ('Invention', 'vodka'),
-  ('Necromancy', 'kahlua'),
-  ('Transmutation', 'liquor'),
-  ('War Magic', 'whiskey'),
+('Abjuration', 'pisco'),
+('Conjuration', 'soft drink'),
+('Divination', 'tonic'),
+('Enchantment', 'gin'),
+('Evocation', 'tequila'),
+('Illusion', 'club soda'),
+('Invention', 'vodka'),
+('Necromancy', 'kahlua'),
+('Transmutation', 'liquor'),
+('War Magic', 'whiskey'),
 
-  ('Acolyte', 'milk/cream'),
-  ('Anthropologist', 'fruit'),
-  ('Archaeologist', 'fruit'),
-  ('Charlatan', 'liquor'),
-  ('City Watch / Investigator', 'liquor'),
-  ('Clan Crafter', 'sweetener'),
-  ('Cloistered Scholar', 'liquor'),
-  ('Courtier', 'wine'),
-  ('Criminal / Spy', 'soft drink'),
-  ('Entertainer', 'tequila'),
-  ('Faction Agent', 'wine'),
-  ('Far Traveler', 'coconut'),
-  ('Folk Hero', 'egg'),
-  ('Gladiator', 'whiskey'),
-  ('Guild Artisan/Merchant', 'kahlua'),
-  ('Haunted One', 'vodka'),
-  ('Hermit', 'fruit'),
-  ('Inheritor', 'vermouth'),
-  ('Knight', 'gin'),
-  ('Knight of the Order', 'coffee'),
-  ('Mercenary Veteran', 'whiskey'),
-  ('Noble', 'mint'),
-  ('Outlander', 'liquor'),
-  ('Pirate', 'rum'),
-  ('Sage', 'gin'),
-  ('Sailor', 'rum'),
-  ('Soldier', 'whiskey'),
-  ('Urban Bounty Hunter', 'vodka'),
-  ('Urchin', 'chocolate'),
-  ('Uthgardt Tribe Member', 'fruit'),
-  ('Waterdhavian Noble', 'mint'),
+('Acolyte', 'milk/cream'),
+('Anthropologist', 'fruit'),
+('Archaeologist', 'fruit'),
+('Charlatan', 'liquor'),
+('City Watch / Investigator', 'liquor'),
+('Clan Crafter', 'sweetener'),
+('Cloistered Scholar', 'liquor'),
+('Courtier', 'wine'),
+('Criminal / Spy', 'soft drink'),
+('Entertainer', 'tequila'),
+('Faction Agent', 'wine'),
+('Far Traveler', 'coconut'),
+('Folk Hero', 'egg'),
+('Gladiator', 'whiskey'),
+('Guild Artisan/Merchant', 'kahlua'),
+('Haunted One', 'vodka'),
+('Hermit', 'fruit'),
+('Inheritor', 'vermouth'),
+('Knight', 'gin'),
+('Knight of the Order', 'coffee'),
+('Mercenary Veteran', 'whiskey'),
+('Noble', 'mint'),
+('Outlander', 'liquor'),
+('Pirate', 'rum'),
+('Sage', 'gin'),
+('Sailor', 'rum'),
+('Soldier', 'whiskey'),
+('Urban Bounty Hunter', 'vodka'),
+('Urchin', 'chocolate'),
+('Uthgardt Tribe Member', 'fruit'),
+('Waterdhavian Noble', 'mint'),
 
-  ('Strength', 'whiskey'),
-  ('Dexterity', 'liquor'),
-  ('Constitution', 'bitters'),
-  ('Intelligence', 'gin'),
-  ('Wisdom', 'club soda'),
-  ('Charisma', 'vodka'),
+('Strength', 'whiskey'),
+('Dexterity', 'liquor'),
+('Constitution', 'bitters'),
+('Intelligence', 'gin'),
+('Wisdom', 'club soda'),
+('Charisma', 'vodka'),
 
-  ('Lawful Good', 'soft drink'),
-  ('Lawful Neutral', 'gin'),
-  ('Lawful Evil', 'vermouth'),
-  ('Neutral Good', 'liquor'),
-  ('Neutral', 'club soda'),
-  ('Neutral Evil', 'bitters'),
-  ('Chaotic Good', 'tequila'),
-  ('Chaotic Neutral', 'rum'),
-  ('Chaotic Evil', 'vodka');
+('Lawful Good', 'soft drink'),
+('Lawful Neutral', 'gin'),
+('Lawful Evil', 'vermouth'),
+('Neutral Good', 'liquor'),
+('Neutral', 'club soda'),
+('Neutral Evil', 'bitters'),
+('Chaotic Good', 'tequila'),
+('Chaotic Neutral', 'rum'),
+('Chaotic Evil', 'vodka');
 
 INSERT INTO ingredient(ing_name, type)
 VALUES
@@ -206,6 +207,7 @@ VALUES
 ('Lemon Juice', 'fruit/juice'),
 ('Lemonade', 'fruit/juice'),
 ('Lime Juice', 'fruit/juice'),
+('Lime Wedge', 'fruit/juice'),
 ('Midori', 'liquor'),
 ('Milk', 'milk/cream'),
 ('Mint Leaves', 'mint'),
@@ -243,52 +245,158 @@ VALUES
 ('Glass of water', 'Highball',
  'Not for the faint of heart...actually that\'s exactly who it\'s for.', 0);
 
-INSERT INTO drink (name, glass, recipe)
+INSERT INTO drink (name, glass, recipe, shots)
 VALUES
 ('Mojito', 'Collins',
  'Lightly muddle the mint in a shaker.
  Add the rum, lime juice, simple syrup and ice and give it a brief shake.
- Strain into a highball glass. Top with the club soda. Garnish with a mint sprig.'),
+ Strain into a highball glass. Top with the club soda. Garnish with a mint sprig.', 1.33),
 ('Long Island Iced Tea', 'Highball',
  'Add all ingredients except the cola into a Collins glass with ice.
-Top with a splash of the cola and stir briefly.
-Garnish with a lemon wedge.
-Serve with a straw.'),
+ Top with a splash of the cola and stir briefly.
+ Garnish with a lemon wedge.
+Serve with a straw.', 2.5),
 ('Cosmopolitan', 'Cocktail',
  'Add all ingredients into a shaker with ice and shake.
  Strain into a chilled cocktail glass.
- Garnish with a lime wheel.'),
+ Garnish with a lime wheel.', 1.67),
 ('Margarita', 'Margarita',
  'Salt half the rim of the glass and set aside (optional).
  Add all ingredients into a shaker with ice and shake vigorously.
  Strain into the prepared glass over fresh ice.
- Garnish with a lime wedge.'),
+ Garnish with a lime wedge.', 1.67),
 ('Amaretto Sour', 'Lowball',
  'Add all ingredients to a shaker and dry shake to combine.
  Add fresh ice to the shaker and shake again until chilled.
  Strain over fresh ice into an Old Fashioned glass.
- Garnish with lemon peel and brandied cherries, if desired.'),
+ Garnish with lemon peel and brandied cherries, if desired.', 1.5),
 ('Vodka Lemonade', 'Highball',
- 'Pour Vodka over ice and add Lemonade to taste.'),
+ 'Pour Vodka over ice and add Lemonade to taste.', 1.33),
 ('Tequila Lemonade', 'Highball',
- 'Pour Tequila over ice and add Lemonade to taste.'),
-('Adios ***', 'Highball',
+ 'Pour Tequila over ice and add Lemonade to taste.', 1.33),
+('AMF', 'Highball',
  'Pour all ingredients (except soda) into the chilled glass with ice cubes.
  Top it with clear soda.
- Stir gently.'),
+ Stir gently.', 1.67),
 ('Mai Tai', 'Lowball',
- 'Add all ingredients into a shaker with crushed ice and shake vigorously until the shaker is well-chilled and frosty on the outside.
+ 'Add all ingredients into a shaker with crushed ice.
+ Shake vigorously until the shaker is well-chilled and frosty on the outside.
  Pour (unstrained) into a double Old Fashioned glass.
- Garnish with the rind of half of a juiced lime and a fresh mint sprig.'),
+ Garnish with the rind of half of a juiced lime and a fresh mint sprig.', 1.67),
 ('Sex on the Beach', 'Highball',
  'Add all the ingredients into a shaker with ice and shake.
  Strain into a highball glass over fresh ice.
- Garnish with a cocktail umbrella.'),
+ Garnish with a cocktail umbrella.', 1.33),
 ('Alabama Slammer', 'Highball',
  'Add all the ingredients into a shaker with ice and shake.
  Strain into a highball glass over fresh ice.
- Garnish with an orange wheel and a cherry, and serve with a straw.');
-
+ Garnish with an orange wheel and a cherry, and serve with a straw.', 2),
+('B52', 'Shotglass',
+ 'Layer the three spirits in a shot glass in the order they\'re listed.', 0.67),
+('Tequila Sunrise', 'Highball',
+ 'Add the tequila and then the orange juice to a chilled highball glass.
+Float the grenadine on top.
+Garnish with an orange slice and a cherry.', 1.33),
+('Screwdriver', 'Highball',
+ 'Add the vodka into a highball glass over ice.
+Top with the orange juice.', 1.33),
+('Manhattan', 'Cocktail',
+ 'Add all the ingredients into a mixing glass with ice, and stir until well-chilled.
+Strain into a chilled coupe.
+Garnish with a brandied cherry.', 1.5),
+('Pina Colada', 'Hurricane',
+ 'Add all ingredients into a shaker with ice and shake vigorously (20-30 seconds).
+Strain into a chilled Hurricane glass over pebble ice.
+Garnish with a pineapple wedge and pineapple leaf.', 1.33),
+('Lemon Drop', 'Cocktail',
+ 'Coat the rim of a cocktail glass with sugar and set aside
+ (do this a few minutes ahead of time so the sugar can dry and adhere well to the glass).
+Add all the ingredients into a shaker with ice and shake.
+Strain into the prepared glass.', 1.67),
+('Rusty Nail', 'Lowball',
+ 'Add all ingredients into a rocks glass with ice and stir.', 1.5),
+('Vodka Martini', 'Cocktail',
+ 'Add both ingredients to a Martini glass.
+Garnish with a lemon twist or olives.', 1),
+('Gin Martini', 'Cocktail',
+ 'Add all the ingredients to a mixing glass and fill with ice.
+Stir, and strain into a cocktail glass.
+Garnish with a lemon twist.', 1.75),
+('White Russian', 'Lowball',
+ 'Add the vodka and Kahlúa to an Old Fashioned glass with ice.
+Top with a large splash of heavy cream and stir.', 2),
+('Black Russian', 'Lowball',
+ 'Add all the ingredients into a mixing glass with ice and stir.
+Strain into an Old Fashioned glass over fresh ice.', 2),
+('Tom Collins', 'Collins',
+ 'Add the lemon juice, simple syrup and gin into a shaker with ice and shake well.
+Strain into a Collins glass over fresh ice.
+Top with club soda.
+Garnish with a lemon wheel and cherry.
+Serve with a straw.', 1),
+('Daiquiri', 'Coupe',
+ 'Add all the ingredients into a shaker with ice and shake.
+ Strain into a coupe glass.
+ Garnish with a lime wheel.', 1.33),
+('Kentucky Mule', 'Mug',
+ 'Add the bourbon and lime juice to a Moscow Mule mug or a highball glass.
+ Fill the mug or glass with ice and top with ginger beer.
+ Add mint sprigs for garnish.', 1.33),
+('Moscow Mule', 'Mug',
+ 'Add the bourbon and lime juice to a Moscow Mule mug or a highball glass.
+ Fill the mug or glass with ice and top with ginger beer.
+ Add mint sprigs for garnish.', 1.33),
+('Mexican Mule', 'Mug',
+ 'Add the bourbon and lime juice to a Moscow Mule mug or a highball glass.
+ Fill the mug or glass with ice and top with ginger beer.
+ Add mint sprigs for garnish.', 1.33),
+('Old Fashioned', 'Lowball',
+ 'Add all ingredients into a mixing glass with ice and stir.
+ Strain into an Old Fashioned glass over fresh ice.
+ Express the oil of an orange peel over glass and garnish with the peel.', 1.33),
+('Gin & Tonic', 'Lowball',
+ 'Fill a double rocks glass with ice.
+ Add the gin and fill with tonic.
+ Garnish with a lime wedge.', 1.33),
+('Gin & Juice', 'Collins',
+ 'Fill a Collins glass with ice and add the gin.
+ Fill with the juice and stir.', 1),
+('Gin Fizz', 'Collins',
+ 'Add the first four ingredients to a shaker and dry-shake (without ice) for about 10 seconds.
+ Add 3 or 4 ice cubes and shake very well.
+ Double-strain into a chilled fizz glass and top with club soda.', 1.33),
+('Pisco Sour', 'Coupe',
+ 'Combine the first five ingredients in a shaker.
+ Dry shake for 15 seconds, then add ice and shake again to chill.
+ Double strain into a chilled coupe glass.
+ Dot the top with drops of Angostura bitters.', 1.33),
+('Gimlet', 'Lowball',
+ 'Add all ingredients into a shaker with ice and shake.
+ Strain into a chilled cocktail glass or an Old Fashioned glass filled with fresh ice.
+ Garnish with a lime wheel.
+ (You can substitute 1 oz lime cordial, such as Rose\'s lime juice, for both the lime juice and simple syrup.).', 1.67),
+('Sidecar', 'Coupe',
+ 'Rim a coupe glass in sugar.
+ Add all the ingredients to a shaker with ice and shake.
+ Strain into the coupe glass.
+ Garnish with a lemon twist.', 1.33),
+('Paloma', 'Highball',
+ 'Add the tequila, lime juice and salt into a highball glass over ice.
+ Top off with the grapefruit soda and stir.
+ Garnish with a lime wheel.', 1.33),
+('Cuba Libre', 'Lowball',
+ 'Add all the ingredients to a highball glass filled with ice.
+ Squeeze the lime wedge into the glass;
+ Garnish with a lime wedge.', 1.33),
+('Mint Julep', 'Julep',
+ 'Express the essential oils in the mint and rub them inside the glass.
+ To the same glass, add simple syrup, bourbon, and crushed ice.
+ Stir.
+ Garnish with more ice and fresh mint.', 1.33),
+('Midori Sour', 'Collins',
+ 'Add all ingredients except the soda water into a Collins glass over ice and stir.
+ Top with the soda water.
+ Garnish with a lemon wheel.', 1.33);
 
 INSERT INTO drink_ing (name, qty, ing_name)
 VALUES
@@ -322,13 +430,13 @@ VALUES
 ('Vodka Lemonade', 'Fill', 'Lemonade'),
 ('Tequila Lemonade', '2oz', 'Tequila'),
 ('Tequila Lemonade', 'Fill', 'Lemonade'),
-('Adios ***', '1/2oz', 'Vodka'),
-('Adios ***', '1/2oz', 'Rum'),
-('Adios ***', '1/2oz', 'Tequila'),
-('Adios ***', '1/2oz', 'Gin'),
-('Adios ***', '1/2oz', 'Blue Curacao'),
-('Adios ***', '2oz', 'Sweet and Sour'),
-('Adios ***', 'Splash', 'Club Soda'),
+('AMF', '1/2oz', 'Vodka'),
+('AMF', '1/2oz', 'Rum'),
+('AMF', '1/2oz', 'Tequila'),
+('AMF', '1/2oz', 'Gin'),
+('AMF', '1/2oz', 'Blue Curacao'),
+('AMF', '2oz', 'Sweet and Sour'),
+('AMF', 'Splash', 'Club Soda'),
 ('Mai Tai', '2oz', 'Rum'),
 ('Mai Tai', '1/2oz', 'Orange Curacao'),
 ('Mai Tai', '3/4oz', 'Lime Juice'),
@@ -347,212 +455,88 @@ VALUES
 ('Shirley Temple', '1/4oz', 'Grenadine'),
 ('Shirley Temple', 'Fill', '7UP'),
 ('Coca Cola', 'Fill', 'Coke'),
-('Agua con Gas', 'Fill', 'Club Soda');
-
-
-
-B52	1/3oz Kahlua "1/3oz Bailey's" 1/3oz Grand Marnier Shotglass
-"Layer the three spirits in a shot glass in the order they're listed."
-
-Tequila Sunrise	2oz Tequila Blanca 4oz Orange Juice 1/4oz Grenadine Highball
-"Add the tequila and then the orange juice to a chilled highball glass.
-Float the grenadine on top.
-Garnish with an orange slice and a cherry."
-
-Screwdiver	2oz Vodka	Fill Orange Juice  Highball
-"Add the vodka into a highball glass over ice.
-Top with the orange juice."
-
-Manhattan	2oz Bourbon or Rye	1oz Sweet Vermouth	2 dashes Angostura Bitters 1 dash Orange Bitters  Cocktail
-"Add all the ingredients into a mixing glass with ice, and stir until well-chilled.
-Strain into a chilled coupe.
-Garnish with a brandied cherry."
-
-Pina Colada	2oz Rum	1.5oz Cream of Coconut	1.5oz Pineapple Juice	1.2oz Lime Juice  Hurricane
-"Add all ingredients into a shaker with ice and shake vigorously (20-30 seconds).
-Strain into a chilled Hurricane glass over pebble ice.
-Garnish with a pineapple wedge and pineapple leaf."
-
-Lemon Drop 2oz Vodka	1/2oz Triple Sec	1oz Simple Syrup 1oz Lemon Juice   Cocktail
-"Coat the rim of a cocktail glass with sugar and set aside (do this a few minutes ahead of time so the sugar can dry and adhere well to the glass).
-Add all the ingredients into a shaker with ice and shake.
-Strain into the prepared glass."
-
-Rusty Nail	1.5oz Scotch	3/4oz Drambuie(liq) Lowball
-"Add all ingredients into a rocks glass with ice and stir."
-
-Vodka Martini	1.5oz Vodka	1/2oz Dry Vermouth  Cocktail
-"Add both ingredients to a Martini glass.
-Garnish with a lemon twist or olives."
-
-Gin Martini	2 1/4 oz Gin 3/4oz Dry Vermouth 1 dash Orange Bitters Cocktail
-"Add all the ingredients to a mixing glass and fill with ice.
-Stir, and strain into a cocktail glass.
-Garnish with a lemon twist."
-
-White Russian	2oz Vodka	1oz Kahlua	Fill Heavy Cream   Lowball
-"Add the vodka and Kahlúa to an Old Fashioned glass with ice.
-Top with a large splash of heavy cream and stir."
-
-Black Russian	2oz Vodka 1oz Kahlua    Lowball
-"Add all the ingredients into a mixing glass with ice and stir.
-Strain into an Old Fashioned glass over fresh ice."
-
-Tom Collins	1.5oz Gin 3/4oz Lemon Juice 3/4oz Simple Syrup Fill Club Soda	(highball glass)
-"Add the lemon juice, simple syrup and gin into a shaker with ice and shake well.
-Strain into a Collins glass over fresh ice.
-Top with club soda.
-Garnish with a lemon wheel and cherry.
-Serve with a straw."
-
-Daiquiri	2oz Rum	1oz Lime Juice 3/4oz Simple Syrup		(Coupe)
-"Add all the ingredients into a shaker with ice and shake.
-Strain into a coupe glass.
-Garnish with a lime wheel."
-
-Kentucky Mule	2oz Bourbon	1/2oz Lime Juice Fill	Ginger Beer		Mug
-"Add the bourbon and lime juice to a Moscow Mule mug or a highball glass.
-Fill the mug or glass with ice and top with ginger beer.
-Add mint sprigs for garnish."
-
-Moscow Mule	2oz Vodka	1/2oz Lime Juice Fill Ginger Beer	  Mug
-"Add the vodka and lime juice to a Moscow Mule mug or a highball glass.
-Fill the mug or glass with ice and top with ginger beer.
-Add mint sprigs for garnish."
-
-Mexican Mule	2oz Tequila	1/2oz Lime Juice Fill Ginger Beer		Mug
-"Add the tequila and lime juice to a Moscow Mule mug or a highball glass.
-Fill the mug or glass with ice and top with ginger beer.
-Add mint sprigs for garnish."
-
-Old Fashoned	2 oz Bourbon 2 dashes Angostura Bitters	1/4oz Simple Syrup  Lowball
-"Add all ingredients into a mixing glass with ice and stir.
-Strain into an Old Fashioned glass over fresh ice.
-Express the oil of an orange peel over glass and garnish with the peel."
-
-Gin & Tonic	2oz Gin	Fill Tonic   Lowball
-"Fill a double rocks glass with ice.
-Add the gin and fill with tonic.
-Garnish with a lime wedge."
-
-Gin & Juice	1.5oz Gin Fill Juice   Collins
-"Fill a Collins glass with ice and add the gin.
-Fill with the juice and stir."
-
-Gin Fizz	2oz Gin	1oz Lemon Juice 3/4oz Simple Syrup 1 Egg White 1oz Club Soda  Collins
-"Add the first four ingredients to a shaker and dry-shake (without ice) for about 10 seconds.
-Add 3 or 4 ice cubes and shake very well.
-Double-strain into a chilled fizz glass and top with club soda."
-
-Pisco Sour	2oz Pisco Quebranta	1/2oz Lime Juice 1/2oz Lemon Juice 1oz Simple Syrup 6 drops Angostura Bitters    Coupe
-"Combine the first five ingredients in a shaker.
-Dry shake for 15 seconds, then add ice and shake again to chill.
-Double strain into a chilled coupe glass.
-Dot the top with drops of Angostura bitters."
-
-Gimlet	2.5oz Gin	1/2oz Lime Juice 1/2oz Simple Syrup   Lowball
-"Add all ingredients into a shaker with ice and shake.
-Strain into a chilled cocktail glass or an Old Fashioned glass filled with fresh ice.
-Garnish with a lime wheel.
-(You can substitute 1 oz lime cordial, such as Rose''s lime juice, for both the lime juice and simple syrup.)."
-
-Sidecar	1.5oz Hennessy	1/2oz Cointreau	1/4oz Lemon Juice 1/4oz Demerara Syrup   Coupe
-"Rim a coupe glass in sugar.
-Add all the ingredients to a shaker with ice and shake.
-Strain into the coupe glass.
-Garnish with a lemon twist."
-
-Paloma	2oz Tequila	1/2oz Lime Juice Pinch Salt Fill Grapefruit Jarritos		(highball)
-"Add the tequila, lime juice and salt into a highball glass over ice.
-Top off with the grapefruit soda and stir.
-Garnish with a lime wheel."
-
-Cuba Libre	2oz Rum	6oz Coke	1 Lime Wedge 5 dashes Angostura	Bitters
-"Add all the ingredients to a highball glass filled with ice.
-Garnish with a lime wedge."
-
-Mint Julep	2oz Bourbon 1/2oz Simple Syrup 3 leaves Mint  Julep
-"Express the essential oils in the mint and rub them inside the glass.
-To the same glass, add simple syrup, bourbon, and crushed ice.
-Stir.
-Garnish with more ice and fresh mint."
-
-Midori Sour	1oz Midori 1oz Vodka 1/2oz Lemon Juice 1/2oz Lime Juice Fill Club Soda  Collins
-"Add all ingredients except the soda water into a Collins glass over ice and stir.
-Top with the soda water.
-Garnish with a lemon wheel."
-
-
-# TOO COMPLICATED
-# Bloody Mary	2oz Vodka	4oz Tomato Juice 1 Lemon Wedge 1 Lime Wedge 2 dashes Tabasco 2tsp Horseradish 2 dashes Worcestershire 1 pinch Celery salt, 1 pinch Black Pepper, 1 pinch Smoked Paprika    Pint
-# "Pour some celery salt onto a small plate.
-# Rub the juicy side of the lemon or lime wedge along the lip of a pint glass.
-# Roll the outer edge of the glass in celery salt until fully coated.
-# Fill with ice and set aside.
-# Squeeze the lemon and lime wedges into a shaker and drop them in.
-# Add the remaining ingredients and ice and shake gently.
-# Strain into the prepared glass.
-# Garnish with a parsley sprig, 2 speared green olives and a lime wedge and a celery stalk (optional)."
-
-#ALREADY ADDED
-#
-# Mojito	2 oz Rum	3/4 oz Lime Juice	1/2 oz Simple Syrup 3	Mint Fill Club Soda Collins
-# 'Lightly muddle the mint in a shaker.
-# Add the rum, lime juice, simple syrup and ice and give it a brief shake.
-# Strain into a highball glass.
-# Top with the club soda.
-# Garnish with a mint sprig.'
-# #
-#
-#   Long Island Iced Tea	3/4 oz Vodka 3/4 oz Rum	3/4 oz Gin 3/4 oz Tequila	3/4 oz Triple Sec	3/4 oz Simple Syrup 3/4 oz Lemon Juice Highball
-# 'Add all ingredients except the cola into a Collins glass with ice.
-# Top with a splash of the cola and stir briefly.
-# Garnish with a lemon wedge.
-# Serve with a straw.'
-# #
-#
-# Cosmopolitan	1.5oz Citrus Vodka	1oz Cointreau 1 dash Cranberry 1/2 oz Lime  Cocktail
-# 'Add all ingredients into a shaker with ice and shake.
-# Strain into a chilled cocktail glass.
-# Garnish with a lime wheel.'
-# #
-#
-#   Margarita	1.5oz Tequila	1oz Triple Sec	3/4oz Lime Juice 1/4oz Simple Syrup Cocktail
-# 'Salt half the rim of the glass and set aside (optional).
-# Add all ingredients into a shaker with ice and shake vigorously.
-# Strain into the prepared glass over fresh ice.
-# Garnish with a lime wedge.'
-# #
-#
-#   Amaretto Sour	1.5oz Amaretto 3/4oz Bourbon 1oz Lemon Juice 1t Simple Syrup 1/2oz Egg white, beaten Lowball
-# 'Add all ingredients to a shaker and dry shake to combine.
-# Add fresh ice to the shaker and shake again until chilled.
-# Strain over fresh ice into an Old Fashioned glass.
-# Garnish with lemon peel and brandied cherries, if desired.'
-#
-# Vodka Lemonade	2oz Vodka	Fill Lemonade  Highball
-# 'Pour Vodka over ice and add Lemonade to taste.'
-#
-#
-#   Tequila Lemonade	2oz Tequila	Fill Lemonade Highball
-# 'Pour Tequila over ice and add Lemonade to taste'
-#
-#   Adios   1/2oz Vodka	1/2oz Rum	1/2oz Tequila	1/2oz Gin	1/2oz Blue Curacao 2oz Sweet and Sour Splash Club Soda   Highball
-# 'Pour all ingredients (except soda) into the chilled glass with ice cubes.
-# Top it with clear soda.
-# Stir gently.'
-#
-# Mai Tai	2oz Rum	1/2oz Orange Curacao 3/4oz Lime Juice 1/4 oz Orgeat 1/4oz Simple Syrup   Lowball
-# 'Add all ingredients into a shaker with crushed ice and shake vigorously until the shaker is well-chilled and frosty on the outside.
-# Pour (unstrained) into a double Old Fashioned glass.
-# Garnish with the rind of half of a juiced lime and a fresh mint sprig.'
-#
-# Sex on the Beach	1.5oz Vodka	1/2oz peach schnapps 1.5oz Pineapple Juice	1.5oz Cranberry Juice 1/2oz Chambord  Highball
-# 'Add all the ingredients into a shaker with ice and shake.
-# Strain into a highball glass over fresh ice.
-# Garnish with a cocktail umbrella.'
-#
-# Alabama Slammer	1oz Southern Comfort	1oz Sloe gin	1oz Amaretto	2oz orange juice  Highball
-# 'Add all the ingredients into a shaker with ice and shake.
-# Strain into a highball glass over fresh ice.
-# Garnish with an orange wheel and a cherry, and serve with a straw.'
+('Agua con Gas', 'Fill', 'Club Soda'),
+('B52', '1/3oz', 'Kahlua'),
+('B52', '1/3oz', 'Bailey\'s'),
+('B52', '1/3oz', 'Grand Marnier'),
+('Tequila Sunrise', '2oz', 'Tequila Blanca'),
+('Tequila Sunrise', '4oz', 'Orange Juice'),
+('Tequila Sunrise', '1/4oz', 'Grenadine'),('Screwdriver', '2oz', 'Vodka'),
+('Screwdriver', 'Fill', 'Orange Juice'),('Manhattan', '2oz', 'Bourbon or Rye'),
+('Manhattan', '1oz', 'Sweet Vermouth'),
+('Manhattan', '2 dashes', 'Angostura Bitters'),
+('Manhattan', '1 dash', 'Orange Bitters'),('Pina Colada', '2oz', 'Rum'),
+('Pina Colada', '1.5oz', 'Cream of Coconut'),
+('Pina Colada', '1.5oz', 'Pineapple Juice'),
+('Pina Colada', '1.5oz', 'Lime Juice'),
+('Lemon Drop', '2oz', 'Vodka'),
+('Lemon Drop', '1/2oz', 'Triple Sec'),
+('Lemon Drop', '1oz', 'Simple Syrup'),
+('Lemon Drop', '1oz', 'Lemon Juice'),
+('Rusty Nail', '1.5oz', 'Scotch'),
+('Rusty Nail', '3/4oz', 'Drambuie'),
+('Vodka Martini', '1.5oz', 'Vodka'),
+('Vodka Martini', '1/2oz', 'Dry Vermouth'),('Gin Martini', '2 1/4 oz', 'Gin'),
+('Gin Martini', '3/4oz', 'Dry Vermouth'),
+('Gin Martini', '1 dash', 'Orange Bitters'),
+('White Russian', '2oz', 'Vodka'),
+('White Russian', '1oz', 'Kahlua'),
+('White Russian', 'Fill', 'Heavy Cream'),
+('Black Russian', '2oz', 'Vodka'),
+('Black Russian', '1oz', 'Kahlua'),
+('Tom Collins', '1.5oz', 'Gin'),
+('Tom Collins', '3/4oz', 'Lemon Juice'),
+('Tom Collins', '3/4oz', 'Simple Syrup'),
+('Tom Collins', 'Fill', 'Club Soda'),
+('Daiquiri', '2oz', 'Rum'),
+('Daiquiri', '1oz', 'Lime Juice'),
+('Daiquiri', '3/4oz', 'Simple Syrup'),
+('Kentucky Mule', '2oz', 'Bourbon'),
+('Kentucky Mule', '1/2oz', 'Lime Juice'),
+('Kentucky Mule', 'Fill', 'Ginger Beer'),
+('Moscow Mule', '2oz', 'Bourbon'),
+('Moscow Mule', '1/2oz', 'Lime Juice'),
+('Moscow Mule', 'Fill', 'Ginger Beer'),
+('Mexican Mule', '2oz', 'Bourbon'),
+('Mexican Mule', '1/2oz', 'Lime Juice'),
+('Mexican Mule', 'Fill', 'Ginger Beer'),
+('Old Fashioned', '2oz', 'Bourbon'),
+('Old Fashioned', '2 dashes', 'Angostura Bitters'),
+('Old Fashioned', '1/4 oz', 'Simple Syrup'),
+('Gin & Tonic', '2oz', 'Gin'),
+('Gin & Tonic', 'Fill', 'Tonic'),
+('Gin & Juice', '1.5oz', 'Gin'),
+('Gin & Juice', 'Fill', 'Juice'),
+('Gin Fizz', '2oz', 'Gin'),
+('Gin Fizz', '1oz', 'Lemon Juice'),
+('Gin Fizz', '3/4oz', 'Simple Syurup'),
+('Gin Fizz', '1', 'Egg White'),
+('Gin Fizz', '1oz', 'Club Soda'),
+('Pisco Sour', '2oz', 'Pisco Qeubranta'),
+('Pisco Sour', '1/2oz', 'Lime Juice'),
+('Pisco Sour', '1/2oz', 'Lemon Juice'),
+('Pisco Sour', '1oz', 'Simple Syrup'),
+('Pisco Sour', '6 drops', 'Angostura Bitters'),
+('Gimlet', '2.5oz', 'Gin'),
+('Gimlet', '1/2oz', 'Lime Juice'),
+('Gimlet', '1/2oz', 'Simple Syrup'),
+('Sidecar', '1.5oz', 'Hennessy'),
+('Sidecar', '1/2oz', 'Cointreau'),
+('Sidecar', '1/4oz', 'Lemon Juice'),
+('Sidecar', '1.4oz', 'Demerara Syrup'),
+('Paloma', '2oz', 'Tequila'),
+('Paloma', '1/2oz', 'Lime Juice'),
+('Paloma', 'pinch', 'Salt'),
+('Paloma', 'Fill', 'Grapefruit Jarritos'),
+('Cuba Libre', '2oz', 'Rum'),
+('Cuba Libre', '6oz', 'Coke'),
+('Cuba Libre', '1', 'Lime Wedge'),
+('Cuba Libre', '5 dashes', 'Angostura Bitters'),
+('Mint Julep', '2oz', 'Bourbon'),
+('Mint Julep', '1/2oz', 'Simple Syrup'),
+('Mint Julep', '3 leaves', 'Mint'),
+('Midori Sour', '1oz', 'Midori'),
+('Midori Sour', '1oz', 'Rum'),
+('Midori Sour', '1/2oz', 'Lemon Juice'),
+('Midori Sour', '1/2oz', 'Lime Juice'),
+('Midori Sour', 'Fill', 'Club Soda');

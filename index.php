@@ -23,6 +23,8 @@ $f3 = Base::instance();
 
 $f3->set('DEBUG', 3);
 
+$db = new Database();
+
 //Define a default route (dating splash page)
 $f3->route('GET /', function()
 {

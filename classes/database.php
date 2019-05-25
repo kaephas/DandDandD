@@ -7,7 +7,8 @@
  * Database class
  */
 
-require '/home/kaephasg/config.php';
+$user = $_SERVER['USER'];
+require '/home/$user/config.php';
 
 class Database
 {
@@ -35,7 +36,15 @@ class Database
      * @param $newDrink Drink   Drink Object to be added
      */
     function addDrink($newDrink)
-    {
+    {   // insert
+        // name, glass, image, ingredients[ing => qty], type[ing => type], A:(shots)
+
+    }
+
+    /**
+     * @param $drink    Drink   Drink Object to update from
+     */
+    function updateDrink($drink) {
 
     }
 
@@ -44,7 +53,10 @@ class Database
      * @param $drinkName string   The name of the drink to be queried
      */
     function editDrink($drinkName)
-    {
+    {   // update
+        // need to get type from ingredients table for each ingredient
+
+        // need to get qty from drink_ing table for each ingredient
 
     }
 
@@ -53,8 +65,9 @@ class Database
 
     }
 
+
     function getAllDrinks()
     {
-
+        // select name
     }
 }
