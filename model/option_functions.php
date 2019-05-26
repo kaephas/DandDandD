@@ -140,7 +140,7 @@ function generateBackgrounds()
 
 // Glasses
 function generateGlasses() {
-    $glasses[] = array('Cocktail', 'Highball', 'Collins', 'Lowball', 'Mug', 'Margarita',
+    $glasses = array('Cocktail', 'Highball', 'Collins', 'Lowball', 'Mug', 'Margarita',
                         'Hurricane', 'Shotglass', 'Coupe', 'Pint', 'Julep'
     );
 
@@ -149,7 +149,7 @@ function generateGlasses() {
 
 // List of Ingredient Types
 function generateIngTypes() {
-    $categories[] = array(
+    $categories = array(
         'cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice', 'liquor', 'milk/cream', 'mint',
         'soft drink', 'sweetener', 'tonic', 'vermouth'
     );

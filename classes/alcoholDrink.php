@@ -17,4 +17,5 @@ class AlcoholDrink extends Drink
     function getShots() {
         return $this->_shots;
     }
+
 }

@@ -16,73 +16,90 @@
     <title>D&D&D</title>
 </head>
 <body>
-<h1>Dungeons & Dragons & Drinks</h1>
+<nav class="nav">
+    <a class="nav-link" href="./">Home</a>
+    <a class="nav-link" href="find_drink">Find Drink</a>
+    <a class="nav-link" href="add_drink">Add Drink</a>
+    <a class="nav-link" href="drinks">All Drinks</a>
+</nav>
+
 <br>
-<h2>Find My Drink</h2>
-<a class="btn btn-primary btn-lg" href="get_drink">Go</a>
-<br>
-<h2>Add a Drink</h2>
-<a class="btn btn-primary btn-lg" href="add_drink">Go</a>
+<div class="container text-center">
+    <h1>Dungeons & Dragons & Drinks</h1>
+    <hr>
+    <h2>Find My Drink</h2>
+    <a class="btn btn-primary btn-lg btn-home" href="get_drink">Go</a>
+    <br>
+    <h2>Add a Drink</h2>
+    <a class="btn btn-primary btn-lg btn-home" href="add_drink">Go</a>
+</div>
 <br>
 <hr>
-<h2>To do:</h2>
-<ul>
-    <li>Character Info Page
-        <ul>
-            <li>Validation</li>
-            <li>Post Data to Character Object</li>
-            <li>Store Character in Session</li>
-        </ul>
-    </li>
+<div class="container">
+    <h2>To do:</h2>
+    <ul>
+        <li>
+            How to include header html properly?
+        </li>
+        <li>
+            Check with Tina re: database structure
+        </li>
+        <li>Character Info Page
+            <ul>
+                <li>Validation</li>
+                <li>Post Data to Character Object</li>
+                <li>Store Character in Session</li>
+            </ul>
+        </li>
 
-    <li>Add New Drink Page
-        <ul>
-            <li>Validation</li>
-            <li>New Drink Object</li>
-            <li>Add to database</li>
-        </ul>
-    </li>
-    <li>List of Drinks Page
-        <ul>
-            <li>Display as datatable?</li>
-            <li>Ability to edit drinks</li>
-            <li>View drink page same as edit page? (simpler)</li>
-            <li>Edit/View -> Query DB & create new drink object from info -> Store in session</li>
-        </ul>
-    </li>
-    <li>Edit/View Drink Page
-        <ul>
-            <li>Load Drink Object from Session</li>
-            <li>Validation</li>
-            <li>Update Database</li>
-        </ul>
-    </li>
-    <li>Display Chosen Drink
-        <ul>
-            <li>Load Character object from session</li>
-            <li>Query DB for matching drinks</li>
-            <li>Create Array of Drink objects for each possibility</li>
-            <li>Choose Best/Random from matches</li>
-        </ul>
-    </li>
-    <li>
-        When all else is done...Styles!
-    </li>
-</ul>
-<hr>
-<h2>Project Requirements</h2>
-<ul>
-    <li>Separates all database/business logic using the MVC pattern.</li>
-    <li>Routes all URLs and leverages a templating language using the Fat-Free framework.</li>
-    <li>Has a clearly defined database layer using PDO and prepared statements.</li>
-    <li>Data can be viewed, added, updated, and deleted.</li>
-    <li>Has a history of commits from both team members to a Git repository.</li>
-    <li>Uses OOP, and defines multiple classes, including at least one inheritance relationship.</li>
-    <li>Contains full Docblocks for all PHP files.</li>
-    <li>Has full validation on the client side through JavaScript and server side through PHP.</li>
-    <li>Incorporates jQuery and Ajax.</li>
-</ul>
-
+        <li>Add New Drink Page
+            <ul>
+                <li>Validation</li>
+                <li>New Drink Object</li>
+                <li>Add to database</li>
+            </ul>
+        </li>
+        <li>List of Drinks Page
+            <ul>
+                <li>Display as datatable?</li>
+                <li>Ability to edit drinks</li>
+                <li>View drink page same as edit page? (simpler)</li>
+                <li>Edit/View -> Query DB & create new drink object from info -> Store in session</li>
+            </ul>
+        </li>
+        <li>Edit/View Drink Page
+            <ul>
+                <li>Load Drink Object from Session</li>
+                <li>Validation</li>
+                <li>Update Database</li>
+            </ul>
+        </li>
+        <li>Display Chosen Drink
+            <ul>
+                <li>Load Character object from session</li>
+                <li>Query DB for matching drinks</li>
+                <li>Create Array of Drink objects for each possibility</li>
+                <li>Choose Best/Random from matches</li>
+            </ul>
+        </li>
+        <li>
+            When all else is done...Styles!
+        </li>
+    </ul>
+    <hr>
+    <h2>Project Requirements</h2>
+    <ul>
+        <li>Separates all database/business logic using the MVC pattern.</li>
+        <li>Routes all URLs and leverages a templating language using the Fat-Free framework.</li>
+        <li>Has a clearly defined database layer using PDO and prepared statements.</li>
+        <li>Data can be viewed, added, updated, and deleted.</li>
+        <li>Has a history of commits from both team members to a Git repository.</li>
+        <li>Uses OOP, and defines multiple classes, including at least one inheritance relationship.</li>
+        <li>Contains full Docblocks for all PHP files.</li>
+        <li>Has full validation on the client side through JavaScript and server side through PHP.</li>
+        <li>Incorporates jQuery and Ajax.</li>
+    </ul>
+</div>
 <!-- bootstrap scripts -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

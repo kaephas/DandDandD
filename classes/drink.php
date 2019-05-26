@@ -18,7 +18,7 @@ class Drink
 
     // type[] field associative array of ingredient => type
 
-    function __construct($name, $glass, $qty, $ingredients, $type, $image)
+    function __construct($name, $glass, $qty, $ingredients, $type, $image='images/default.jpg')
     {
         $this->_name = $name;
         $this->_glass = $glass;

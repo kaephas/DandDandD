@@ -12,11 +12,7 @@
           crossorigin="anonymous">
     <!-- datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+
     <!-- custom styles -->
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -24,30 +20,55 @@
 </head>
 <body>
 
-<table class="table" id="drinkTable">
-    <thead>
+<nav class="nav">
+    <a class="nav-link" href="./">Home</a>
+    <a class="nav-link" href="find_drink">Find Drink</a>
+    <a class="nav-link" href="add_drink">Add Drink</a>
+    <a class="nav-link" href="drinks">All Drinks</a>
+</nav>
+
+<div class="container">
+    <table class="table table-hover" id="drinkTable">
+        <thead>
         <tr>
-            <th>Name</th>
-            <th>Glass</th>
-            <th>Shots</th>
+            <th scope="col">Name</th>
+            <th scope="col">Glass</th>
+            <th scope="col">Shots</th>
+            <th scope="col">Edit</th>
         </tr>
-        <repeat>
-            <tr>
-                <repeat>
-                    <td></td>
-                </repeat>
+        </thead>
+        <tbody>
+
+        <repeat group="{{ @drinks }}" value="{{ @drink }}">
+            <tr class="clickableRow" data-href="drinks/{{ @drink['name'] }}">
+                <td>
+                    {{ @drink['name'] }}
+                </td>
+                <td>
+                    {{ @drink['glass'] }}
+                </td>
+                <td>
+                    {{ @drink['shots'] }}
+                </td>
+                <td>
+                    <a href="drinks/{{ @drink['name'] }}">Edit</a>
+                </td>
             </tr>
         </repeat>
 
-    </thead>
+        </tbody>
 
-</table>
+    </table>
+</div>
 
-<script>
-    $(document).ready( function () {
-        $('#drinkTable').DataTable();
-    } );
-</script>
+<!-- jquery & datatable -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+<!-- run datatable and onclick row links -->
+<script src="scripts/scripts.js"></script>
 <!-- bootstrap scripts -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"

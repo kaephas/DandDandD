@@ -8,7 +8,7 @@
  */
 
 $user = $_SERVER['USER'];
-require '/home/$user/config.php';
+require "/home/$user/config.php";
 
 class Database
 {
@@ -54,9 +54,44 @@ class Database
      */
     function editDrink($drinkName)
     {   // update
-        // need to get type from ingredients table for each ingredient
+        // get drink table info
+        $sql = "SELECT name, glass, image, recipe, alcoholic, shots FROM drink
+                WHERE name=:name";
+        $statement = $this->_dbh->prepare($sql);
+        $statement->bindParam(':name', $drinkName);
+        $statement->execute();
+        $drink = $statement->fetch(2);
 
-        // need to get qty from drink_ing table for each ingredient
+        // get ingredients, qty, type
+
+        $sql = "SELECT drink_ing.ing_name, qty, type FROM drink_ing, ingredient
+                WHERE drink_ing.name = :name AND drink_ing.ing_name = ingredient.ing_name";
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':name', $drinkName);
+        $statement->execute();
+        $rows = $statement->fetchAll(2);
+
+        $qty = array();
+        $type = array();
+        $ingredients = array();
+        foreach($rows as $ingredient) {
+            $qty[] = $ingredient['qty'];
+            $type[] = $ingredient['type'];
+            $ingredients[] = $ingredient['ing_name'];
+        }
+
+        $drink['ingredients'] = $rows;
+
+        if($drink['alcoholic'] == 0) {
+            $newDrink = new Drink($drinkName, $drink['glass'], $qty, $ingredients, $type);
+        } else {
+            $newDrink = new AlcoholDrink($drinkName, $drink['glass'], $qty, $ingredients, $type);
+            $newDrink->setShots($drink['shots']);
+        }
+
+        return $newDrink;
+
 
     }
 
@@ -69,5 +104,17 @@ class Database
     function getAllDrinks()
     {
         // select name
+        $db = $this->_dbh;
+
+        $sql = "SELECT name, glass, shots FROM drink";
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        $rows = $statement->fetchAll(2);
+
+        for($i = 0; $i < count($rows); $i++) {
+            $rows[$i]['shots'] = $rows[$i]['shots'] . " shots";
+        }
+
+        return $rows;
     }
 }
