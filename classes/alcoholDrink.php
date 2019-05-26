@@ -8,5 +8,14 @@
 
 class AlcoholDrink extends Drink
 {
+    private $_shots;
+
+    function setShots($shots) {
+        $this->_shots = $shots;
+    }
+
+    function getShots() {
+        return $this->_shots;
+    }
 
 }

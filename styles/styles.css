@@ -1,19 +1,78 @@
+
 /*
     Kaephas & Zane
     5-19-2019
     styles.css
-
     Styles for D&D&D website
-
 */
 
-*{
-    box-sizing: border-box;
+body {
+    background-image: url("../images/bar_background.jpg");
+    background-size: auto, 100%;
 }
-body{
-    width: 98vw;
+/* Nav styles */
+nav {
+    background: #741112;
 }
-.container{
-    width: 80vw;
+
+nav a {
+    color: white;
+}
+
+nav a:hover {
+    color: orange;
+}
+
+/* body styles */
+
+/* rounded grey border, slight gap around contents*/
+.container {
+    padding: 25px;
+    width: 90%;
+    max-width: 90%;
     margin: auto;
+    margin-top: 25px;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    background-color: rgba(211, 211, 211, 0.85);
 }
+
+/* image styles - round edges, 15px from adjacent*/
+img {
+    border-radius: 5px !important;
+    margin: 15px;
+    max-height: 500px;
+    text-align: center;
+}
+
+
+
+.btn-home {
+    min-width: 100px;
+}
+/* data table styles */
+/*th {*/
+/*color: white !important;*/
+/*}*/
+
+/*thead th {*/
+/*color: #8a25c3 !important;*/
+/*text-align: center !important;*/
+/*}*/
+
+/*table {*/
+/*background: white !important;*/
+/*}*/
+
+/*.dataTables_wrapper .dataTables_paginate .paginate_button {*/
+/*color: white !important;*/
+/*}*/
+
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {*/
+/*color: #6D4285 !important;*/
+/*}*/
+
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.current {*/
+/*color: white !important;*/
+/*background: #6D4285 !important;*/
+/*}*/

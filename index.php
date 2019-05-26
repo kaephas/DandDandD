@@ -23,6 +23,12 @@ $f3 = Base::instance();
 
 $f3->set('DEBUG', 3);
 
+$f3->set('glasses', generateGlasses());
+$f3->set('types', generateIngTypes());
+
+
+$db = new Database();
+
 //Define a default route (dating splash page)
 $f3->route('GET /', function()
 {
@@ -30,7 +36,7 @@ $f3->route('GET /', function()
     echo $view->render('views/home.html');
 });
 
-$f3->route('GET|POST /get_drink', function()
+$f3->route('GET|POST /find_drink', function()
 {
    $view = new Template();
    echo $view->render('views/character.html');
@@ -40,6 +46,28 @@ $f3->route('GET|POST /add_drink', function()
 {
     $view = new Template();
     echo $view->render('views/add_drink.html');
+});
+
+$f3->route('GET /drinks', function($f3) {
+    global $db;
+    $drinks = $db->getAllDrinks();
+
+    $f3->set('drinks', $drinks);
+
+    $view = new Template();
+    echo $view->render('views/view_drinks.html');
+});
+
+// edit drinks
+$f3->route('GET|POST /drinks/@drink', function($f3, $params) {
+    $drink = $params['drink'];
+    global $db;
+    $info = $db->editDrink($drink);
+    $f3->set('drink', $info);
+//    $f3->set('drink', 'hello');
+    $f3->set('ingTypes', $info->getType());
+    $view = new Template();
+    echo $view->render('views/edit_drink.html');
 });
 
 $f3->run();
