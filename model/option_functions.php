@@ -151,7 +151,7 @@ function generateGlasses() {
 function generateIngTypes() {
     $categories = array(
         'cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice', 'liquor', 'milk/cream', 'mint',
-        'soft drink', 'sweetener', 'tonic', 'vermouth'
+        'soft drink', 'sweetener', 'tonic', 'vermouth', 'misc'
     );
 
     return $categories;

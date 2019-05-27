@@ -13,18 +13,20 @@ class Drink
     private $_image;
     private $_ingredients;
     private $_type;
+    private $_recipe;
 
     // ingredients[] field: store associative array of ingredient => qty
 
     // type[] field associative array of ingredient => type
 
-    function __construct($name, $glass, $qty, $ingredients, $type, $image='images/default.jpg')
+    function __construct($name, $glass, $qty, $ingredients, $type, $recipe, $image='images/default.jpg')
     {
         $this->_name = $name;
         $this->_glass = $glass;
         $this->_image = $image;
         $this->_ingredients = array();
         $this->_type = array();
+        $this->_recipe = $recipe;
 
         // $this->_ingredients[$ingredients[0]] = $qty[0], etc.
         for($i = 0; $i < count($ingredients); $i++) {
@@ -77,7 +79,13 @@ class Drink
         return $this->_type;
     }
 
-
+    /**
+     * @return string
+     */
+    public function getRecipe()
+    {
+        return $this->_recipe;
+    }
 
     /**
      * @param string $image
