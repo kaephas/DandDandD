@@ -82,11 +82,10 @@ class Database
         }
 
         $drink['ingredients'] = $rows;
-
         if($drink['alcoholic'] == 0) {
-            $newDrink = new Drink($drinkName, $drink['glass'], $qty, $ingredients, $type);
+            $newDrink = new Drink($drinkName, $drink['glass'], $qty, $ingredients, $type, $drink['recipe'], $drink['image']);
         } else {
-            $newDrink = new AlcoholDrink($drinkName, $drink['glass'], $qty, $ingredients, $type);
+            $newDrink = new AlcoholDrink($drinkName, $drink['glass'], $qty, $ingredients, $type, $drink['recipe'], $drink['image']);
             $newDrink->setShots($drink['shots']);
         }
 

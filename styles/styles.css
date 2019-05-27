@@ -1,9 +1,10 @@
-
 /*
     Kaephas & Zane
     5-19-2019
     styles.css
+
     Styles for D&D&D website
+
 */
 
 body {
@@ -45,34 +46,44 @@ img {
     text-align: center;
 }
 
-
-
 .btn-home {
     min-width: 100px;
 }
+
+textarea {
+    width: 100% !important;
+}
+
+label {
+    font-weight: bold;
+}
+
+#addRow {
+    min-width: 50px;
+}
 /* data table styles */
 /*th {*/
-/*color: white !important;*/
+    /*color: white !important;*/
 /*}*/
 
 /*thead th {*/
-/*color: #8a25c3 !important;*/
-/*text-align: center !important;*/
+    /*color: #8a25c3 !important;*/
+    /*text-align: center !important;*/
 /*}*/
 
 /*table {*/
-/*background: white !important;*/
+    /*background: white !important;*/
 /*}*/
 
 /*.dataTables_wrapper .dataTables_paginate .paginate_button {*/
-/*color: white !important;*/
+    /*color: white !important;*/
 /*}*/
 
 /*.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {*/
-/*color: #6D4285 !important;*/
+    /*color: #6D4285 !important;*/
 /*}*/
 
 /*.dataTables_wrapper .dataTables_paginate .paginate_button.current {*/
-/*color: white !important;*/
-/*background: #6D4285 !important;*/
+    /*color: white !important;*/
+    /*background: #6D4285 !important;*/
 /*}*/

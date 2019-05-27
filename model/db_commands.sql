@@ -241,13 +241,14 @@ VALUES
 ('Glass of Milk', 'Highball',
  'Pour desired amount of milk into glass.', 0),
 ('Shirley Temple', 'Collins',
- 'Fill a Collins glass with ince and add the greandine.
+ 'Fill a Collins glass with ice and add the grenadine.
  Fill with 7UP.
  Stir, and garnish with a maraschino cherry and lemon wedge.', 0),
 ('Coca Cola', 'Highball',
  'Pour desired amount of Coca Cola over ice.', 0),
-('Glass of water', 'Highball',
+('Agua con Gas', 'Highball',
  'Not for the faint of heart...actually that\'s exactly who it\'s for.', 0);
+
 
 INSERT INTO drink (name, glass, recipe, shots)
 VALUES
@@ -404,6 +405,11 @@ Serve with a straw.', 1),
 
 INSERT INTO drink_ing (name, qty, ing_name)
 VALUES
+('Glass of Milk', 'Fill', 'Milk'),
+('Shirley Temple', '1/4oz', 'Grenadine'),
+('Shirley Temple', 'Fill', '7UP'),
+('Coca Cola', 'Fill', 'Coke'),
+('Agua con Gas', 'Fill', 'Club Soda'),
 ('Mojito', '2oz', 'Rum'),
 ('Mojito', '3/4oz', 'Lime Juice'),
 ('Mojito', '1/2oz', 'Simple Syrup'),
@@ -455,11 +461,6 @@ VALUES
 ('Alabama Slammer', '1oz', 'Sloe Gin'),
 ('Alabama Slammer', '1oz', 'Amaretto'),
 ('Alabama Slammer', '2oz', 'Orange Juice'),
-('Glass of Milk', 'Fill', 'Milk'),
-('Shirley Temple', '1/4oz', 'Grenadine'),
-('Shirley Temple', 'Fill', '7UP'),
-('Coca Cola', 'Fill', 'Coke'),
-('Agua con Gas', 'Fill', 'Club Soda'),
 ('B52', '1/3oz', 'Kahlua'),
 ('B52', '1/3oz', 'Bailey\'s'),
 ('B52', '1/3oz', 'Grand Marnier'),
