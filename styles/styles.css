@@ -14,6 +14,8 @@ body {
 /* Nav styles */
 nav {
     background: #741112;
+    font-family: 'Cinzel', serif;
+
 }
 
 nav a {
@@ -22,6 +24,17 @@ nav a {
 
 nav a:hover {
     color: orange;
+}
+
+h1{
+    /*font-family: 'Cinzel', serif;*/
+    /*font-family: 'Cinzel Decorative', cursive;*/
+    /*font-family: 'Gabriela', serif;*/
+    font-family: 'Metamorphous', cursive;
+    /*font-family: 'UnifrakturCook', cursive;*/
+    /*font-family: 'MedievalSharp', cursive;*/
+    /*font-family: 'New Rocker', cursive;*/
+    /*font-family: 'Federant', cursive;*/
 }
 
 /* body styles */
@@ -49,6 +62,14 @@ img {
 
 .btn-home {
     min-width: 100px;
+}
+h2{
+    font-family: 'Federant', cursive;
+}
+#btnText{
+    font-family: 'Metamorphous', cursive;
+    border: 1px solid palegoldenrod;
+    box-shadow: 1px 1px 1px #2f4f4f91;
 }
 
 textarea {
