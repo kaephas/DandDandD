@@ -26,22 +26,26 @@
 <form action="#" method="post" enctype="multipart/form-data">
     <div class="container">
 
-            <!--Drink Name-->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <check if="{{ @errors['name'] }}">
-                        <span class="err">{{ @errors['name'] }}</span>
-                    </check>
-                    <label><h3>Drink Name</h3>
+        <!--Row 1-->
+        <div class="row">
+        <!--Drink Name-->
+        <div class="col-md-4">
+            <div class="form-group">
+                <check if="{{ @errors['name'] }}">
+                    <span class="err">{{ @errors['name'] }}</span>
+                </check>
+                <label><h3>Drink Name</h3>
                     <input type="text" value="{{ @name }}"
                            name="name" class="form-control" id="name" placeholder="Drink name"
                            data-rule="minlen:4" data-msg="Please enter at least 4 chars"
                     >
                     <div class="validation"></div>
-                    </label>
-                </div>
+                </label>
             </div>
-<!--Row 1-->
+        </div>
+        </div>
+        <hr>
+        <!--Row 2-->
         <div class="row">
             <!--Quantity-->
             <div class="col-md-4">
@@ -50,10 +54,10 @@
                         <span class="err">{{ @errors['qty'] }}</span>
                     </check>
                     <label><strong>Quantity</strong>
-                    <input type="text" value="{{ @qty }}"
-                           class="form-control" class="form-control" data-msg="Please enter Quantity."
-                           name="qty" class="form-control" id="qty" placeholder="2oz/1 slice etc..."
-                    >
+                        <input type="text" value="{{ @qty }}"
+                               class="form-control" class="form-control" data-msg="Please enter Quantity."
+                               name="qty" class="form-control" id="qty" placeholder="2oz/1 slice etc..."
+                        >
                     </label>
                     <div class="validation"></div>
                 </div>
@@ -63,14 +67,14 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label><strong>Ingredient Name</strong>
-                    <check if="{{ @errors['ing_name'] }}">
-                        <span class="err">{{ @errors['ing_name'] }}</span>
-                    </check>
-                    <input type="text" value="{{ @ing_name }}"
-                           name="ing_name" class="form-control" id="ing_name" placeholder="Rum/Lime etc..."
-                           data-rule="minlen:4" data-msg="Please enter at least 4 chars"
-                    >
-                    <div class="validation"></div>
+                        <check if="{{ @errors['ing_name'] }}">
+                            <span class="err">{{ @errors['ing_name'] }}</span>
+                        </check>
+                        <input type="text" value="{{ @ing_name }}"
+                               name="ing_name" class="form-control" id="ing_name" placeholder="Rum/Lime etc..."
+                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"
+                        >
+                        <div class="validation"></div>
                     </label>
                 </div>
             </div>
@@ -80,20 +84,20 @@
                 <div class="form-group">
 
                     <label><strong>Ingredient Type</strong>
-                    <check if="{{ @errors['ing_type'] }}">
-                        <span class="err">{{ @errors['@ingredients'] }}</span>
-                    </check>
+                        <check if="{{ @errors['ing_type'] }}">
+                            <span class="err">{{ @errors['@ingredients'] }}</span>
+                        </check>
 
-                    <select name="ing_type" class="custom-select" id="ing_type">
-                        <repeat group="{{ @ing_name }}" value="{{ @ingOption }}">
+                        <select name="ing_type" class="custom-select" id="ing_type">
+                            <repeat group="{{ @ing_name }}" value="{{ @ingOption }}">
 
-                            <option
-                            <check if="@ing_type == @ingOption">selected</check>
-                            name="ing_type" value="{{ @ingOption }}" >
-                            {{ @ingOption }}
-                            </option>
-                        </repeat>
-                    </select>
+                                <option
+                                <check if="@ing_type == @ingOption">selected</check>
+                                name="ing_type" value="{{ @ingOption }}" >
+                                {{ @ingOption }}
+                                </option>
+                            </repeat>
+                        </select>
                     </label>
 
                     <div class="validation"></div>
@@ -101,7 +105,7 @@
             </div>
 
         </div>
-        <!--Row 2-->
+        <!--Row 3-->
         <div class="row">
 
             <!--Instructions-->
@@ -139,11 +143,11 @@
                     <br>
 
                     <check if="{{ @errors['image'] }}">
-                            <span class="text-danger">{{ @errors['image'] }}</span>
+                        <span class="text-danger">{{ @errors['image'] }}</span>
                     </check>
 
                     <label for="image"><strong>Image</strong></label>
-                        <input type="file" name="image" id="image">
+                    <input type="file" name="image" id="image">
 
                     <p>Upload drink Image(optional)</p>
 
@@ -155,11 +159,12 @@
 
         </div>
 
+        <button type="submit" id="button-style" class="btn btn-primary btn-md">Add Drink</button>
     </div>
 </form>
 
 
-<button type="submit" id="button-style" class="btn btn-primary btn-md">Next></button>
+
 
 
 <!-- bootstrap scripts -->
