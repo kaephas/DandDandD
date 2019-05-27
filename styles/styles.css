@@ -15,11 +15,11 @@ body {
 nav {
     background: #741112;
     font-family: 'Cinzel', serif;
-
 }
 
 nav a {
     color: white;
+    width: 21.7vw;
 }
 
 nav a:hover {
@@ -62,6 +62,10 @@ img {
 
 .btn-home {
     min-width: 100px;
+}
+/*Fighting with bootstrap form control*/
+.form-control{
+    width: 25vw;
 }
 h2{
     font-family: 'Federant', cursive;

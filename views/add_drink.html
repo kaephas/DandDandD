@@ -7,20 +7,24 @@
         <!--Row 1-->
         <div class="row">
         <!--Drink Name-->
-        <div class="col-md-4">
-            <div class="form-group">
-                <check if="{{ @errors['name'] }}">
-                    <span class="err">{{ @errors['name'] }}</span>
-                </check>
-                <label><h3>Drink Name</h3>
-                    <input type="text" value="{{ @name }}"
-                           name="name" class="form-control" id="name" placeholder="Drink name"
-                           data-rule="minlen:4" data-msg="Please enter at least 4 chars"
-                    >
-                    <div class="validation"></div>
-                </label>
+            <div class="col-md-4">
+                <h1>Add Drink</h1>
             </div>
-        </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <check if="{{ @errors['name'] }}">
+                        <span class="err">{{ @errors['name'] }}</span>
+                    </check>
+                    <label><strong>Drink name: </strong>
+                        <input type="text" value="{{ @name }}"
+                               name="name" class="form-control" id="name" placeholder="Drink name"
+                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"
+                        >
+                    </label>
+                        <div class="validation"></div>
+    <!--                </label>-->
+                </div>
+            </div>
         </div>
         <hr>
         <!--Row 2-->
@@ -66,7 +70,7 @@
                             <span class="err">{{ @errors['@ingredients'] }}</span>
                         </check>
 
-                        <select name="ing_type" class="custom-select" id="ing_type">
+                        <select name="ing_type" class="custom-select form-control" id="ing_type">
                             <repeat group="{{ @ing_name }}" value="{{ @ingOption }}">
 
                                 <option
@@ -87,16 +91,16 @@
         <div class="row">
 
             <!--Instructions-->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-8">
                 <div class="form-group">
                     <label for="instructions"><strong>Instructions</strong></label>
-                    <textarea id="instructions" class="form-control" name="instructions" rows="12" cols="50" data-rule="required" data-msg="How doth we maketh this drink?" placeholder="Step One: fill glass with ice..."></textarea>
+                    <textarea id="instructions" class="form-control" name="instructions" rows="8" cols="40" data-rule="required" data-msg="How doth we maketh this drink?" placeholder="Step One: fill glass with ice..."></textarea>
                     <div class="validation"></div>
                 </div>
             </div>
 
-            <!--Glass Type-->
-            <div class="col-md-4 mb-3">
+            <!--Glass Type & Image-->
+            <div class="col-md-4">
                 <div class="form-group">
 
                     <check if="{{ @errors['ingredients'] }}">
@@ -104,7 +108,7 @@
                     </check>
 
                     <label><strong>Glass Type</strong>
-                        <select name="glass" class="custom-select" id="glass">
+                        <select name="glass" class="custom-select form-control" id="glass">
 
                             <repeat group="{{ @glass }}" value="{{ @glassOption }}">
                                 <option
@@ -125,7 +129,7 @@
                     </check>
 
                     <label for="image"><strong>Image</strong></label>
-                    <input type="file" name="image" id="image">
+                    <input type="file" name="image" id="image btnText">
 
                     <p>Upload drink Image(optional)</p>
 
