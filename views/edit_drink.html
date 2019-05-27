@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-md form-group">
                         <label for="name">Name</label>
-                        <input class="form-control" id="name" type="text" value="{{ @drink->getName() }}">
+                        <input class="form-control" name="name" id="name" type="text" value="{{ @drink->getName() }}">
                     </div>
                     <div class="col-md form-group">
                         <label for="glasses">Glass</label>
@@ -53,39 +53,39 @@
                         </check>
                         <select id="glasses" name="glasses" class="form-control">
                             <repeat group="{{ @glasses }}" value="{{ @glass }}">
-                                <option value="{{ @glass }}"
+                                <option name="glass" value="{{ @glass }}"
                                 <check if="{{ @drink->getGlass() == @glass }}">
                                     selected
                                 </check>
                                 >{{ @glass }}</option>
                             </repeat>
-
                         </select>
                     </div>
                     <check if="{{ get_class(@drink) == 'AlcoholDrink' }}">
                         <div class="col-md-2 form-group">
                             <label for="shots">Shots</label>
-                            <input class="form-control" id="shots" type="text" value="{{ @drink->getShots() }}">
+                            <input class="form-control" name="shots" id="shots"
+                                   type="text" value="{{ @drink->getShots() }}">
                         </div>
                     </check>
                 </div>
-                <repeat group="{{ @drink->getIngredients() }}" key="{{ @ing }}" value="{{ @qty }}">
+                <repeat group="{{ @drink->getIngredients() }}" key="{{ @index }}" value="{{ @ing }}">
 
                     <div class="row border pt-2">
                         <div class="col-md-3 form-group ">
-                            <label for="{{'qty'.@ing}}">Qty</label>
-                            <input id="{{'qty'.@ing}}" type="text" name="qty[]" value="{{ @qty }}" class="form-control">
+                            <label for="{{'qty'.@index }}">Qty</label>
+                            <input id="{{'qty'.@index }}" type="text" name="qtys[]" value="{{ @drink->getQty()[@index] }}" class="form-control">
                         </div>
                         <div class="col-md-5 form-group">
                             <label for="{{ @ing }}">Ingredient</label>
                             <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}">
                         </div>
                         <div class="col-md-4 form-group">
-                            <label for="{{ @ing . 'type' }}">Category</label>
-                            <select name="type[]" id="{{ @ing . 'type' }}" class="form-control">
+                            <label for="{{ 'type'.@index }}">Category</label>
+                            <select name="types[]" id="{{ 'type'.@index }}" class="form-control">
                                 <repeat group="{{ @types }}" value="{{ @type }}">
                                     <option value="{{ @type }}"
-                                    <check if="{{ @ingTypes[@ing] == @type }}">
+                                    <check if="{{ @ingTypes[@index] == @type }}">
                                         selected
                                     </check>
                                     >{{ @type }}</option>

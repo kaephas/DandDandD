@@ -51,6 +51,7 @@ class Database
     /**
      * Loads a view that shows and allows for editing drink info
      * @param $drinkName string   The name of the drink to be queried
+     * @return Drink|AlcoholDrink $newDrink     Drink object created
      */
     function editDrink($drinkName)
     {   // update

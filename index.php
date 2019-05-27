@@ -84,10 +84,30 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     $info = $db->editDrink($drink);
     $f3->set('drink', $info);
 
-    $pageTitle = "Edit Drink";
-    $f3->set('pageTitle', $pageTitle);
+//    $f3->set('qtys', $info->getQty());
+//    $f3->set('types', $info->getType());
+//    $pageTitle = "Edit Drink";
+//    $f3->set('pageTitle', $pageTitle);
 
-//    $f3->set('drink', 'hello');
+    if(!empty($_POST)) {
+        // validate
+        $validate = true;
+
+
+        // check for image
+
+        if(!empty($_FILES['image']['name'])) {
+            $image = $_FILES['image'];
+            $f3->set('image', $_FILES['image']);
+
+            // get storage path to attempt
+            $path = 'uploads/' . basename($image["name"]);
+
+            $validate =  $validate && validImage($image, $path);
+        }
+        // reroute
+    }
+
     $f3->set('ingTypes', $info->getType());
     $view = new Template();
     echo $view->render('views/edit_drink.html');

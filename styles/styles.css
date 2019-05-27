@@ -19,7 +19,7 @@ nav {
 
 nav a {
     color: white;
-    width: 21.7vw;
+    /*width: 21.7vw;*/
 }
 
 nav a:hover {
@@ -62,19 +62,28 @@ img {
 
 .btn-home {
     min-width: 100px;
+
 }
-/*Fighting with bootstrap form control*/
-.form-control{
-    width: 25vw;
-}
-h2{
-    font-family: 'Federant', cursive;
-}
-#btnText{
+
+.btn {
     font-family: 'Metamorphous', cursive;
     border: 1px solid palegoldenrod;
     box-shadow: 1px 1px 1px #2f4f4f91;
 }
+
+/*Fighting with bootstrap form control*/
+/*.form-control{*/
+    /*width: 25vw;*/
+/*}*/
+
+h2{
+    font-family: 'Federant', cursive;
+}
+/*#btnText{*/
+    /*font-family: 'Metamorphous', cursive;*/
+    /*border: 1px solid palegoldenrod;*/
+    /*box-shadow: 1px 1px 1px #2f4f4f91;*/
+/*}*/
 
 textarea {
     width: 100% !important;

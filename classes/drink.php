@@ -11,6 +11,7 @@ class Drink
     private $_name;
     private $_glass;
     private $_image;
+    private $_qty;
     private $_ingredients;
     private $_type;
     private $_recipe;
@@ -24,18 +25,19 @@ class Drink
         $this->_name = $name;
         $this->_glass = $glass;
         $this->_image = $image;
-        $this->_ingredients = array();
-        $this->_type = array();
+        $this->_qty = $qty;
+        $this->_ingredients = $ingredients;
+        $this->_type = $type;
         $this->_recipe = $recipe;
 
-        // $this->_ingredients[$ingredients[0]] = $qty[0], etc.
-        for($i = 0; $i < count($ingredients); $i++) {
-            $this->_ingredients[$ingredients[$i]] = $qty[$i];
-        }
-        // $this->_type[$ingredients[0] = $type[0], etc.
-        for($i = 0; $i < count($ingredients); $i++) {
-            $this->_type[$ingredients[$i]] = $type[$i];
-        }
+//        // $this->_ingredients[$ingredients[0]] = $qty[0], etc.
+//        for($i = 0; $i < count($ingredients); $i++) {
+//            $this->_ingredients[$ingredients[$i]] = $qty[$i];
+//        }
+//        // $this->_type[$ingredients[0] = $type[0], etc.
+//        for($i = 0; $i < count($ingredients); $i++) {
+//            $this->_type[$ingredients[$i]] = $type[$i];
+//        }
 
     }
 
@@ -61,6 +63,13 @@ class Drink
     public function getGlass()
     {
         return $this->_glass;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getQty() {
+        return $this->_qty;
     }
 
     /**
