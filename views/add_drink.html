@@ -15,6 +15,13 @@
 </head>
 <body>
 
+<nav class="nav">
+    <a class="nav-link" href="./">Home</a>
+    <a class="nav-link" href="./find_drink">Find Drink</a>
+    <a class="nav-link" href="./add_drink">Add Drink</a>
+    <a class="nav-link" href="./drinks">All Drinks</a>
+</nav>
+
 <!-- Form -->
 <form action="#" method="post" enctype="multipart/form-data">
     <div class="container">
@@ -25,9 +32,9 @@
                     <check if="{{ @errors['name'] }}">
                         <span class="err">{{ @errors['name'] }}</span>
                     </check>
-                    <label>Drink Name
+                    <label><h3>Drink Name</h3>
                     <input type="text" value="{{ @name }}"
-                           name="name" class="form-control" id="name" placeholder="name"
+                           name="name" class="form-control" id="name" placeholder="Drink name"
                            data-rule="minlen:4" data-msg="Please enter at least 4 chars"
                     >
                     <div class="validation"></div>
@@ -42,7 +49,7 @@
                     <check if="{{ @errors['qty'] }}">
                         <span class="err">{{ @errors['qty'] }}</span>
                     </check>
-                    <label>Quantity
+                    <label><strong>Quantity</strong>
                     <input type="text" value="{{ @qty }}"
                            class="form-control" class="form-control" data-msg="Please enter Quantity."
                            name="qty" class="form-control" id="qty" placeholder="2oz/1 slice etc..."
@@ -55,7 +62,7 @@
             <!--Ingredient Name-->
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Ingredient Name
+                    <label><strong>Ingredient Name</strong>
                     <check if="{{ @errors['ing_name'] }}">
                         <span class="err">{{ @errors['ing_name'] }}</span>
                     </check>
@@ -72,7 +79,7 @@
             <div class="col-md-4">
                 <div class="form-group">
 
-                    <label>Ingredient Type
+                    <label><strong>Ingredient Type</strong>
                     <check if="{{ @errors['ing_type'] }}">
                         <span class="err">{{ @errors['@ingredients'] }}</span>
                     </check>
@@ -98,23 +105,23 @@
         <div class="row">
 
             <!--Instructions-->
-            <div class="col-md-8 mb-3">
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="instructions"><h3>Instructions</h3></label>
+                    <label for="instructions"><strong>Instructions</strong></label>
                     <textarea id="instructions" class="form-control" name="instructions" rows="12" cols="50" data-rule="required" data-msg="How doth we maketh this drink?" placeholder="Step One: fill glass with ice..."></textarea>
                     <div class="validation"></div>
                 </div>
             </div>
 
             <!--Glass Type-->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="form-group">
 
                     <check if="{{ @errors['ingredients'] }}">
                         <span class="err">{{ @errors['@glass'] }}</span>
                     </check>
 
-                    <label>Glass Type
+                    <label><strong>Glass Type</strong>
                         <select name="glass" class="custom-select" id="glass">
 
                             <repeat group="{{ @glass }}" value="{{ @glassOption }}">
@@ -128,16 +135,22 @@
                         </select>
                     </label>
 
+                    <br>
+                    <br>
+
+                    <check if="{{ @errors['image'] }}">
+                            <span class="text-danger">{{ @errors['image'] }}</span>
+                    </check>
+
+                    <label for="image"><strong>Image</strong></label>
+                        <input type="file" name="image" id="image">
+
+                    <p>Upload drink Image(optional)</p>
+
                     <div class="validation"></div>
+
                 </div>
             </div>
-
-            <label for="image">Upload drink image (optional):</label>
-            <check if="{{ @errors['image'] }}">
-                <span class="text-danger">{{ @errors['image'] }}</span>
-            </check>
-            <br>
-            <input type="file" name="image" id="image">
 
 
         </div>
