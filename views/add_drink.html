@@ -1,149 +1,267 @@
 <include href="/views/header.html"/>
 
 <!-- Form -->
-<form action="#" method="post" enctype="multipart/form-data">
-    <div class="container">
 
-        <!--Row 1-->
+<div class="container">
+    <form action="#" method="post" enctype="multipart/form-data">
         <div class="row">
-        <!--Drink Name-->
-            <div class="col-md-4">
-                <h1>Add Drink</h1>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <check if="{{ @errors['name'] }}">
-                        <span class="err">{{ @errors['name'] }}</span>
-                    </check>
-                    <label><strong>Drink name: </strong>
-                        <input type="text" value="{{ @name }}"
-                               name="name" class="form-control" id="name" placeholder="Drink name"
-                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"
-                        >
-                    </label>
-                        <div class="validation"></div>
-    <!--                </label>-->
-                </div>
-            </div>
-        </div>
-        <hr>
-        <!--Row 2-->
-        <div class="row">
-            <!--Quantity-->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <check if="{{ @errors['qty'] }}">
-                        <span class="err">{{ @errors['qty'] }}</span>
-                    </check>
-                    <label><strong>Quantity</strong>
-                        <input type="text" value="{{ @qty }}"
-                               class="form-control" class="form-control" data-msg="Please enter Quantity."
-                               name="qty" class="form-control" id="qty" placeholder="2oz/1 slice etc..."
-                        >
-                    </label>
-                    <div class="validation"></div>
-                </div>
-            </div>
-
-            <!--Ingredient Name-->
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label><strong>Ingredient Name</strong>
-                        <check if="{{ @errors['ing_name'] }}">
-                            <span class="err">{{ @errors['ing_name'] }}</span>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md form-group">
+                        <label for="name">Name</label>
+                        <input class="form-control" name="name" id="name" type="text" value="{{ @name }}">
+                    </div>
+                    <div class="col-md form-group">
+                        <label for="glasses">Glass</label>
+                        <check if="{{ @errors['glasses'] }}">
+                            <span class="text-danger">{{ @errors['glasses'] }}</span>
                         </check>
-                        <input type="text" value="{{ @ing_name }}"
-                               name="ing_name" class="form-control" id="ing_name" placeholder="Rum/Lime etc..."
-                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"
-                        >
-                        <div class="validation"></div>
-                    </label>
-                </div>
-            </div>
-
-            <!--Ingredient Type-->
-            <div class="col-md-4">
-                <div class="form-group">
-
-                    <label><strong>Ingredient Type</strong>
-                        <check if="{{ @errors['ing_type'] }}">
-                            <span class="err">{{ @errors['@ingredients'] }}</span>
-                        </check>
-
-                        <select name="ing_type" class="custom-select form-control" id="ing_type">
-                            <repeat group="{{ @ing_name }}" value="{{ @ingOption }}">
-
-                                <option
-                                <check if="@ing_type == @ingOption">selected</check>
-                                name="ing_type" value="{{ @ingOption }}" >
-                                {{ @ingOption }}
-                                </option>
+                        <select id="glasses" name="glasses" class="form-control">
+                            <repeat group="{{ @glasses }}" value="{{ @glass }}">
+                                <option name="glass" value="{{ @glass }}"
+                                <check if="{{ @drinkGlass == @glass }}">
+                                    selected
+                                </check>
+                                >{{ @glass }}</option>
                             </repeat>
                         </select>
-                    </label>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="shots">Shots</label>
+                        <check if="{{ @errors['shots'] }}">
+                            <span class="text-danger">{{ @errors['shots'] }}</span>
+                        </check>
+                        <input class="form-control" name="shots" id="shots"
+                               type="text" value="{{ @shots }}">
+                    </div>
+                </div>
+                <repeat group="{{ @ings }}" key="{{ @index }}" value="{{ @ing }}">
+                    <div class="row border pt-2 ing-row">
+                        <div class="col-md-3 form-group ">
 
-                    <div class="validation"></div>
+                            <label for="{{'qty'.@index }}">Qty</label>
+                            <check if="{{ @errors[qty][@index] }}">
+                                <span class="text-danger">{{ @errors[qty][@index] }}</span>
+                            </check>
+                            <input id="{{'qty'.@index }}" type="text" name="qtys[]"
+                                   value="{{ @qtys[@index] }}" class="form-control">
+                        </div>
+                        <div class="col-md-5 form-group">
+                            <label for="{{ @ing }}">Ingredient</label>
+                            <check if="{{ @errors[ing][@index] }}">
+                                <span class="text-danger">{{ @errors[ing][@index] }}</span>
+                            </check>
+                            <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}">
+                        </div>
+                        <div class="col-md-4 form-group">
+                            <label for="{{ 'type'.@index }}">Category</label>
+                            <check if="{{ @errors[type][@index] }}">
+                                <span class="text-danger">{{ @errors[type][@index] }}</span>
+                            </check>
+                            <select name="types[]" id="{{ 'type'.@index }}" class="form-control">
+                                <option value="">select a category...</option>
+                                <repeat group="{{ @typeList }}" value="{{ @type }}">
+                                    <option value="{{ @type }}"
+                                    <check if="{{ @types[@index] == @type }}">
+                                        selected
+                                    </check>
+                                    >{{ @type }}</option>
+                                </repeat>
+                            </select>
+                        </div>
+                    </div>
+                </repeat>
+                <div id="new-row"></div>
+                <div class="row">
+                    <div class="col">
+                        <button id="addRow" class="mt-2">Add Ingredient</button>
+                    </div>
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mx-auto">
+                            <label for="recipe">Directions</label>
+                            <check if="{{ @errors['recipe'] }}">
+                                <span class="text-danger">{{ @errors['recipe'] }}</span>
+                            </check>
+                            <textarea id="recipe" name="recipe" class="form-control" rows="5">{{ @recipe }}</textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <img class="img-fluid mx-auto" src="{{ '../' . @drinkImg }}" alt="drink picture">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group ml-auto">
+
+                            <label for="image">Upload a new photo: &nbsp;</label>
+                            <input type="file" name="drinkImg" id="image">
+                            <check if="{{ @errors['image'] }}">
+                                <br><span class="text-danger">{{ @errors['image'] }}</span>
+                            </check>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end directions / photo column-->
         </div>
-        <!--Row 3-->
         <div class="row">
-
-            <!--Instructions-->
-            <div class="col-md-8">
-                <div class="form-group">
-                    <label for="instructions"><strong>Instructions</strong></label>
-                    <textarea id="instructions" class="form-control" name="instructions" rows="8" cols="40" data-rule="required" data-msg="How doth we maketh this drink?" placeholder="Step One: fill glass with ice..."></textarea>
-                    <div class="validation"></div>
-                </div>
-            </div>
-
-            <!--Glass Type & Image-->
-            <div class="col-md-4">
-                <div class="form-group">
-
-                    <check if="{{ @errors['ingredients'] }}">
-                        <span class="err">{{ @errors['@glass'] }}</span>
-                    </check>
-
-                    <label><strong>Glass Type</strong>
-                        <select name="glass" class="custom-select form-control" id="glass">
-
-                            <repeat group="{{ @glass }}" value="{{ @glassOption }}">
-                                <option
-                                <check if="@glass == @glassOption">selected</check>
-                                name="glass" value="{{ @glassOption }}" >
-                                {{ @glassOption }}
-                                </option>
-                            </repeat>
-
-                        </select>
-                    </label>
-
-                    <br>
-                    <br>
-
-                    <check if="{{ @errors['image'] }}">
-                        <span class="text-danger">{{ @errors['image'] }}</span>
-                    </check>
-
-                    <label for="image"><strong>Image</strong></label>
-                    <input type="file" name="image" id="image btnText">
-
-                    <p>Upload drink Image(optional)</p>
-
-                    <div class="validation"></div>
-
-                </div>
-            </div>
-
-
+            <input class="btn btn-warning mx-auto" type="submit" value="Add Drink">
         </div>
+    </form>
+</div>
 
-        <button type="submit" id="btnText" class="btn btn-warning btn-md">Add Drink</button>
-    </div>w
-</form>
+
+
+<!--<form action="#" method="post" enctype="multipart/form-data">-->
+<!--    <div class="container">-->
+
+<!--        &lt;!&ndash;Row 1&ndash;&gt;-->
+<!--        <div class="row">-->
+<!--        &lt;!&ndash;Drink Name&ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <h1>Add Drink</h1>-->
+<!--            </div>-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="form-group">-->
+<!--                    <check if="{{ @errors['name'] }}">-->
+<!--                        <span class="err">{{ @errors['name'] }}</span>-->
+<!--                    </check>-->
+<!--                    <label><strong>Drink name: </strong>-->
+<!--                        <input type="text" value="{{ @name }}"-->
+<!--                               name="name" class="form-control" id="name" placeholder="Drink name"-->
+<!--                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"-->
+<!--                        >-->
+<!--                    </label>-->
+<!--                        <div class="validation"></div>-->
+<!--    &lt;!&ndash;                </label>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <hr>-->
+<!--        &lt;!&ndash;Row 2&ndash;&gt;-->
+<!--        <div class="row">-->
+<!--            &lt;!&ndash;Quantity&ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="form-group">-->
+<!--                    <check if="{{ @errors['qty'] }}">-->
+<!--                        <span class="err">{{ @errors['qty'] }}</span>-->
+<!--                    </check>-->
+<!--                    <label><strong>Quantity</strong>-->
+<!--                        <input type="text" value="{{ @qty }}"-->
+<!--                               class="form-control" class="form-control" data-msg="Please enter Quantity."-->
+<!--                               name="qty" class="form-control" id="qty" placeholder="2oz/1 slice etc..."-->
+<!--                        >-->
+<!--                    </label>-->
+<!--                    <div class="validation"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;Ingredient Name&ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="form-group">-->
+<!--                    <label><strong>Ingredient Name</strong>-->
+<!--                        <check if="{{ @errors['ing_name'] }}">-->
+<!--                            <span class="err">{{ @errors['ing_name'] }}</span>-->
+<!--                        </check>-->
+<!--                        <input type="text" value="{{ @ing_name }}"-->
+<!--                               name="ing_name" class="form-control" id="ing_name" placeholder="Rum/Lime etc..."-->
+<!--                               data-rule="minlen:4" data-msg="Please enter at least 4 chars"-->
+<!--                        >-->
+<!--                        <div class="validation"></div>-->
+<!--                    </label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;Ingredient Type&ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="form-group">-->
+
+<!--                    <label><strong>Ingredient Type</strong>-->
+<!--                        <check if="{{ @errors['ing_type'] }}">-->
+<!--                            <span class="err">{{ @errors['@ingredients'] }}</span>-->
+<!--                        </check>-->
+
+<!--                        <select name="ing_type" class="custom-select form-control" id="ing_type">-->
+<!--                            <repeat group="{{ @ing_name }}" value="{{ @ingOption }}">-->
+
+<!--                                <option-->
+<!--                                <check if="@ing_type == @ingOption">selected</check>-->
+<!--                                name="ing_type" value="{{ @ingOption }}" >-->
+<!--                                {{ @ingOption }}-->
+<!--                                </option>-->
+<!--                            </repeat>-->
+<!--                        </select>-->
+<!--                    </label>-->
+
+<!--                    <div class="validation"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </div>-->
+<!--        &lt;!&ndash;Row 3&ndash;&gt;-->
+<!--        <div class="row">-->
+
+<!--            &lt;!&ndash;Instructions&ndash;&gt;-->
+<!--            <div class="col-md-8">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="instructions"><strong>Instructions</strong></label>-->
+<!--                    <textarea id="instructions" class="form-control" name="instructions" rows="8" cols="40" data-rule="required" data-msg="How doth we maketh this drink?" placeholder="Step One: fill glass with ice..."></textarea>-->
+<!--                    <div class="validation"></div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;Glass Type & Image&ndash;&gt;-->
+<!--            <div class="col-md-4">-->
+<!--                <div class="form-group">-->
+
+<!--                    <check if="{{ @errors['ingredients'] }}">-->
+<!--                        <span class="err">{{ @errors['@glass'] }}</span>-->
+<!--                    </check>-->
+
+<!--                    <label><strong>Glass Type</strong>-->
+<!--                        <select name="glass" class="custom-select form-control" id="glass">-->
+
+<!--                            <repeat group="{{ @glass }}" value="{{ @glassOption }}">-->
+<!--                                <option-->
+<!--                                <check if="@glass == @glassOption">selected</check>-->
+<!--                                name="glass" value="{{ @glassOption }}" >-->
+<!--                                {{ @glassOption }}-->
+<!--                                </option>-->
+<!--                            </repeat>-->
+
+<!--                        </select>-->
+<!--                    </label>-->
+
+<!--                    <br>-->
+<!--                    <br>-->
+
+<!--                    <check if="{{ @errors['image'] }}">-->
+<!--                        <span class="text-danger">{{ @errors['image'] }}</span>-->
+<!--                    </check>-->
+
+<!--                    <label for="image"><strong>Image</strong></label>-->
+<!--                    <input type="file" name="image" id="image btnText">-->
+
+<!--                    <p>Upload drink Image(optional)</p>-->
+
+<!--                    <div class="validation"></div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+
+<!--        </div>-->
+
+<!--        <button type="submit" id="btnText" class="btn btn-warning btn-md">Add Drink</button>-->
+<!--    </div>w-->
+<!--</form>-->
 
 
 
