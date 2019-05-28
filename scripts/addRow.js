@@ -9,7 +9,7 @@
 $("#addRow").click(function(e) {
     e.preventDefault();
     let count = 0;
-    $(".row.border.pt-2").each(function(index) {
+    $(".ing-row").each(function(index) {
         console.log( count );
         count++;
     });
@@ -22,7 +22,7 @@ $("#addRow").click(function(e) {
 
 function generateRow($count) {
 
-    let newRow = '<div class="row border pt-2">' +
+    let newRow = '<div class="row border pt-2 ing-row">' +
         '<div class="col-md-3 form-group ">' +
         '<label for="qty' + $count + '">Qty</label>' +
         '<input id="qty' + $count + '" type="text" name="qtys[]" class="form-control">' +
@@ -32,8 +32,8 @@ function generateRow($count) {
         '<input id="' + $count + '" type="text" name="ings[]" class="form-control">' +
         '</div>' +
         '<div class="col-md-4 form-group">' +
-        '<label for="cat' + $count + '">Category</label>' +
-        '<select id="cat' + $count + '" name="types[]" class="form-control">' +
+        '<label for="type' + $count + '">Category</label>' +
+        '<select id="type' + $count + '" name="types[]" class="form-control">' +
         '<option value="" selected>choose category...</option>';
 
        let types = [];
@@ -44,7 +44,8 @@ function generateRow($count) {
     }
 
     for(let type of types) {
-        newRow += '<option value="type">' + type + '</option>';
+
+        newRow += '<option value="' + type + '">' + type + '</option>';
     }
 
     newRow += '</select>' +

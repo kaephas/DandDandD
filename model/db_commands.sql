@@ -1,6 +1,3 @@
-# SELECT interest FROM member, interest, member_interest
-# WHERE member.member_id = 17 AND member.member_id = member_interest.member_id AND interest.interest_id = member_interest.interest_id
-
 CREATE TABLE drink (
    name VARCHAR(40) PRIMARY KEY NOT NULL,
    glass VARCHAR(20) NOT NULL,
@@ -19,6 +16,7 @@ CREATE TABLE drink_ing (
   name VARCHAR(40) NOT NULL,
   ing_name VARCHAR(40) NOT NULL,
   qty VARCHAR(20) NOT NULL,
+  PRIMARY KEY (name, ing_name, qty),
   FOREIGN KEY (name) REFERENCES drink(name),
   FOREIGN KEY (ing_name) REFERENCES ingredient(ing_name)
 );

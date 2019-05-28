@@ -103,4 +103,54 @@ class Drink
     {
         $this->_image = $image;
     }
+
+    /**
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->_name = $name;
+    }
+
+    /**
+     * @param mixed $glass
+     */
+    public function setGlass($glass)
+    {
+        $this->_glass = $glass;
+    }
+
+    /**
+     * @param mixed $qty
+     */
+    public function setQty($qty)
+    {
+        $this->_qty = $qty;
+    }
+
+    /**
+     * @param mixed $ingredients
+     */
+    public function setIngredients($ingredients)
+    {
+        $this->_ingredients = $ingredients;
+    }
+
+    /**
+     * @param mixed $type
+     */
+    public function setType($type)
+    {
+        $this->_type = $type;
+    }
+
+    /**
+     * @param mixed $recipe
+     */
+    public function setRecipe($recipe)
+    {
+        $this->_recipe = $recipe;
+    }
+
+
 }

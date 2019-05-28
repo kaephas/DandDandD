@@ -24,7 +24,8 @@ $f3 = Base::instance();
 $f3->set('DEBUG', 3);
 
 $f3->set('glasses', generateGlasses());
-$f3->set('types', generateIngTypes());
+$f3->set('typeList', generateIngTypes());
+$f3->set('alcohols', array('cognac', 'gin', 'pisco', 'rum', 'tequila', 'vermouth', 'vodka', 'whiskey', 'liquor'));
 
 
 $db = new Database();
@@ -82,35 +83,89 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     $drink = $params['drink'];
     global $db;
     $info = $db->editDrink($drink);
+    $f3->set('oldName', $info->getName());
     $f3->set('drink', $info);
 
-//    $f3->set('qtys', $info->getQty());
-//    $f3->set('types', $info->getType());
-//    $pageTitle = "Edit Drink";
-//    $f3->set('pageTitle', $pageTitle);
+    $f3->set('name', $info->getName());
+    $f3->set('drinkGlass', $info->getGlass());
+    $f3->set('qtys', $info->getQty());
+    $f3->set('ings', $info->getIngredients());
+    $f3->set('types', $info->getType());
+    $f3->set('recipe', $info->getRecipe());
+    $f3->set('drinkImg', $info->getImage());
+
+    if(get_class($info) == 'AlcoholDrink') {
+
+        $f3->set('shots', $info->getShots());
+    } else {
+        $f3->set('shots', 0);
+    }
 
     if(!empty($_POST)) {
         // validate
-        $validate = true;
+        $name = $_POST['name'];
+        $glass = $_POST['glass'];
+        $shots = $_POST['shots'];
+        $qtys = $_POST['qtys'];
+        $ings = $_POST['ings'];
+        $types = $_POST['types'];
+        $recipe = $_POST['recipe'];
 
+        $f3->set('name', $name);
+        $f3->set('drinkGlass', $glass);
+        $f3->set('shots', $shots);
+        $f3->set('qtys', $qtys);
+        $f3->set('ings', $ings);
+        $f3->set('types', $types);
+        $f3->set('recipe', $recipe);
 
-        // check for image
+        $validate = validInfo();
 
-        if(!empty($_FILES['image']['name'])) {
-            $image = $_FILES['image'];
-            $f3->set('image', $_FILES['image']);
+        $validateImg = true;
+        if(!empty($_FILES['drinkImg']['name'])) {
+            $image = $_FILES['drinkImg'];
+            $f3->set('drinkImg', $_FILES['drinkImg']);
 
             // get storage path to attempt
-            $path = 'uploads/' . basename($image["name"]);
+            $path = 'images/' . basename($image["name"]);
 
-            $validate =  $validate && validImage($image, $path);
+            $validateImg = validImage($image, $path);
+            // if uploaded update Drink object
+            if($validateImg) {
+                $f3->get('drink')->setImage($path);
+            }
         }
-        // reroute
+        $f3->set('drinkImg', $f3->get('drink')->getImage());
+
+        $validate = $validate && $validateImg;
+
+        if($validate) {
+            $_SESSION['old'] = $f3->get('oldName');
+            $_SESSION['new'] = $f3->get('drink')->getName();
+            $_SESSION['drink'] = $f3->get('drink');
+            // drink has been updated during validation
+            echo '<br>Drink info: ';
+            var_dump($f3->get('drink'));
+            // update database
+            $db->updateDrink($f3->get('drink'), $f3->get('oldName'));
+            // reroute to all drinks? Back to self with notice of success?
+            $f3->reroute('/test');
+        }
+
     }
 
-    $f3->set('ingTypes', $info->getType());
+    //$f3->set('ingTypes', $info->getType());
     $view = new Template();
     echo $view->render('views/edit_drink.html');
+});
+
+$f3->route('GET /test', function($f3) {
+    $f3->set('old', $_SESSION['old']);
+    $f3->set('new', $_SESSION['new']);
+    $f3->set('drink', $_SESSION['drink']);
+
+    $view = new Template();
+    echo $view->render('views/test.html');
 });
 
 $f3->run();
