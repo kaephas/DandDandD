@@ -33,11 +33,75 @@ class Database
     /**
      * Adds a new drink to the database
      *
-     * @param $newDrink Drink   Drink Object to be added
+     * @param $drink Drink   Drink Object to be added
      */
-    function addDrink($newDrink)
+    function addDrink($drink)   // TODO: check this...
     {   // insert
         // name, glass, image, ingredients[ing => qty], type[ing => type], A:(shots)
+        $sql = "INSERT INTO drink (name, glass, image, recipe, alcoholic, shots)
+                VALUES (name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots)";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $name = $drink->getName();
+        $glass = $drink->getGlass();
+        $image = $drink->getImage();
+        $recipe = $drink->getRecipe();
+        if(get_class($drink) == 'Drink') {
+            $alcoholic = 0;
+            $shots = 0;
+        } else {
+            $alcoholic = 1;
+            $shots = $drink->getShots();
+        }
+
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':glass', $glass);
+        $statement->bindParam(':image', $image);
+        $statement->bindParam(':recipe', $recipe);
+        $statement->bindParam(':alcoholic', $alcoholic);
+        $statement->bindParam(':shots', $shots);
+        // execute update statement
+        $statement->execute();
+
+
+        // Add ingredients to table
+        $sql = "INSERT into drink_ing (name, ing_name, qty)
+                VALUES (:name, :ing_name, :qty)";
+        $statement = $this->_dbh->prepare($sql);
+
+        $ings = $drink->getIngredients();
+        $_SESSION['allIngs'] = $ings;
+        $qtys = $drink->getQty();
+        $types = $drink->getType();
+
+        $statement->bindParam('name', $name);
+        // add each ingredient to junction table
+        $ingsFound = array();
+        for($i = 0; $i < count($ings); $i++) {
+            $statement->bindParam(':ing_name', $ings[$i]);
+            $statement->bindParam(':qty', $qtys[$i]);
+            $statement->execute();
+
+            // check if ingredient is in ingredient table
+            $sqlIng = "SELECT ing_name FROM ingredient
+                        WHERE ing_name=:ing";
+            $statementIng = $this->_dbh->prepare($sqlIng);
+            $statementIng->bindParam(':ing', $ings[$i]);
+            $statementIng->execute();
+            $result = $statementIng->fetch(2);
+            $ingsFound[] = $result;
+            // if ingredient not in table already
+            if(empty($result)) {
+                $_SESSION['notFound'] = $ings[$i];
+                $sqlNew = "INSERT INTO ingredient (ing_name, type)
+                           VALUES (:ing_name, :type)";
+                $statementNew = $this->_dbh->prepare($sqlNew);
+                $statementNew->bindParam(':ing_name', $ings[$i]);
+                $statementNew->bindParam(':type', $types[$i]);
+                $statementNew->execute();
+            }
+        }
 
     }
 
@@ -45,8 +109,7 @@ class Database
      * @param $drink    Drink   Drink Object to update from
      */
     function updateDrink($drink, $oldName) {
-        // drink
-        global $f3;
+
         $sql = "UPDATE drink
                 SET name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots
                 WHERE name=:old";
@@ -169,9 +232,18 @@ class Database
 
     }
 
-    function getDrinkMatch()
+    /**
+     * @param Character $character  Character Object storing all choices
+     */
+    function getDrinkMatch($character)
     {
+        // iterate over all types
 
+        // get all drinks that have each type
+
+        // get all drinks that have the most of the matching types
+
+        // randomly select one
     }
 
 
