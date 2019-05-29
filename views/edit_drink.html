@@ -15,7 +15,7 @@
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Cinzel:700|Federant|Gabriela|MedievalSharp|Metamorphous|New+Rocker|UnifrakturCook:700&display=swap" rel="stylesheet">
 
-    <title>{{ @drink->getName() }}</title>
+    <title>{{ @drink }}</title>
 </head>
 <body>
 <div class="jumbotron text-center pb-0 pt-1" id="logoHead" style="background-color: black">
@@ -44,6 +44,9 @@
                 <div class="row">
                     <div class="col-md form-group">
                         <label for="name">Name</label>
+                        <check if="{{ @errors['name'] }}">
+                            <span class="text-danger">{{ @errors['name'] }}</span>
+                        </check>
                         <input class="form-control" name="name" id="name" type="text" value="{{ @name }}">
                     </div>
                     <div class="col-md form-group">
