@@ -148,6 +148,8 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     $drink = $params['drink'];
     global $db;
     $info = $db->editDrink($drink);
+    //TODO: store drink in session to be used to delete?
+    $_SESSION['origDrink'] = $info;
     $f3->set('oldName', $info->getName());
     $f3->set('drink', $info);
 

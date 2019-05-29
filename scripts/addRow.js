@@ -27,20 +27,33 @@ $("#addRow").click(function(e) {
     $("#replace").prop('id', 'new-row');
 });
 
+$("#removeRow").click(function(e) {
+   e.preventDefault();
+
+
+   let count = $(".ing-row").length;
+    console.log(count);
+   if(count > 0) {
+       $(".ing-row").last().remove();
+   }
+
+
+});
+
 function generateRow($count) {
 
     let newRow = '<div class="row border pt-2 ing-row">' +
         '<div class="col-md-3 form-group ">' +
         '<label for="qty' + $count + '">Qty</label>' +
-        '<input id="qty' + $count + '" type="text" name="qtys[]" class="form-control">' +
+        '<input id="qty' + $count + '" type="text" name="qtys[]" class="form-control" required>' +
         '</div>' +
         '<div class="col-md-5 form-group">' +
         '<label for="ing' + $count + '">Ingredient</label>' +
-        '<input id="' + $count + '" type="text" name="ings[]" class="form-control">' +
+        '<input id="' + $count + '" type="text" name="ings[]" class="form-control" required>' +
         '</div>' +
         '<div class="col-md-4 form-group">' +
         '<label for="type' + $count + '">Category</label>' +
-        '<select id="type' + $count + '" name="types[]" class="form-control">' +
+        '<select id="type' + $count + '" name="types[]" class="form-control" required>' +
         '<option value="" selected>choose category...</option>';
 
     //    let types = [];
@@ -59,6 +72,7 @@ function generateRow($count) {
     newRow += '</select>' +
         '</div>' +
         '</div>' +
+        '<hr>' +
         '<div id="replace"></div>';
 
     return newRow;

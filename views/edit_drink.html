@@ -38,7 +38,7 @@
 
 
 <div class="container">
-    <form action="#" method="post" enctype="multipart/form-data">
+    <form action="#" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-md-6">
                 <div class="row">
@@ -47,14 +47,15 @@
                         <check if="{{ @errors['name'] }}">
                             <span class="text-danger">{{ @errors['name'] }}</span>
                         </check>
-                        <input class="form-control" name="name" id="name" type="text" value="{{ @name }}">
+                        <input class="form-control" name="name" id="name" type="text" value="{{ @name }}" required>
                     </div>
                     <div class="col-md form-group">
                         <label for="glasses">Glass</label>
                         <check if="{{ @errors['glasses'] }}">
                             <span class="text-danger">{{ @errors['glasses'] }}</span>
                         </check>
-                        <select id="glasses" name="glasses" class="form-control">
+                        <select id="glasses" name="glasses" class="form-control" required>
+                            <option value="">choose glass...</option>
                             <repeat group="{{ @glasses }}" value="{{ @glass }}">
                                 <option name="glass" value="{{ @glass }}"
                                 <check if="{{ @drinkGlass == @glass }}">
@@ -64,14 +65,14 @@
                             </repeat>
                         </select>
                     </div>
-                        <div class="col-md-2 form-group">
-                            <label for="shots">Shots</label>
-                            <check if="{{ @errors['shots'] }}">
-                                <span class="text-danger">{{ @errors['shots'] }}</span>
-                            </check>
-                            <input class="form-control" name="shots" id="shots"
-                                   type="text" value="{{ @shots }}">
-                        </div>
+                    <div class="col-md-2 form-group">
+                        <label for="shots">Shots</label>
+                        <check if="{{ @errors['shots'] }}">
+                            <span class="text-danger">{{ @errors['shots'] }}</span>
+                        </check>
+                        <input class="form-control" name="shots" id="shots"
+                               type="text" value="{{ @shots }}">
+                    </div>
                 </div>
                 <repeat group="{{ @ings }}" key="{{ @index }}" value="{{ @ing }}">
                     <div class="row border pt-2 ing-row">
@@ -82,21 +83,21 @@
                                 <span class="text-danger">{{ @errors[qty][@index] }}</span>
                             </check>
                             <input id="{{'qty'.@index }}" type="text" name="qtys[]"
-                                   value="{{ @qtys[@index] }}" class="form-control">
+                                   value="{{ @qtys[@index] }}" class="form-control" required>
                         </div>
                         <div class="col-md-5 form-group">
                             <label for="{{ @ing }}">Ingredient</label>
                             <check if="{{ @errors[ing][@index] }}">
                                 <span class="text-danger">{{ @errors[ing][@index] }}</span>
                             </check>
-                            <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}">
+                            <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="{{ 'type'.@index }}">Category</label>
                             <check if="{{ @errors[type][@index] }}">
                                 <span class="text-danger">{{ @errors[type][@index] }}</span>
                             </check>
-                            <select name="types[]" id="{{ 'type'.@index }}" class="form-control">
+                            <select name="types[]" id="{{ 'type'.@index }}" class="form-control" required>
                                 <option value="">select a category...</option>
                                 <repeat group="{{ @typeList }}" value="{{ @type }}">
                                     <option value="{{ @type }}"
@@ -108,11 +109,15 @@
                             </select>
                         </div>
                     </div>
+                    <hr>
                 </repeat>
                 <div id="new-row"></div>
                 <div class="row">
                     <div class="col">
-                        <button id="addRow" class="mt-2">Add Ingredient</button>
+                        <button id="addRow" class="btn btn-success mt-2 mr-auto">Add Ingredient</button>
+                    </div>
+                    <div class="col text-right">
+                        <button id="removeRow" class="btn btn-danger mt-2 ml-auto">Remove Ingredient</button>
                     </div>
                 </div>
             </div>
