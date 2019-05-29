@@ -58,8 +58,73 @@ $f3->route('GET|POST /find_drink', function($f3)
 
 $f3->route('GET|POST /add_drink', function($f3)
 {
+    global $db;
     $pageTitle = "Add a Drink";
     $f3->set('pageTitle', $pageTitle);
+
+    if(!empty($_POST)) {
+        // validate
+        $name = $_POST['name'];
+        $glass = $_POST['glass'];
+        $shots = $_POST['shots'];
+        $qtys = $_POST['qtys'];
+        $ings = $_POST['ings'];
+        $types = $_POST['types'];
+        $recipe = $_POST['recipe'];
+
+        $f3->set('name', $name);
+        $f3->set('drinkGlass', $glass);
+        $f3->set('shots', $shots);
+        $f3->set('qtys', $qtys);
+        $f3->set('ings', $ings);
+        $f3->set('types', $types);
+        $f3->set('recipe', $recipe);
+
+        // set drink to make sure not indicated as a Drink during validation functions
+        $f3->set('drink', 'Not Drink');
+        $validate = validInfo();
+
+        $validateImg = true;
+
+        if(!empty($_FILES['drinkImg']['name'])) {
+            $image = $_FILES['drinkImg'];
+
+            // get storage path to attempt
+            $path = 'images/' . basename($image["name"]);
+
+            $validateImg = validImage($image, $path);
+            // if uploaded update Drink object
+            if($validateImg) {
+                $f3->set('drinkImg', $path);
+                $_SESSION['image'] = $path;
+            }
+        } else {
+            $f3->set('drinkImg', $_SESSION['image']);
+        }
+
+        $validate = $validate && $validateImg;
+
+        if($validate) {
+            // create drink object
+            if($shots == 0) {
+                $drink = new Drink($name, $glass, $qtys, $ings, $types, $recipe);
+            } else {
+                $drink = new AlcoholDrink($name, $glass, $qtys, $ings, $types, $recipe);
+                $drink->setShots($shots);
+            }
+            $image = $f3->get('drinkImg');
+            if(isset($image)) {
+                $drink->setImage($f3->get('drinkImg'));
+            }
+
+            // update database
+            $db->addDrink($drink);
+            // reroute to drink summary? acknowledge success?
+            $_SESSION['drink'] = $drink;
+            $f3->reroute('/test2');
+        }
+
+    }
 
     $view = new Template();
     echo $view->render('views/add_drink.html');
@@ -124,14 +189,14 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
         $validateImg = true;
         if(!empty($_FILES['drinkImg']['name'])) {
             $image = $_FILES['drinkImg'];
-            $f3->set('drinkImg', $_FILES['drinkImg']);
-
+            var_dump($f3->get('drinkImg'));
             // get storage path to attempt
             $path = 'images/' . basename($image["name"]);
 
             $validateImg = validImage($image, $path);
             // if uploaded update Drink object
             if($validateImg) {
+                $f3->set('drinkImg', $path);
                 $f3->get('drink')->setImage($path);
             }
         }
@@ -166,6 +231,14 @@ $f3->route('GET /test', function($f3) {
 
     $view = new Template();
     echo $view->render('views/test.html');
+
+    session_destroy();
+});
+
+$f3->route('GET /test2', function($f3) {
+
+    $view = new Template();
+    echo $view->render('views/test2.html');
 });
 
 $f3->run();

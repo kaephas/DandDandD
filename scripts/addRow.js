@@ -6,13 +6,20 @@
  * enables adding ingredient rows on button click
  */
 
+let typeList = ['cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice',
+    'liquor', 'milk/cream', 'mint', 'soft drink', 'sweetener', 'tonic', 'vermouth', 'misc'];
+
 $("#addRow").click(function(e) {
     e.preventDefault();
-    let count = 0;
-    $(".ing-row").each(function(index) {
-        console.log( count );
-        count++;
-    });
+
+    let count = ($(".ing-row").length);
+
+    // if(numRows > 0) {
+    //     $(".ing-row").each(function(index) {
+    //         console.log( count );
+    //         count++;
+    //     });
+    // }
 
     let formRow = $("#new-row");
     formRow.html(generateRow(count));
@@ -36,14 +43,15 @@ function generateRow($count) {
         '<select id="type' + $count + '" name="types[]" class="form-control">' +
         '<option value="" selected>choose category...</option>';
 
-       let types = [];
-    let items = $("select:last");
-    let things = items.children();
-    for (let i = 0; i < things.length; i++) {
-        types.push(things[i].innerHTML);
-    }
+    //    let types = [];
+    // let items = $("select:last");
+    // let things = items.children();
+    // for (let i = 0; i < things.length; i++) {
+    //     types.push(things[i].innerHTML);
+    //     console.log(things[i].innerHTML);
+    // }
 
-    for(let type of types) {
+    for(let type of typeList) {
 
         newRow += '<option value="' + type + '">' + type + '</option>';
     }
@@ -55,3 +63,4 @@ function generateRow($count) {
 
     return newRow;
 }
+
