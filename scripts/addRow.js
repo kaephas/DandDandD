@@ -71,8 +71,8 @@ function generateRow($count) {
 
     newRow += '</select>' +
         '</div>' +
-        '</div>' +
         '<hr>' +
+        '</div>' +
         '<div id="replace"></div>';
 
     return newRow;
