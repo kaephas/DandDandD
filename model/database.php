@@ -37,9 +37,8 @@ class Database
      */
     function addDrink($drink)   // TODO: check this...
     {   // insert
-        // name, glass, image, ingredients[ing => qty], type[ing => type], A:(shots)
         $sql = "INSERT INTO drink (name, glass, image, recipe, alcoholic, shots)
-                VALUES (name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots)";
+                VALUES (:name, :glass, :image, :recipe, :alcoholic, :shots)";
 
         $statement = $this->_dbh->prepare($sql);
 
@@ -47,13 +46,19 @@ class Database
         $glass = $drink->getGlass();
         $image = $drink->getImage();
         $recipe = $drink->getRecipe();
-        if(get_class($drink) == 'Drink') {
-            $alcoholic = 0;
-            $shots = 0;
-        } else {
+        if(get_class($drink) == 'AlcoholDrink') {
             $alcoholic = 1;
             $shots = $drink->getShots();
+        } else {
+            $alcoholic = 0;
+            $shots = 0;
         }
+        $_SESSION['name1'] = $name;
+        $_SESSION['glass1'] = $glass;
+        $_SESSION['image1'] = $image;
+        $_SESSION['recipe1'] = $recipe;
+        $_SESSION['alcoholic1'] = $alcoholic;
+        $_SESSION['shots1'] = $shots;
 
         $statement->bindParam(':name', $name);
         $statement->bindParam(':glass', $glass);
@@ -62,47 +67,48 @@ class Database
         $statement->bindParam(':alcoholic', $alcoholic);
         $statement->bindParam(':shots', $shots);
         // execute update statement
-        $statement->execute();
-
-
-        // Add ingredients to table
-        $sql = "INSERT into drink_ing (name, ing_name, qty)
+//        $_SESSION['success'] = "Great Failure!";
+        if($statement->execute()) {
+//            $_SESSION['success'] = "Great success!";
+            // Add ingredients to table
+            $sql = "INSERT into drink_ing (name, ing_name, qty)
                 VALUES (:name, :ing_name, :qty)";
-        $statement = $this->_dbh->prepare($sql);
+            $statement = $this->_dbh->prepare($sql);
 
-        $ings = $drink->getIngredients();
-        $_SESSION['allIngs'] = $ings;
-        $qtys = $drink->getQty();
-        $types = $drink->getType();
+            $ings = $drink->getIngredients();
+            // TODO: remove eventually -> displayed on test pages
+            $_SESSION['allIngs'] = $ings;
+            $qtys = $drink->getQty();
+            $types = $drink->getType();
 
-        $statement->bindParam('name', $name);
-        // add each ingredient to junction table
-        $ingsFound = array();
-        for($i = 0; $i < count($ings); $i++) {
-            $statement->bindParam(':ing_name', $ings[$i]);
-            $statement->bindParam(':qty', $qtys[$i]);
-            $statement->execute();
+            $statement->bindParam(':name', $name);
+            // add each ingredient to junction table
+            $ingsFound = array();
+            for($i = 0; $i < count($ings); $i++) {
+                $statement->bindParam(':ing_name', ucwords($ings[$i]));
+                $statement->bindParam(':qty', $qtys[$i]);
+                $statement->execute();
 
-            // check if ingredient is in ingredient table
-            $sqlIng = "SELECT ing_name FROM ingredient
+                // check if ingredient is in ingredient table
+                $sqlIng = "SELECT ing_name FROM ingredient
                         WHERE ing_name=:ing";
-            $statementIng = $this->_dbh->prepare($sqlIng);
-            $statementIng->bindParam(':ing', $ings[$i]);
-            $statementIng->execute();
-            $result = $statementIng->fetch(2);
-            $ingsFound[] = $result;
-            // if ingredient not in table already
-            if(empty($result)) {
-                $_SESSION['notFound'] = $ings[$i];
-                $sqlNew = "INSERT INTO ingredient (ing_name, type)
+                $statementIng = $this->_dbh->prepare($sqlIng);
+                $statementIng->bindParam(':ing', ucwords($ings[$i]));
+                $statementIng->execute();
+                $result = $statementIng->fetch(2);
+                $ingsFound[] = $result;
+                // if ingredient not in table already
+                if(empty($result)) {
+                    $_SESSION['notFound'] = $ings[$i];
+                    $sqlNew = "INSERT INTO ingredient (ing_name, type)
                            VALUES (:ing_name, :type)";
-                $statementNew = $this->_dbh->prepare($sqlNew);
-                $statementNew->bindParam(':ing_name', $ings[$i]);
-                $statementNew->bindParam(':type', $types[$i]);
-                $statementNew->execute();
+                    $statementNew = $this->_dbh->prepare($sqlNew);
+                    $statementNew->bindParam(':ing_name', ucwords($ings[$i]));
+                    $statementNew->bindParam(':type', $types[$i]);
+                    $statementNew->execute();
+                }
             }
         }
-
     }
 
     /**
@@ -119,12 +125,12 @@ class Database
         $glass = $drink->getGlass();
         $image = $drink->getImage();
         $recipe = $drink->getRecipe();
-        if(get_class($drink) == 'Drink') {
-            $alcoholic = 0;
-            $shots = 0;
-        } else {
+        if(get_class($drink) == 'AlcoholDrink') {
             $alcoholic = 1;
             $shots = $drink->getShots();
+        } else {
+            $alcoholic = 0;
+            $shots = 0;
         }
         $statement->bindParam(':old', $oldName);
         $statement->bindParam(':name', $name);
@@ -134,55 +140,57 @@ class Database
         $statement->bindParam(':alcoholic', $alcoholic);
         $statement->bindParam(':shots', $shots);
         // execute update statement
-        $statement->execute();
-
-        // ingredients
-        // first clear database of ingredients for that drink
-        $sql = "DELETE FROM drink_ing
+        if($statement->execute()) {
+            // ingredients
+            // first clear database of ingredients for that drink
+            $sql = "DELETE FROM drink_ing
                 WHERE name=:old";
-        $statement = $this->_dbh->prepare($sql);
-        $statement->bindParam(':old', $oldName);
-        // delete all entries in junction table matching old drink name (if it changed)
-        $statement->execute();
+            $statement = $this->_dbh->prepare($sql);
+            $statement->bindParam(':old', $oldName);
+            // delete all entries in junction table matching old drink name (if it changed)
+            $statement->execute();
 
-        // then update with new values
-        $sql = "INSERT into drink_ing (name, ing_name, qty)
+            // then update with new values
+            $sql = "INSERT into drink_ing (name, ing_name, qty)
                 VALUES (:name, :ing_name, :qty)";
-        $statement = $this->_dbh->prepare($sql);
+            $statement = $this->_dbh->prepare($sql);
 
-        $ings = $drink->getIngredients();
-        $_SESSION['allIngs'] = $ings;
-        $qtys = $drink->getQty();
-        $types = $drink->getType();
+            $ings = $drink->getIngredients();
+            // TODO: remove session variable when done testing
+            $_SESSION['allIngs'] = $ings;
+            $qtys = $drink->getQty();
+            $types = $drink->getType();
 
-        $statement->bindParam('name', $name);
-        // add each ingredient to junction table
-        $ingsFound = array();
-        for($i = 0; $i < count($ings); $i++) {
-             $statement->bindParam(':ing_name', $ings[$i]);
-             $statement->bindParam(':qty', $qtys[$i]);
-             $statement->execute();
+            $statement->bindParam(':name', $name);
+            // add each ingredient to junction table
+            $ingsFound = array();
+            for($i = 0; $i < count($ings); $i++) {
+                $statement->bindParam(':ing_name', $ings[$i]);
+                $statement->bindParam(':qty', $qtys[$i]);
+                $statement->execute();
 
-             // check if ingredient is in ingredient table
-            $sqlIng = "SELECT ing_name FROM ingredient
+                // check if ingredient is in ingredient table
+                $sqlIng = "SELECT ing_name FROM ingredient
                         WHERE ing_name=:ing";
-            $statementIng = $this->_dbh->prepare($sqlIng);
-            $statementIng->bindParam(':ing', $ings[$i]);
-            $statementIng->execute();
-            $result = $statementIng->fetch(2);
-            $ingsFound[] = $result;
-            // if ingredient not in table already
-            if(empty($result)) {
-                $_SESSION['notFound'] = $ings[$i];
-                $sqlNew = "INSERT INTO ingredient (ing_name, type)
+                $statementIng = $this->_dbh->prepare($sqlIng);
+                $statementIng->bindParam(':ing', $ings[$i]);
+                $statementIng->execute();
+                $result = $statementIng->fetch(2);
+                $ingsFound[] = $result;
+                // if ingredient not in table already
+                if(empty($result)) {
+                    // TODO: remove session variable when done testing
+                    $_SESSION['notFound'] = $ings[$i];
+                    $sqlNew = "INSERT INTO ingredient (ing_name, type)
                            VALUES (:ing_name, :type)";
-                $statementNew = $this->_dbh->prepare($sqlNew);
-                $statementNew->bindParam(':ing_name', $ings[$i]);
-                $statementNew->bindParam(':type', $types[$i]);
-                $statementNew->execute();
+                    $statementNew = $this->_dbh->prepare($sqlNew);
+                    $statementNew->bindParam(':ing_name', $ings[$i]);
+                    $statementNew->bindParam(':type', $types[$i]);
+                    $statementNew->execute();
+                }
             }
+            $_SESSION['ingsFound'] = $ingsFound;
         }
-        $_SESSION['ingsFound'] = $ingsFound;
     }
 
     /**
@@ -262,5 +270,34 @@ class Database
         }
 
         return $rows;
+    }
+
+    /**
+     * Deletes a drink and it's ingredients from junction table
+     *
+     * @param string $drinkName    Name of drink to be deleted
+     * @return int $success       If each step was successful
+     */
+    function deleteDrink($drinkName) {
+        $success = 'neither';
+
+        $sql = "DELETE FROM drink
+                WHERE drink.name=:name";
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':name', $drinkName);
+        if($statement->execute()) {
+            $success = "first";
+            $sql = "DELETE FROM drink_ing
+                    WHERE name=:name";
+            $statement = $this->_dbh->prepare($sql);
+            $statement->bindParam(':name', $drinkName);
+            if($statement->execute()) {
+                $success = "both";
+            }
+
+        }
+        
+        return $success;
     }
 }

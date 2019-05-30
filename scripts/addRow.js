@@ -78,3 +78,7 @@ function generateRow($count) {
     return newRow;
 }
 
+$("#delDrink").on('click', function(e) {
+    e.preventDefault();
+    window.location.replace("../delete/" + $(document).find('title').text());
+});

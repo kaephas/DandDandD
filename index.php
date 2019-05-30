@@ -80,7 +80,7 @@ $f3->route('GET|POST /add_drink', function($f3)
         $f3->set('types', $types);
         $f3->set('recipe', $recipe);
 
-        // set drink to make sure not indicated as a Drink during validation functions
+        // set drink to make sure not indicated as a Drink object during validation functions
         $f3->set('drink', 'Not Drink');
         $validate = validInfo();
 
@@ -141,6 +141,8 @@ $f3->route('GET /drinks', function($f3) {
 
     $view = new Template();
     echo $view->render('views/view_drinks.html');
+
+    unset($_SESSION['deletion']);
 });
 
 // edit drinks
@@ -241,6 +243,44 @@ $f3->route('GET /test2', function($f3) {
 
     $view = new Template();
     echo $view->render('views/test2.html');
+});
+
+$f3->route('GET|POST /delete/@drink', function($f3, $params) {
+    global $db;
+    $drinkName = $params['drink'];
+    $info = $db->editDrink($drinkName);
+    $f3->set('drink', $info);
+
+    $f3->set('name', $info->getName());
+    $f3->set('drinkGlass', $info->getGlass());
+    $f3->set('qtys', $info->getQty());
+    $f3->set('ings', $info->getIngredients());
+    $f3->set('types', $info->getType());
+    $f3->set('recipe', $info->getRecipe());
+    $f3->set('drinkImg', $info->getImage());
+
+    if(get_class($info) == 'AlcoholDrink') {
+
+        $f3->set('shots', $info->getShots());
+    } else {
+        $f3->set('shots', 0);
+    }
+
+    if(!empty($_POST['confirm'])) {
+        $success = $db->deleteDrink($info->getName());
+        if($success == 'both') {
+            $_SESSION['deletion'] = 'Deletion successful.';
+            $f3->reroute('/drinks');
+        } else if($success = 'first'){
+            echo 'Deletion error. Ingredients for ' . $drinkName . ' not deleted.';
+        } else {
+            echo 'Deletion error. Drink not deleted.';
+        }
+
+    }
+
+    $view = new Template();
+    echo $view->render('views/delete_drink.html');
 });
 
 $f3->run();

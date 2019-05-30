@@ -21,10 +21,10 @@
                         <check if="{{ @errors['glasses'] }}">
                             <span class="text-danger">{{ @errors['glasses'] }}</span>
                         </check>
-                        <select id="glasses" name="glasses" class="form-control" required>
+                        <select id="glasses" name="glass" class="form-control" required>
                             <option value="">choose glass...</option>
                             <repeat group="{{ @glasses }}" value="{{ @glass }}">
-                                <option name="glass" value="{{ @glass }}"
+                                <option value="{{ @glass }}"
                                 <check if="{{ @drinkGlass == @glass }}">
                                     selected
                                 </check>
@@ -82,7 +82,7 @@
                     </repeat>
                 </check>
                 <div id="new-row"></div>
-                <div class="row">
+                <div class="row mb-3">
                     <div class="col">
                         <button id="addRow" class="btn btn-success mt-2 mr-auto">Add Ingredient</button>
                     </div>
@@ -90,6 +90,7 @@
                         <button id="removeRow" class="btn btn-danger mt-2 ml-auto">Remove Ingredient</button>
                     </div>
                 </div>
+                <hr>
             </div>
 
             <div class="col-md-6">
