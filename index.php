@@ -52,6 +52,30 @@ $f3->route('GET|POST /find_drink', function($f3)
     $f3->set('alignments', generateAlignments());
     $f3->set('backgrounds', generateBackgrounds());
 
+    if(!empty($_POST)) {
+        $f3->set('name', $_POST['name']);
+        $f3->set('class', $_POST['class']);
+        $f3->set('sub', $_POST['sub']);
+        $f3->set('alignment', $_POST['alignment']);
+        $f3->set('background', $_POST['background']);
+        $f3->set('age', $_POST['age']);
+        $f3->set('stats', $_POST['stats']);
+        $f3->set('alcoholic', $_POST['alcoholic']);
+
+        $validate = validChar();
+
+        if($validate) {
+            // create character object and store in session
+
+            // find matches
+
+            // choose one drink and store in session
+
+
+            $f3->reroute('result');
+        }
+    }
+
     $view = new Template();
     echo $view->render('views/character.html');
 });
@@ -203,18 +227,27 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
                 $f3->set('drinkImg', $path);
                 $f3->get('drink')->setImage($path);
             }
+        }else {
+            $f3->set('drinkImg', $_SESSION['image']);
         }
+
+        echo 'after valid: ';
+        var_dump($f3->get('drinkImg'));
+        echo '<br> drink value: ';
+        print_r($f3->get('drink')->getImage());
         $f3->set('drinkImg', $f3->get('drink')->getImage());
 
         $validate = $validate && $validateImg;
+
+
+        echo '<br>Drink info: ';
+        var_dump($f3->get('drink'));
 
         if($validate) {
             $_SESSION['old'] = $f3->get('oldName');
             $_SESSION['new'] = $f3->get('drink')->getName();
             $_SESSION['drink'] = $f3->get('drink');
             // drink has been updated during validation
-            echo '<br>Drink info: ';
-            var_dump($f3->get('drink'));
             // update database
             $db->updateDrink($f3->get('drink'), $f3->get('oldName'));
             // reroute to all drinks? Back to self with notice of success?
