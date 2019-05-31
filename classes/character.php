@@ -17,14 +17,15 @@ class Character
     private $_alcoholic;
     /**
      * Character constructor.
-     * @param $_name
-     * @param $_class
-     * @param $_subclass
-     * @param $_alignment
-     * @param $_background
-     * @param $_age
-     * @param $_stats
-     * @param $_alcoholic
+     * @param string $_name
+     * @param string $_class
+     * @param string $_subclass
+     * @param string $_alignment
+     * @param string $_background
+     * @param int[] $_age
+     * @param int[] $_stats
+     * @param bool $_alcoholic
+     * @return void
      */
     public function __construct($_name, $_class, $_subclass, $_alignment, $_background, $_age, $_stats, $_alcoholic)
     {

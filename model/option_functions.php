@@ -69,7 +69,7 @@ function generateSubClasses()
     $subClass['Ranger'] =
         array('Beast Master', 'Gloom Stalker', 'Horizon Walker', 'Hunter', 'Monster Slayer');
     $subClass['Rogue'] =
-        array('Arcane Trickster', 'Assassin', 'Inquisitive', 'Mastermind', 'Scout', 'Swashbuckler', 'Scout', 'Thief');
+        array('Arcane Trickster', 'Assassin', 'Inquisitive', 'Mastermind', 'Scout', 'Swashbuckler', 'Thief');
     $subClass['Sorcerer'] =
         array('Divine Soul', 'Draconic Bloodline', 'Giant Soul', 'Shadow Magic', 'Storm Sorcery', 'Wild Magic');
     $subClass['Warlock'] =
