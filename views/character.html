@@ -12,13 +12,16 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" class="form-control">
+                    <input type="text" id="name" name="name" class="form-control"
+                    <check if="{{ @name }}">value="{{ @name }}</check>
+                    >
                 </div>
                 <div class="form-group">
                     <label for="class">Class</label>
                     <select name="class" id="class" class="form-control">
-                        <repeat group="{{ @classes }}" value="{{ @class }}">
-                            <option value="{{ @class }}">{{ @class }}</option>
+                        <repeat group="{{ @classes }}" value="{{ @cls }}">
+                            <option value="{{ @cls }}" <check if="{{ @class == @cls }}">selected</check>>
+                            {{ @cls }}</option>
                         </repeat>
                     </select>
                 </div>
@@ -26,7 +29,7 @@
                     <label for="sub">Subclass</label>
                     <select name="sub" id="sub" class="form-control">
                         <repeat group="{{ @subclasses['Artificer'] }}" value="{{ @subclass }}">
-                            <option value="{{ @subclass }}">{{ @subclass }}</option>
+                            <option value="{{ @subclass }}" <check if="{{ @sub == @subclass }}">selected</check>></option>
                         </repeat>
                     </select>
                 </div>
@@ -34,7 +37,7 @@
                     <label for="alignment">Alignment</label>
                     <select name="alignment" id="alignment" class="form-control">
                         <repeat group="{{ @alignments }}" value="{{ @align }}">
-                            <option value="{{ @align }}">{{ @align }}</option>
+                            <option value="{{ @align }}" <check if="{{ @alignment == @align }}">selected</check>></option>
                         </repeat>
                     </select>
                 </div>
@@ -42,22 +45,28 @@
                     <label for="background">Background</label>
                     <select name="background" id="background" class="form-control">
                         <repeat group="{{ @backgrounds }}" value="{{ @bkgd }}">
-                            <option value="{{ @bkgd }}">{{ @bkgd }}</option>
+                            <option value="{{ @bkgd }}"
+                            <check if="{{ @background == @bkgd }}">selected</check>
+                            >{{ @bkgd }}</option>
                         </repeat>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="text" id="age" name="age" class="form-control">
+                    <input type="text" id="age" name="age" class="form-control"
+                    <check if="{{ @age }}">value="{{ @age }}"</check>
+                    >
                 </div>
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-2">
                 <div class="form-group" id="stats">
-                    <repeat group="{{ @stats }}" value="{{ @stat }}">
+                    <repeat group="{{ @stats }}" key="{{ @index }}" value="{{ @stat }}">
                         <div class="form-group">
                             <label for="{{ @stat }}">{{ @stat }}</label>
-                            <input type="text" id="{{ @stat }}" name="stats[]" class="form-control">
+                            <input type="text" id="{{ @stat }}" name="stats[]" class="form-control"
+                            <check if="{{ @stats[@index] }}">value="{{ @stats[@index] }}"</check>
+                            >
                         </div>
                     </repeat>
                 </div>
@@ -72,10 +81,14 @@
                     <h4>Alcoholic Beverage?</h4>
                     <div>
                         <label for="yes">Yes
-                            <input type="radio" name="alcoholic" value="yes" id="yes">
+                            <input type="radio" name="alcoholic" value="yes" id="yes"
+                            <check if="{{ @alcoholic == 'yes' }}">checked</check>
+                            >
                         </label>
                         <label for="no">No
-                            <input type="radio" name="alcoholic" value="no" id="no">
+                            <input type="radio" name="alcoholic" value="no" id="no"
+                            <check if="{{ @alcoholic == 'no' }}">checked</check>
+                            >
                         </label>
                     </div>
                 </div>
