@@ -245,6 +245,8 @@ class Database
      */
     function getDrinkMatch($character)
     {
+        // get all types that match characteristics
+
         // iterate over all types
 
         // get all drinks that have each type
