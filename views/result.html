@@ -6,9 +6,24 @@
     <div class="row">
         <div class="col">
             <!-- column summarizing character data (load from character object) -->
+            <h2>Your drink is: {{ @SESSION.drinkName }}</h2>
+            <p>Types {{ print_r(@SESSION.types) }}</p>
+            <p>All Drinks: {{ print_r(@SESSION.allDrinks) }}</p>
+            <p># of type matches: ({{ @SESSION.max }}): {{ print_r(@SESSION.maxDrinks) }}</p>
+            <p>Count list: {{ print_r(@SESSION.countList) }}</p>
+            <p>Traits: {{ print_r(@SESSION.allTraits) }}</p>
+            <p>Trait to Type: {{ print_r(@SESSION.traitToType) }}</p>
+
         </div>
         <div class="col">
             <!-- print out drink recipe -->
+
+            <h5>Drinks to Types</h5>
+            <ul>
+                <repeat group="{{ @SESSION.drinksToTypes }}" key= "{{ @drink }}" value="{{ @typeList }}">
+                    <li>Drink: {{ @drink }} => Types: {{ @typeList }}</li>
+                </repeat>
+            </ul>
         </div>
 
     </div>

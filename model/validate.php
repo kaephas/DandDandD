@@ -66,6 +66,133 @@ function validInfo()
     return $isValid;
 }
 
+function validCharacter() {
+    global $f3;
+    $isValid = true;
+    // valid name
+    if(!validName($f3->get('name'))) {
+        $f3->set("errors['name']", "Please type a name.");
+        $isValid = false;
+    }
+    // valid class
+    if(!validClass($f3->get('class'))) {
+        $f3->set('errors["class"]', "Please choose a class.");
+        $isValid = false;
+    }
+    // valid subclass
+    if(!validSubclass($f3->get('sub'))) {
+        $f3->set('errors["sub"]', "Please choose a subclass.");
+        $isValid = false;
+    }
+    // valid alignment
+    if(!validAlign($f3->get('alignment'))) {
+        $f3->set('errors["alignment"]', "Please choose an alignment.");
+        $isValid = false;
+    }
+    // valid background
+    if(!validBack($f3->get('background'))) {
+        $f3->set('errors["background"]', "Please choose a background");
+        $isValid = false;
+    }
+    // valid age/alcoholic
+    if(!validAge($f3->get('age'), $f3->get('alcoholic'))) {
+        $isValid = false;
+    }
+    // valid stats
+    if(!validStats($f3->get('stats'))) {
+        $isValid = false;
+    }
+    return $isValid;
+
+}
+
+/**
+ * Validates stat values chosen
+ *
+ * @param string[] $stats   list of stats values
+ * @return bool $valid      if stats are valid
+ */
+function validStats($stats) {
+    global $f3;
+    $valid = true;
+    $regex = "/^\d{1,2}$/";
+    for($i = 0; $i < count($stats); $i++) {
+        $val = $stats[$i];
+        if(!preg_match($regex, $val)) {
+            $f3->set("errors['stats'][$i]", "Invalid #");
+            $valid = false;
+        } elseif($val < 0 || $val > 30) {
+            $f3->set("errors['stats'][$i]", "Invalid #");
+            $valid = false;
+        }
+    }
+    return $valid;
+}
+
+function validAge($age, $alc) {
+    global $f3;
+    $valid = true;
+    if(!is_numeric($age)) {
+        $f3->set("errors['age']", "Invalid age.");
+        $valid = false;
+    }
+    if(is_numeric($age) && $age < 21) {
+        if($alc == 'yes') {
+            $until = 21 - $age;
+            if($until == 1) {
+                $f3->set("errors['alcoholic']", "Can't for 1 more year!");
+            } else {
+                $f3->set("errors['alcoholic']", "Wait $until more years.");
+            }
+            $valid = false;
+        }
+    }
+    if($alc != 'no' && $alc != 'yes') {
+        $f3->set("errors['alcoholic']", "Select one.");
+        $valid = false;
+    }
+    return $valid;
+}
+
+function validBack($back) {
+    $backs = generateBackgrounds();
+    if(in_array($back, $backs)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validAlign($align) {
+    $aligns = generateAlignments();
+    if(in_array($align, $aligns)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validClass($class) {
+    $classList = generateClasses();
+    if(in_array($class, $classList)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validSubclass($sub) {
+    global $f3;
+    $valid = true;
+    $classSubs = generateSubClasses();
+    $subclassList = $classSubs[$f3->get('class')];
+
+    if(!in_array($sub, $subclassList)) {
+        $valid = false;
+    }
+    return $valid;
+}
+
 
 function validRecipe($dir) {
     $error = '';
@@ -77,7 +204,7 @@ function validRecipe($dir) {
 
 function validName($name)
 {
-    // required field
+    // required field -- non-alpha ok since D&D people make weird names sometimes
     return isset($name) && $name != "";
 
 }
@@ -172,12 +299,12 @@ function validShots($shots, $types) {
  * @param int $age  the age to be checked
  * @return bool     if the age is valid
  */
-function validAge($age)
-{
-    // required field
-    return is_numeric($age) && $age >= 9 && $age <= 118;
-
-}
+//function validAge($age)
+//{
+//    // required field
+//    return is_numeric($age) && $age >= 9 && $age <= 118;
+//
+//}
 
 
 /**
@@ -201,18 +328,21 @@ function validImage($image, $path)
         if(file_exists($path)) {
             $f3->set("errors['image']", "Using existing file.");
             // if already exists, set Drink image to the file
-            $upload = false;
+//            $upload = false;
             if($f3->get('drink') instanceof Drink) {
                 $f3->get('drink')->setImage($path);
             } else {
                 $f3->set('drinkImg', $path);
-                $_SESSION['image'] = $path;
             }
+            $_SESSION['image'] = $path;
 
             // if not correct file type
+            // TODO: try to upload a non-image and see if the upload occurs even though there's an error
         } elseif (!($type == 'jpg' || $type == 'png' || $type == 'jpeg')) {
             $f3->set("errors['image']", "Please choose a png, jpg, or jpeg.");
             $upload = false;
+        } else {
+            $_SESSION['image'] = $path;
         }
     } else {
         $f3->set("errors['image']", "That file isn't an image.");
