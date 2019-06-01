@@ -289,7 +289,8 @@ class Database
         $_SESSION['traitToType'] = $traitToType;
 
         // get all drinks that have each type
-        $sql = "SELECT drink_ing.name AS name FROM drink_ing, ingredient
+        $sql = "SELECT drink_ing.name AS name 
+                FROM drink_ing, ingredient
                 WHERE ingredient.type=:type AND drink_ing.ing_name = ingredient.ing_name";
         $statement = $this->_dbh->prepare($sql);
 
@@ -304,7 +305,36 @@ class Database
         }
 
         $drinks = array_unique($drinksList);
-        $match = $this->shorten($drinks, $types);
+
+        // get non-alcoholic if necessary
+        if($character->getAlcoholic() == 0) {
+            $sql = "SELECT alcoholic from drink
+                    WHERE name=:name";
+            $statement = $this->_dbh->prepare($sql);
+            $nonAlc = array();
+            foreach($drinks as $each) {
+                $statement->bindParam(':name', $each);
+                $statement->execute();
+                $result = $statement->fetch(2);
+                if($result['alcoholic'] == 0) {
+                    $nonAlc[] = $each;
+                }
+            }
+            // if none found (there's not many non-alc atm)
+            if(count($nonAlc) == 0) {
+                $sql = "SELECT name from drink
+                        WHERE alcoholic=0";
+                $statement = $this->_dbh->prepare($sql);
+                $statement->execute();
+                $results = $statement->fetchAll(2);
+                foreach($results as $row) {
+                    $nonAlc[] = $row['name'];
+                }
+            }
+            $drinks = $nonAlc;
+        }
+
+        $match = $this->getBestDrink($drinks, $types);
 
         return $match;
     }
@@ -315,9 +345,9 @@ class Database
      * @param array $types
      * @return mixed
      */
-    public function shorten(array $drinks, array $types)
+    private function getBestDrink(array $drinks, array $types)
     {
-// get all drinks that have the most of the matching types
+        // get all drinks that have the most of the matching types
         $sql = "SELECT drink_ing.name AS name, ingredient.type AS type
                 FROM drink_ing, ingredient
                 WHERE drink_ing.name=:name AND drink_ing.ing_name=ingredient.ing_name";

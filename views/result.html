@@ -5,6 +5,12 @@
     <!-- big row containing everything -->
     <div class="row">
         <div class="col">
+            <!-- print out drink recipe -->
+
+            <h5>Character Info</h5>
+            <p>{{ print_r(@SESSION.character) }}</p>
+        </div>
+        <div class="col">
             <!-- column summarizing character data (load from character object) -->
             <h2>Your drink is: {{ @SESSION.drinkName }}</h2>
             <p>Types {{ print_r(@SESSION.types) }}</p>
@@ -15,20 +21,9 @@
             <p>Trait to Type: {{ print_r(@SESSION.traitToType) }}</p>
 
         </div>
-        <div class="col">
-            <!-- print out drink recipe -->
-
-            <h5>Drinks to Types</h5>
-            <ul>
-                <repeat group="{{ @SESSION.drinksToTypes }}" key= "{{ @drink }}" value="{{ @typeList }}">
-                    <li>Drink: {{ @drink }} => Types: {{ @typeList }}</li>
-                </repeat>
-            </ul>
-        </div>
-
     </div>
     <div class="row">
-        <a href="find_drink" class="btn btn-warning">Find Another Drink</a>
+        <a href="find_drink" class="btn btn-warning mx-auto">Find Another Drink</a>
     </div>
 </div>
 

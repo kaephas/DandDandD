@@ -6,8 +6,12 @@
     <form action="#" method="post" class="needs-validation" novalidate>
         <div class="row">
             <div class="col-md-4 text-center">
-                <img id="classImg" src="images/artificer.jpg" alt="class image" class="img-fluid mx-auto">
-
+                <img id="classImg"
+                <check if="{{ @class }}">
+                    <true>src="images/{{ strtolower(@class) }}.jpg"</true>
+                    <false>src="images/artificer.jpg"</false>
+                </check>
+                alt="class image" class="img-fluid mx-auto">
             </div>
             <div class="col-md-4">
                 <div class="form-group">
