@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<div class="jumbotron text-center pb-0 pt-1" id="logoHead" style="background-color: black">
+<div class="jumbotron text-center pb-0 pt-1" id="logoHead">
     <img src="images/dndnd.png" alt="dndnd site logo" class="img-fluid mx-auto">
     <nav class="nav bottom">
         <div class="col">
@@ -40,14 +40,20 @@
 
 <div class="container">
     <div class="text-center">
-    <check if="{{ @SESSION.deletion }}">
-        <h3 class="text-danger">{{ @SESSION.deletion }}</h3>
-    </check>
-    <h1 class="mx-auto">All Drinks</h1>
+        <check if="{{ @SESSION.deletion }}">
+            <h3 class="text-danger">{{ @SESSION.deletion }}</h3>
+        </check>
+        <check if="{{ @SESSION.addition }}">
+            <h3 class="text-danger">{{ @SESSION.addition }}</h3>
+        </check>
+        <check if="{{ @SESSION.editSuccess }}">
+            <h3 class="text-danger">{{ @SESSION.editSuccess }}</h3>
+        </check>
+        <h1 class="mx-auto">All Drinks</h1>
     </div>
     <table class="table table-hover" id="drinkTable">
         <thead>
-        <tr>
+        <tr id="headerRow">
             <th scope="col">Name</th>
             <th scope="col">Glass</th>
             <th scope="col">Shots</th>
