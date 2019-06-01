@@ -326,23 +326,28 @@ function validImage($image, $path)
         // is an image
         // if filepath already exists
         if(file_exists($path)) {
-            $f3->set("errors['image']", "Using existing file.");
+//            $f3->set("errors['image']", "Using existing file.");
             // if already exists, set Drink image to the file
-//            $upload = false;
+            //$upload = false;
             if($f3->get('drink') instanceof Drink) {
-                $f3->get('drink')->setImage($path);
+               //TODO check add drink: $f3->get('drink')->setImage($path);
             } else {
-                $f3->set('drinkImg', $path);
+                //TODO check add drink: $f3->set('drinkImg', $path);
             }
+            // for add drink page
             $_SESSION['image'] = $path;
+            // not uploaded, but can re-use path without uploading
+            $f3->set('imgSource', $path);
+
+            // for edit drink page
+            $f3->set('newImage', 1);
+            $_SESSION['imageAlready'] = $path;
+//            unset($_SESSION['newImage']);
 
             // if not correct file type
-            // TODO: try to upload a non-image and see if the upload occurs even though there's an error
         } elseif (!($type == 'jpg' || $type == 'png' || $type == 'jpeg')) {
             $f3->set("errors['image']", "Please choose a png, jpg, or jpeg.");
             $upload = false;
-        } else {
-            $_SESSION['image'] = $path;
         }
     } else {
         $f3->set("errors['image']", "That file isn't an image.");
