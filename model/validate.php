@@ -121,7 +121,7 @@ function validStats($stats) {
         if(!preg_match($regex, $val)) {
             $f3->set("errors['stats'][$i]", "Invalid #");
             $valid = false;
-        } elseif($val < 0 || $val > 30) {
+        } elseif($val < 1 || $val > 30) {
             $f3->set("errors['stats'][$i]", "Invalid #");
             $valid = false;
         }
