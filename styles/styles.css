@@ -11,6 +11,10 @@ body {
     background-image: url("../images/bar_background.jpg");
     background-size: auto, 100%;
 }
+
+.jumbotron {
+    background-color: black;
+}
 /* Nav styles */
 nav {
     background: #741112;
@@ -98,6 +102,14 @@ label {
 }
 
 /* data table styles */
+td {
+    font-weight: bold;
+}
+
+td a {
+    font-weight: normal;
+}
+
 /*th {*/
     /*color: white !important;*/
 /*}*/
