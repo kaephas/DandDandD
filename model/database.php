@@ -30,13 +30,22 @@ class Database
         }
     }
 
+
     /**
      * Adds a new drink to the database
      *
-     * @param $drink Drink   Drink Object to be added
+     * @param Drink $drink   Drink Object to be added
+     * @return bool     If the addition occurred
      */
     function addDrink($drink)   // TODO: check this...
-    {   // insert
+    {
+        // compare ing types and instantly return with false
+
+        if(!$this->_compareIngType($drink)) {
+            return false;
+        }
+
+        // insert
         $sql = "INSERT INTO drink (name, glass, image, recipe, alcoholic, shots)
                 VALUES (:name, :glass, :image, :recipe, :alcoholic, :shots)";
 
@@ -78,8 +87,18 @@ class Database
             $ings = $drink->getIngredients();
             // TODO: remove eventually -> displayed on test pages
             $_SESSION['allIngs'] = $ings;
+
             $qtys = $drink->getQty();
             $types = $drink->getType();
+
+            //TODO: remove after testing
+            echo 'ings: ';
+            print_r($ings);
+            echo '<br>qtys: ';
+            print_r($qtys);
+            echo '<br>types: ';
+            print_r($types);
+
 
             $statement->bindParam(':name', $name);
             // add each ingredient to junction table
@@ -108,13 +127,22 @@ class Database
                     $statementNew->execute();
                 }
             }
+            return true;
+        } else {
+            return false;
         }
     }
 
     /**
-     * @param $drink    Drink   Drink Object to update from
+     * @param Drink     $drink   Drink Object to update from
+     * @param string    $oldName previous drink name to reference if drink name changed
+     * @return bool     Indicates db update success
      */
     function updateDrink($drink, $oldName) {
+
+        if(!$this->_compareIngType($drink)) {
+            return false;
+        }
 
         $sql = "UPDATE drink
                 SET name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots
@@ -190,8 +218,38 @@ class Database
                 }
             }
             $_SESSION['ingsFound'] = $ingsFound;
+            return true;
+        } else {
+            return false;
         }
     }
+
+    /**
+     * Checks if a drink's ingredient types match the database
+     *
+     * @param Drink|AlcoholDrink $drink     The drink to be checked
+     * @return bool $match      Whether the ingredient types match
+     */
+    private function _compareIngType($drink) {
+        $sql = "SELECT ing_name, type FROM ingredient
+                WHERE ing_name=:ing";
+        $statement = $this->_dbh->prepare($sql);
+
+        $ings = $drink->getIngredients();
+        $types = $drink->getType();
+
+        $match = true;
+        foreach($ings as $index => $ing) {
+            $statement->bindParam(':ing', $ing);
+            $statement->execute();
+            $result = $statement->fetch(2);
+            if($types[$index] != $result['type']) {
+                $match = false;
+            }
+        }
+        return $match;
+    }
+
 
     /**
      * Loads a view that shows and allows for editing drink info
@@ -335,7 +393,7 @@ class Database
             $drinks = $nonAlc;
         }
 
-        $match = $this->getBestDrink($drinks, $types);
+        $match = $this->_getBestDrink($drinks, $types);
 
         return $this->getDrink($match);
 //        return $match;
@@ -347,7 +405,7 @@ class Database
      * @param array $types
      * @return mixed
      */
-    private function getBestDrink(array $drinks, array $types)
+    private function _getBestDrink(array $drinks, array $types)
     {
         // get all drinks that have the most of the matching types
         $sql = "SELECT drink_ing.name AS name, ingredient.type AS type
@@ -461,4 +519,6 @@ class Database
         return $success;
     }
 
+
 }
+

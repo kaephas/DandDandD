@@ -317,6 +317,7 @@ function validShots($shots, $types) {
 function validImage($image, $path)
 {
     global $f3;
+    global $newDrink;
     // $image = $_FILES['image']
     //$path = 'uploads/' . $image["name"];
     $upload = true;
@@ -329,7 +330,8 @@ function validImage($image, $path)
 //            $f3->set("errors['image']", "Using existing file.");
             // if already exists, set Drink image to the file
             //$upload = false;
-            if($f3->get('drink') instanceof Drink) {
+            //if($f3->get('drink') instanceof Drink) {
+            if($newDrink instanceof Drink) {
                //TODO check add drink: $f3->get('drink')->setImage($path);
             } else {
                 //TODO check add drink: $f3->set('drinkImg', $path);
