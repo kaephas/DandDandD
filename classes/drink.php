@@ -152,5 +152,22 @@ class Drink
         $this->_recipe = $recipe;
     }
 
+    public function prettify() {
+        $tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
+        $output = get_class($this) . " { ";
+        $output .= "<br>{$tab} Name: $this->_name";
+        $output .= "<br>{$tab} Glass: $this->_glass";
+        $output .= "<br>{$tab} Ingredients: {";
+        $printIng = $this->_ingredients;
+        $printQty = $this->_qty;
+        $printType = $this->_type;
+        foreach($printIng as $i => $ing) {
+            $output .= "<br>{$tab}{$tab} $i: {$printQty[$i]} $ing => Type: {$printType[$i]}";
+        }
+        $output .= "<br>{$tab} }";
+        $output .= "<br>{$tab} Image: $this->_image";
+        $output .= "<br>{$tab} Recipe: $this->_recipe";
+        return $output;
+    }
 
 }
