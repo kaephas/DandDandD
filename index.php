@@ -27,7 +27,6 @@ $f3->set('glasses', generateGlasses());
 $f3->set('typeList', generateIngTypes());
 $f3->set('alcohols', array('cognac', 'gin', 'pisco', 'rum', 'tequila', 'vermouth', 'vodka', 'whiskey', 'liquor'));
 
-
 $db = new Database();
 
 //Define a default route (dating splash page)
@@ -55,10 +54,13 @@ $f3->route('GET|POST /find_drink', function($f3)
     $f3->set('statsList', generateStats());
     $f3->set('alignments', generateAlignments());
     $f3->set('backgrounds', generateBackgrounds());
+
+    //TODO is this section needed?
     $hello = $f3->get('class');
     if(!isset($hello)) {
         $f3->set('class', 'Artificer');
     }
+    // end TODO
 
     if(!empty($_POST)) {
         $f3->set('name', $_POST['name']);
@@ -70,19 +72,22 @@ $f3->route('GET|POST /find_drink', function($f3)
         $f3->set('stats', $_POST['stats']);
         $f3->set('alcoholic', $_POST['alcoholic']);
 
+        // for getClassInfo.php
+        $_SESSION['sub'] = $_POST['sub'];
 
         $validate = validCharacter();
 
         if($validate) {
             // create character object and store in session
+            $image = strtolower($f3->get('class'));
+            $image = "images/$image.jpg";
             $_SESSION['character'] = new Character(
                 $f3->get('name'), $f3->get('class'), $f3->get('sub'),
                 $f3->get('alignment'), $f3->get('background'), $f3->get('age'),
-                $f3->get('stats'), $f3->get('alcoholic')
+                $f3->get('stats'), $f3->get('alcoholic'), $image
             );
             // find matches
-            $drinkMatch = $db->getDrinkMatch($_SESSION['character']);
-            $_SESSION['drinkName'] = $drinkMatch;
+            $_SESSION['drinkMatch'] = $db->getDrinkMatch($_SESSION['character']);
             // choose one drink and store in session
 
             $f3->reroute('/result');
@@ -90,6 +95,7 @@ $f3->route('GET|POST /find_drink', function($f3)
     }
 
     $view = new Template();
+//    echo $view->render('views/character.html');
     echo $view->render('views/character.html');
 });
 
@@ -129,7 +135,6 @@ $f3->route('GET|POST /add_drink', function($f3)
 
             // get storage path to attempt
             $path = 'images/' . basename($image["name"]);
-
 
             $f3->set('newImage', 0);
             $validateImg = validImage($image, $path);
@@ -187,11 +192,8 @@ $f3->route('GET|POST /add_drink', function($f3)
                 //$_SESSION['drink'] = $drink;
                 //$f3->reroute('/test2');
                 $f3->reroute('/drinks');
-
             }
-
         }
-
     }
 
     $view = new Template();
@@ -211,6 +213,7 @@ $f3->route('GET /drinks', function($f3) {
     $view = new Template();
     echo $view->render('views/view_drinks.html');
 
+    // remove session data to prevent loading incorrect data
 //    unset($_SESSION['deletion']);
 //    unset($_SESSION['addition']);
 //    unset($_SESSION['image']);
@@ -224,14 +227,11 @@ $f3->route('GET /drinks', function($f3) {
     session_destroy();
 });
 
-
-
-
-//TODO: DELETE ONE OF THESE -> edit drinks take 2
+// edit drinks route
 $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     $drink = $params['drink'];
     global $db;
-    $info = $db->editDrink($drink);
+    $info = $db->getDrink($drink);
     // could just get $info->getName()....maybe?
     $f3->set('oldName', $info->getName());
 
@@ -245,7 +245,6 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     $f3->set('recipe', $info->getRecipe());
 
     if(get_class($info) == 'AlcoholDrink') {
-
         $f3->set('shots', $info->getShots());
     } else {
         $f3->set('shots', 0);
@@ -336,34 +335,16 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
         }
 
     }
-
     //$f3->set('ingTypes', $info->getType());
     $view = new Template();
     echo $view->render('views/edit_drink.html');
 });
 
-$f3->route('GET /test', function($f3) {
-    $f3->set('old', $_SESSION['old']);
-    $f3->set('new', $_SESSION['new']);
-    $f3->set('drink', $_SESSION['drink']);
-
-    $view = new Template();
-    echo $view->render('views/test.html');
-
-    session_destroy();
-});
-
-$f3->route('GET /test2', function($f3) {
-
-    $view = new Template();
-    echo $view->render('views/test2.html');
-    session_destroy();
-});
 
 $f3->route('GET|POST /delete/@drink', function($f3, $params) {
     global $db;
     $drinkName = $params['drink'];
-    $info = $db->editDrink($drinkName);
+    $info = $db->getDrink($drinkName);
     $f3->set('drink', $info);
 
     $f3->set('name', $info->getName());
@@ -398,126 +379,46 @@ $f3->route('GET|POST /delete/@drink', function($f3, $params) {
     echo $view->render('views/delete_drink.html');
 });
 
-$f3->route('GET /result', function() {
+$f3->route('GET /result', function($f3) {
+    $f3->set('drink', $_SESSION['drinkMatch']);
+    $f3->set('character', $_SESSION['character']);
+//    $drinkname = $_SESSION['drinkMatch']->getName();
+//    echo $drinkname;
+    $f3->set('pageTitle', $_SESSION['drinkMatch']->getName());
 
     $view = new Template();
     echo $view->render('views/result.html');
-    session_destroy();
+//    session_destroy();
+
 
 });
 
+//TODO: REMOVE test ajax view
+$f3->route('GET /testAjax', function($f3) {
+    $f3->set('pageTitle', 'Test Ajax');
+    $view = new Template();
+   echo $view->render('views/testAjax.html');
+});
+
+// TODO: DELETE when done testing
+$f3->route('GET /test', function($f3) {
+    $f3->set('old', $_SESSION['old']);
+    $f3->set('new', $_SESSION['new']);
+    $f3->set('drink', $_SESSION['drink']);
+
+    $view = new Template();
+    echo $view->render('views/test.html');
+
+    session_destroy();
+});
+
+// TODO: Delete when done testing
+$f3->route('GET /test2', function($f3) {
+
+    $view = new Template();
+    echo $view->render('views/test2.html');
+    session_destroy();
+});
+
+
 $f3->run();
-
-
-
-//TODO: DELETE ONE OF THESE -> edit drinks take 1
-//$f3->route('GET|POST ERASE/drinks/@drink', function($f3, $params) {
-//    $drink = $params['drink'];
-//    global $db;
-//    $info = $db->editDrink($drink);
-//    //TODO: store drink in session to be used to delete?
-//    $_SESSION['origDrink'] = $info;
-//    $f3->set('oldName', $info->getName());
-//    $f3->set('drink', $info);
-//
-//    $f3->set('name', $info->getName());
-//    $f3->set('drinkGlass', $info->getGlass());
-//    $f3->set('qtys', $info->getQty());
-//    $f3->set('ings', $info->getIngredients());
-//    $f3->set('types', $info->getType());
-//    $f3->set('recipe', $info->getRecipe());
-//
-//    if(get_class($info) == 'AlcoholDrink') {
-//
-//        $f3->set('shots', $info->getShots());
-//    } else {
-//        $f3->set('shots', 0);
-//    }
-//
-//    if(isset($_SESSION['image'])) {
-//        $f3->set('drinkImg', $_SESSION['image']);
-//    } else {
-//        $f3->set('drinkImg', $info->getImage());
-//        $_SESSION['image'] = $f3->get('drinkImg');
-//    }
-//
-//    if(!empty($_POST)) {
-//        // validate
-//        $name = $_POST['name'];
-//        $glass = $_POST['glass'];
-//        $shots = $_POST['shots'];
-//        $qtys = $_POST['qtys'];
-//        $ings = $_POST['ings'];
-//        $types = $_POST['types'];
-//        $recipe = $_POST['recipe'];
-//
-//        $f3->set('name', $name);
-//        $f3->set('drinkGlass', $glass);
-//        $f3->set('shots', $shots);
-//        $f3->set('qtys', $qtys);
-//        $f3->set('ings', $ings);
-//        $f3->set('types', $types);
-//        $f3->set('recipe', $recipe);
-//
-//        $validate = validInfo();
-//
-//        $validateImg = true;
-//        if(!empty($_FILES['drinkImg']['name'])) {
-//            $image = $_FILES['drinkImg'];
-////            var_dump($f3->get('drinkImg'));
-//            // get storage path to attempt
-//            $path = 'images/' . basename($image["name"]);
-//
-//            $validateImg = validImage($image, $path);
-//            // if uploaded update Drink object
-//            if($validateImg) {
-//                //$f3->get('drink')->setImage($path);
-//                $f3->set('newImage', $path);
-//            } //elseif(isset($_SESSION['image'])) {
-////                $f3->get('drink')->setImage($_SESSION['image']);
-////                $f3->set('drinkImg', $_SESSION['image']);
-////            }
-//        }//else {
-////            $f3->set('drinkImg', $_SESSION['image']);
-////
-////        }
-//
-////        echo 'after valid: ';
-////        var_dump($f3->get('drinkImg'));
-////        echo '<br> drink value: ';
-////        print_r($f3->get('drink')->getImage());
-//        $f3->set('drinkImg', $f3->get('drink')->getImage());
-//
-//        $validate = $validate && $validateImg;
-//        if(!$validate && $validateImg && !isset($_SESSION['image'])) {
-//            $f3->set('errors["image"]', 'Form error. Re-select image.');
-//        }
-//
-////        echo '<br>Drink info: ';
-////        var_dump($f3->get('drink'));
-//
-//        if($validate) {
-//            $newImage = $f3->get('newImage');
-//            if(isset($newImage)) {
-//                $f3->get('drink')->setImage($newImage);
-//            } else {
-//                $f3->get('drink')->setImage($_SESSION['image']);
-//            }
-//            $_SESSION['old'] = $f3->get('oldName');
-//            $_SESSION['new'] = $f3->get('drink')->getName();
-//            $_SESSION['drink'] = $f3->get('drink');
-//            // drink has been updated during validation
-//            // update database
-//            $db->updateDrink($f3->get('drink'), $f3->get('oldName'));
-//            // reroute to all drinks? Back to self with notice of success?
-//            $_SESSION['editSuccess'] = "Success! You edited " . $_SESSION['new'] . "!";
-////            $f3->reroute('/test');
-//            $f3->reroute('/drinks');
-//        }
-//
-//    }
-//
-//    //$f3->set('ingTypes', $info->getType());
-//    $view = new Template();
-//    echo $view->render('views/edit_drink.html');
-//});
