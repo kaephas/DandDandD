@@ -19,12 +19,12 @@
                     <div class="row">
                         <div class="col-sm-7 form-group">
                             <label for="glass">Glass</label>
-                            <input type="text" class="form-control" value="{{ @drink->getGlass() }} "disabled>
+                            <input type="text" class="form-control" value="{{ @drink->getGlass() }} " disabled>
 
                         </div>
                         <div class="col-sm-5 form-group">
                             <label for="shots">Shots</label>
-                            <input type="text" class="form-control" value="{{ @drink->getShots() }} "disabled>
+                            <input type="text" class="form-control" value="{{ @drink->getShots() }} " disabled>
 
                         </div>
                     </div>
@@ -53,9 +53,9 @@
                 </div>
             </div>
             <div class="row hideBig">
-            <div class="col-sm-12 my-auto">
-                <img src="{{ @drink->getImage() }}" alt="drink image" class="img-fluid mx-auto">
-            </div>
+                <div class="col-sm-12 my-auto">
+                    <img src="{{ @drink->getImage() }}" alt="drink image" class="img-fluid mx-auto">
+                </div>
             </div>
         </div>
         <div class="vl my-3"></div>
@@ -107,7 +107,9 @@
                             </label>
                         </div>
                     </div>
-                    <hr>
+                    <div class="hideBig">
+                        <hr>
+                    </div>
                 </div>
                 <div class="col-md-6 col-lg-9 text-center mx-auto hideSmall">
 
@@ -116,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row text-center">
                 <!--details-->
                 <div class="col-sm-6 form-group">
                     <label for="class">Class

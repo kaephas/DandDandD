@@ -240,12 +240,17 @@ class Database
 
         $match = true;
         foreach($ings as $index => $ing) {
+            echo '<br>iterating over ingredient list';
             $statement->bindParam(':ing', $ing);
             $statement->execute();
             $result = $statement->fetch(2);
-            if($types[$index] != $result['type']) {
-                $match = false;
+            // ingredient is already in database
+            if($result) {
+                if($types[$index] != $result['type']) {
+                    $match = false;
+                }
             }
+
         }
         return $match;
     }

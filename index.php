@@ -192,18 +192,18 @@ $f3->route('GET|POST /add_drink', function($f3)
                     // reroute to drink summary? acknowledge success?
                     $_SESSION['addition'] = "Success! You added " . $name . "!";
 
-//               $f3->reroute('/drinks');
+                    $f3->reroute('/drinks');
                 } else {
                     $f3->set('errors["db"]', 'Database error: check ingredient matches type, or try again later.');
                 }
                 //$_SESSION['drink'] = $drink;
                 //$f3->reroute('/test2');
-                echo 'Ingredients: ';
-                print_r($f3->get('ings'));
-                echo '<br>Types: ';
-                print_r($f3->get('types'));
-                echo '<br>All Drink info: ';
-                print_r($drink);
+//                echo 'Ingredients: ';
+//                print_r($f3->get('ings'));
+//                echo '<br>Types: ';
+//                print_r($f3->get('types'));
+//                echo '<br>All Drink info: ';
+//                print_r($drink);
 
             }
         }
@@ -442,6 +442,10 @@ $f3->route('GET|POST /delete/@drink', function($f3, $params) {
 });
 
 $f3->route('GET /result', function($f3) {
+    if(!isset($_SESSION['drinkMatch']) || !isset($_SESSION['character'])) {
+        $f3->reroute('/');
+    }
+
     $f3->set('drink', $_SESSION['drinkMatch']);
     $f3->set('character', $_SESSION['character']);
 //    $drinkname = $_SESSION['drinkMatch']->getName();
@@ -459,7 +463,7 @@ $f3->route('GET /result', function($f3) {
 $f3->route('GET /testAjax', function($f3) {
     $f3->set('pageTitle', 'Test Ajax');
     $view = new Template();
-   echo $view->render('views/testAjax.html');
+    echo $view->render('views/testAjax.html');
 });
 
 // TODO: DELETE when done testing
