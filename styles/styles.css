@@ -30,6 +30,24 @@ nav a:hover {
     color: orange;
 }
 
+#barImg {
+    /*background-image: url("../images/dndBar.jpg");*/
+    /*background-size: contain;*/
+    /*background-repeat: no-repeat;*/
+    /*background-color: unset;*/
+    /*height: auto;*/
+    /*width: 50vw;*/
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+#barBtn {
+    position: absolute;
+    width: 100%;
+    bottom: 40%;
+}
+
 h1{
     /*font-family: 'Cinzel', serif;*/
     /*font-family: 'Cinzel Decorative', cursive;*/
