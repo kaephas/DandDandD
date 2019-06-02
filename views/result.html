@@ -1,26 +1,161 @@
 <include href="/views/header.html" />
 
 <div class="container">
-    <h1>Tonight's Drink</h1>
-    <!-- big row containing everything -->
-    <div class="row">
-        <div class="col">
-            <!-- print out drink recipe -->
+    <div class="row text-center">
+        <h1 class="mx-auto">Tonight's Drink</h1>
+    </div>
+    <hr>
+    <div class="row"> <!-- Main inner row -->
 
-            <h5>Character Info</h5>
-            <p>{{ print_r(@SESSION.character) }}</p>
-        </div>
-        <div class="col">
-            <!-- column summarizing character data (load from character object) -->
-            <h2>Your drink is: {{ @SESSION.drinkName }}</h2>
-            <p>Types {{ print_r(@SESSION.types) }}</p>
-            <p>All Drinks: {{ print_r(@SESSION.allDrinks) }}</p>
-            <p># of type matches: ({{ @SESSION.max }}): {{ print_r(@SESSION.maxDrinks) }}</p>
-            <p>Count list: {{ print_r(@SESSION.countList) }}</p>
-            <p>Traits: {{ print_r(@SESSION.allTraits) }}</p>
-            <p>Trait to Type: {{ print_r(@SESSION.traitToType) }}</p>
+        <div class="col-md-7">
+            <div class="row">
+                <div class="col text-center">
+                    <h2 class="mx-auto">{{ @drink->getName() }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 mt-auto mb-3">
 
+                    <div class="row">
+                        <div class="col-sm-7 form-group">
+                            <label for="glass">Glass</label>
+                            <input type="text" class="form-control" value="{{ @drink->getGlass() }} "disabled>
+
+                        </div>
+                        <div class="col-sm-5 form-group">
+                            <label for="shots">Shots</label>
+                            <input type="text" class="form-control" value="{{ @drink->getShots() }} "disabled>
+
+                        </div>
+                    </div>
+                    <div class="row mt-auto">
+                        <div class="col mt-auto">
+                            <label for="">Ingredients</label>
+                            <ul class="list-group">
+                                <repeat group="{{ @drink->getIngredients() }}" key="{{ @index }}" value="{{ @ing }}">
+                                    <li class="list-group-item resultIngs">{{ @drink->getQty()[@index] }} - {{ @ing }}</li>
+                                </repeat>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 my-auto hideSmall">
+                    <img src="{{ @drink->getImage() }}" alt="drink image" class="img-fluid mx-auto">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group mx-auto">
+                        <label for="directions">Directions</label>
+                        <textarea name="" id="directions" rows="7" class="form-control" disabled>{{ @drink->getRecipe() }}</textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row hideBig">
+            <div class="col-sm-12 my-auto">
+                <img src="{{ @drink->getImage() }}" alt="drink image" class="img-fluid mx-auto">
+            </div>
+            </div>
         </div>
+        <div class="vl my-3"></div>
+        <div class="col"> <!-- Character Info Column -->
+            <div class="hideBig">
+                <hr>
+            </div>
+            <div class="row">
+                <h2 class="mx-auto">{{ @character->getName() }}</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-3 text-center">
+                    <!-- stats -->
+                    <div class="row">
+                        <div class="col-md-12 col-sm-4">
+                            <label for="str">Str
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[0] }}" disabled>
+                            </label>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <label for="dex">Dex
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[1] }}" disabled>
+                            </label>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <label for="con">Con
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[2] }}" disabled>
+                            </label>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <label for="int">Int
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[3] }}" disabled>
+                            </label>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <label for="wis">Wis
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[4] }}" disabled>
+                            </label>
+                        </div>
+                        <div class="col-md-12 col-sm-4">
+                            <label for="cha">Cha
+                                <input type="text" class="form-control statResult text-center"
+                                       value="{{ @character->getStats()[5] }}" disabled>
+                            </label>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="col-md-6 col-lg-9 text-center mx-auto hideSmall">
+
+                    <!--image-->
+                    <img src="{{ @character->getImage() }}" alt="drink image" class="img-fluid mx-auto">
+                </div>
+            </div>
+
+            <div class="row">
+                <!--details-->
+                <div class="col-sm-6 form-group">
+                    <label for="class">Class
+                        <input type="text" class="form-control classResult"
+                               value="{{ @character->getClass() }}" disabled>
+                    </label>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="subclass">Subclass
+                        <input type="text" class="form-control subResult"
+                               value="{{ @character->getSubclass() }}" disabled>
+                    </label>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="subclass">Background
+                        <input type="text" class="form-control subResult"
+                               value="{{ @character->getBackground() }}" disabled>
+                    </label>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="subclass">Alignment
+                        <input type="text" class="form-control subResult"
+                               value="{{ @character->getAlignment() }}" disabled>
+                    </label>
+                </div>
+                <div class="col-sm-6 form-group">
+                    <label for="subclass">Age
+                        <input type="text" class="form-control subResult text-center"
+                               value="{{ @character->getAge() }}" disabled>
+                    </label>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-9 text-center hideBig">
+
+                <!--image-->
+                <img src="{{ @character->getImage() }}" alt="drink image" class="img-fluid mx-auto">
+            </div>
+        </div>
+
     </div>
     <div class="row">
         <a href="find_drink" class="btn btn-warning mx-auto">Find Another Drink</a>

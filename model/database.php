@@ -198,7 +198,7 @@ class Database
      * @param $drinkName string   The name of the drink to be queried
      * @return Drink|AlcoholDrink $newDrink     Drink object created
      */
-    function editDrink($drinkName)
+    function getDrink($drinkName)
     {   // update
         // get drink table info
         $sql = "SELECT name, glass, image, recipe, alcoholic, shots FROM drink
@@ -237,12 +237,11 @@ class Database
 
         return $newDrink;
 
-
     }
 
     /**
      * @param Character $character  Character Object storing all choices
-     * @return string $match        The name of the drink match found
+     * @return Drink|AlcoholDrink $match        The name of the drink match found
      */
     function getDrinkMatch($character)
     {
@@ -272,6 +271,7 @@ class Database
         $trait[] = $character->getAlignment();
         $trait[] = $character->getBackground();
 
+        // TODO: remove when done testing
         $_SESSION['allTraits'] = $trait;
         // iterate over all types
         $types = array();
@@ -286,6 +286,7 @@ class Database
             $traitToType[$trait[$i]] = $found['type'];
         }
 
+        // TODO Remove when done testing
         $_SESSION['traitToType'] = $traitToType;
 
         // get all drinks that have each type
@@ -307,7 +308,7 @@ class Database
         $drinks = array_unique($drinksList);
 
         // get non-alcoholic if necessary
-        if($character->getAlcoholic() == 0) {
+        if($character->getAlcoholic() != 'yes') {
             $sql = "SELECT alcoholic from drink
                     WHERE name=:name";
             $statement = $this->_dbh->prepare($sql);
@@ -336,7 +337,8 @@ class Database
 
         $match = $this->getBestDrink($drinks, $types);
 
-        return $match;
+        return $this->getDrink($match);
+//        return $match;
     }
 
 
@@ -384,11 +386,13 @@ class Database
                 $maxDrink[] = $drink;
             }
         }
+        // TODO: Remove when done testing
         $_SESSION['max'] = $maxTypes;
         $_SESSION['types'] = $types;
         $_SESSION['allDrinks'] = $drinks;
         $_SESSION['maxDrinks'] = $maxDrink;
         $_SESSION['drinksToTypes'] = $drinksToTypes;
+        // TODO end remove
         // randomly select one
         $index = rand(0, count($maxDrink) - 1);
         $match = $maxDrink[$index];
