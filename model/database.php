@@ -240,7 +240,6 @@ class Database
 
         $match = true;
         foreach($ings as $index => $ing) {
-            echo '<br>iterating over ingredient list';
             $statement->bindParam(':ing', $ing);
             $statement->execute();
             $result = $statement->fetch(2);

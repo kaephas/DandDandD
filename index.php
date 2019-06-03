@@ -368,7 +368,7 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
 //                    echo '<br>Post ingredients: ';
 //                    print_r($_POST['ings']);
 
-//                    $f3->reroute('/drinks');
+                    $f3->reroute('/drinks');
                 } else {
                     $f3->set("errors['db']", 'Database error: check ingredient and type matches and
                      redo image choice if necessary, or try again later.');
