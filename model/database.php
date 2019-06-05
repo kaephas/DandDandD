@@ -30,22 +30,13 @@ class Database
         }
     }
 
-
     /**
      * Adds a new drink to the database
      *
-     * @param Drink $drink   Drink Object to be added
-     * @return bool     If the addition occurred
+     * @param $drink Drink   Drink Object to be added
      */
     function addDrink($drink)   // TODO: check this...
-    {
-        // compare ing types and instantly return with false
-
-        if(!$this->_compareIngType($drink)) {
-            return false;
-        }
-
-        // insert
+    {   // insert
         $sql = "INSERT INTO drink (name, glass, image, recipe, alcoholic, shots)
                 VALUES (:name, :glass, :image, :recipe, :alcoholic, :shots)";
 
@@ -87,18 +78,8 @@ class Database
             $ings = $drink->getIngredients();
             // TODO: remove eventually -> displayed on test pages
             $_SESSION['allIngs'] = $ings;
-
             $qtys = $drink->getQty();
             $types = $drink->getType();
-
-            //TODO: remove after testing
-            echo 'ings: ';
-            print_r($ings);
-            echo '<br>qtys: ';
-            print_r($qtys);
-            echo '<br>types: ';
-            print_r($types);
-
 
             $statement->bindParam(':name', $name);
             // add each ingredient to junction table
@@ -127,22 +108,13 @@ class Database
                     $statementNew->execute();
                 }
             }
-            return true;
-        } else {
-            return false;
         }
     }
 
     /**
-     * @param Drink     $drink   Drink Object to update from
-     * @param string    $oldName previous drink name to reference if drink name changed
-     * @return bool     Indicates db update success
+     * @param $drink    Drink   Drink Object to update from
      */
     function updateDrink($drink, $oldName) {
-
-        if(!$this->_compareIngType($drink)) {
-            return false;
-        }
 
         $sql = "UPDATE drink
                 SET name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots
@@ -218,49 +190,15 @@ class Database
                 }
             }
             $_SESSION['ingsFound'] = $ingsFound;
-            return true;
-        } else {
-            return false;
         }
     }
-
-    /**
-     * Checks if a drink's ingredient types match the database
-     *
-     * @param Drink|AlcoholDrink $drink     The drink to be checked
-     * @return bool $match      Whether the ingredient types match
-     */
-    private function _compareIngType($drink) {
-        $sql = "SELECT ing_name, type FROM ingredient
-                WHERE ing_name=:ing";
-        $statement = $this->_dbh->prepare($sql);
-
-        $ings = $drink->getIngredients();
-        $types = $drink->getType();
-
-        $match = true;
-        foreach($ings as $index => $ing) {
-            $statement->bindParam(':ing', $ing);
-            $statement->execute();
-            $result = $statement->fetch(2);
-            // ingredient is already in database
-            if($result) {
-                if($types[$index] != $result['type']) {
-                    $match = false;
-                }
-            }
-
-        }
-        return $match;
-    }
-
 
     /**
      * Loads a view that shows and allows for editing drink info
      * @param $drinkName string   The name of the drink to be queried
      * @return Drink|AlcoholDrink $newDrink     Drink object created
      */
-    function getDrink($drinkName)
+    function editDrink($drinkName)
     {   // update
         // get drink table info
         $sql = "SELECT name, glass, image, recipe, alcoholic, shots FROM drink
@@ -299,11 +237,12 @@ class Database
 
         return $newDrink;
 
+
     }
 
     /**
      * @param Character $character  Character Object storing all choices
-     * @return Drink|AlcoholDrink $match        The name of the drink match found
+     * @return string $match        The name of the drink match found
      */
     function getDrinkMatch($character)
     {
@@ -333,7 +272,6 @@ class Database
         $trait[] = $character->getAlignment();
         $trait[] = $character->getBackground();
 
-        // TODO: remove when done testing
         $_SESSION['allTraits'] = $trait;
         // iterate over all types
         $types = array();
@@ -348,7 +286,6 @@ class Database
             $traitToType[$trait[$i]] = $found['type'];
         }
 
-        // TODO Remove when done testing
         $_SESSION['traitToType'] = $traitToType;
 
         // get all drinks that have each type
@@ -370,7 +307,7 @@ class Database
         $drinks = array_unique($drinksList);
 
         // get non-alcoholic if necessary
-        if($character->getAlcoholic() != 'yes') {
+        if($character->getAlcoholic() == 0) {
             $sql = "SELECT alcoholic from drink
                     WHERE name=:name";
             $statement = $this->_dbh->prepare($sql);
@@ -397,10 +334,9 @@ class Database
             $drinks = $nonAlc;
         }
 
-        $match = $this->_getBestDrink($drinks, $types);
+        $match = $this->getBestDrink($drinks, $types);
 
-        return $this->getDrink($match);
-//        return $match;
+        return $match;
     }
 
 
@@ -409,7 +345,7 @@ class Database
      * @param array $types
      * @return mixed
      */
-    private function _getBestDrink(array $drinks, array $types)
+    private function getBestDrink(array $drinks, array $types)
     {
         // get all drinks that have the most of the matching types
         $sql = "SELECT drink_ing.name AS name, ingredient.type AS type
@@ -448,13 +384,11 @@ class Database
                 $maxDrink[] = $drink;
             }
         }
-        // TODO: Remove when done testing
         $_SESSION['max'] = $maxTypes;
         $_SESSION['types'] = $types;
         $_SESSION['allDrinks'] = $drinks;
         $_SESSION['maxDrinks'] = $maxDrink;
         $_SESSION['drinksToTypes'] = $drinksToTypes;
-        // TODO end remove
         // randomly select one
         $index = rand(0, count($maxDrink) - 1);
         $match = $maxDrink[$index];
@@ -523,6 +457,30 @@ class Database
         return $success;
     }
 
+    /**
+     *
+     */
+    function validAdmin($username, $password){
+
+        $sql = "SELECT username FROM USER
+                WHERE username=:username
+                AND password=:password";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':username', $username, 2);
+        $statement->bindParam(':password', $password, 2);
+
+        $statement->execute();
+
+        $result = $statement->fetch(2);
+
+        if ($result->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 }
-

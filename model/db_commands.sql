@@ -545,3 +545,13 @@ VALUES
 ('Midori Sour', '1/2oz', 'Lemon Juice'),
 ('Midori Sour', '1/2oz', 'Lime Juice'),
 ('Midori Sour', 'Fill', 'Club Soda');
+
+
+CREATE TABBLE admin
+(
+	username VARCHAR(255) PRIMARY KEY,
+	password VARCHAR(255)
+);
+
+INSERT INTO admin
+VALUES ('Zane', 'Zane'), ('Kaephas', 'Kaephas');
