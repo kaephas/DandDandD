@@ -459,7 +459,7 @@ $f3->route('GET /result', function($f3) {
 
 });
 
-$f3->route('GET /login', function ($f3){
+$f3->route('GET|POST /login', function ($f3){
     global $f3;
     global $db;
 
