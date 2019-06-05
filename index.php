@@ -459,6 +459,27 @@ $f3->route('GET /result', function($f3) {
 
 });
 
+$f3->route('GET /login', function ($f3){
+    global $f3;
+    global $db;
+
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $f3->set('username', $username);
+    $f3->set('password', $password);
+
+    if ($db->validAdmin($username, $password)) {
+        $_SESSION['admin'] = $username;
+
+        echo '<div class="alert alert-success">You are now logged in.</div>';
+    }
+
+    $view = new Template();
+    echo $view->render('views/login.html');
+});
+
+
 //TODO: REMOVE test ajax view
 $f3->route('GET /testAjax', function($f3) {
     $f3->set('pageTitle', 'Test Ajax');
