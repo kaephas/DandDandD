@@ -547,7 +547,7 @@ VALUES
 ('Midori Sour', 'Fill', 'Club Soda');
 
 
-CREATE TABBLE admin
+CREATE TABLE admin
 (
 	username VARCHAR(255) PRIMARY KEY,
 	password VARCHAR(255)
