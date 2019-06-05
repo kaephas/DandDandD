@@ -523,6 +523,32 @@ class Database
         return $success;
     }
 
+    /**
+     *
+     */
+    function validAdmin($username, $password){
+
+        $sql = "SELECT username FROM USER
+                WHERE username=:username
+                AND password=:password";
+
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(':username', $username, 2);
+        $statement->bindParam(':password', $password, 2);
+
+        $statement->execute();
+
+        $result = $statement->fetch(2);
+
+        if ($result->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 
 }
 
