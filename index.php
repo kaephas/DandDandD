@@ -472,7 +472,9 @@ $f3->route('GET|POST /login', function ($f3){
     if ($db->validAdmin($username, $password)) {
         $_SESSION['admin'] = $username;
 
-        echo '<div class="alert alert-success">You are now logged in.</div>';
+        $f3->reroute('/');
+    } else {
+        echo '<div class="alert alert-danger">No Admin rights.</div>';
     }
 
     $view = new Template();
