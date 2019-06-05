@@ -13,7 +13,7 @@
     <!-- my own -->
     <link rel="stylesheet" href="styles/styles.css">
     <!--Google Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Cinzel:700|Federant|Gabriela|MedievalSharp|Metamorphous|New+Rocker|UnifrakturCook:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:900|Cinzel:700|Federant|Metamorphous|UnifrakturCook:700&display=swap" rel="stylesheet">
 
     <title>{{ @pageTitle }}</title>
 </head>
@@ -21,17 +21,27 @@
 <div class="jumbotron text-center pb-0 pt-1" id="logoHead">
     <img src="images/dndnd.png" alt="dndnd site logo" class="img-fluid mx-auto">
     <nav class="nav bottom">
-        <div class="col-md-3 col-sm-6">
-            <a class="nav-link my-auto" href="./">Home</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="nav-link" href="find_drink">Find Drink</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="nav-link" href="add_drink">Add Drink</a>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <a class="nav-link" href="drinks">All Drinks</a>
-        </div>
+            <div class="col">
+                <a class="nav-link my-auto" href="./">Home</a>
+            </div>
+            <div class="col">
+                <a class="nav-link" href="find_drink">Find Drink</a>
+            </div>
+        <check if="{{ @SESSION.admin }}">
+            <div class="col">
+                <a class="nav-link" href="add_drink">Add Drink</a>
+            </div>
+            <div class="col">
+                <a class="nav-link" href="drinks">All Drinks</a>
+            </div>
+            <div class="col">
+                <a class="btn" href="logout">Logout</a>
+            </div>
+        </check>
+        <check if="{{ !isset(@SESSION.admin) }}">
+            <div class="col">
+                <a class="btn" href="login">Login</a>
+            </div>
+        </check>
     </nav>
 </div>

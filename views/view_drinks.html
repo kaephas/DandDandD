@@ -24,17 +24,27 @@
     <img src="images/dndnd.png" alt="dndnd site logo" class="img-fluid mx-auto">
     <nav class="nav bottom">
         <div class="col">
-            <a class="nav-link" href="./">Home</a>
+            <a class="nav-link my-auto" href="./">Home</a>
         </div>
         <div class="col">
             <a class="nav-link" href="find_drink">Find Drink</a>
         </div>
-        <div class="col">
-            <a class="nav-link" href="add_drink">Add Drink</a>
-        </div>
-        <div class="col">
-            <a class="nav-link" href="drinks">All Drinks</a>
-        </div>
+        <check if="{{ @SESSION.admin }}">
+            <div class="col">
+                <a class="nav-link" href="add_drink">Add Drink</a>
+            </div>
+            <div class="col">
+                <a class="nav-link" href="drinks">All Drinks</a>
+            </div>
+            <div class="col">
+                <a class="btn" href="logout">Logout</a>
+            </div>
+        </check>
+        <check if="{{ !isset(@SESSION.admin) }}">
+            <div class="col">
+                <a class="btn" href="login">Login</a>
+            </div>
+        </check>
     </nav>
 </div>
 
@@ -93,7 +103,7 @@
 <script src="https://cdn.datatables.net/rowreorder/1.2.5/js/dataTables.rowReorder.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <!-- run datatable and onclick row links -->
-<script src="scripts/tableScripts.js"></script>
+<script src="scripts/scripts.js"></script>
 <!-- bootstrap scripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"

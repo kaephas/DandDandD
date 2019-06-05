@@ -22,32 +22,36 @@
     <img src="../images/dndnd.png" alt="dndnd site logo" class="img-fluid mx-auto">
     <nav class="nav bottom">
         <div class="col">
-            <a class="nav-link" href="../">Home</a>
+            <a class="nav-link my-auto" href="./">Home</a>
         </div>
         <div class="col">
-            <a class="nav-link" href="../find_drink">Find Drink</a>
+            <a class="nav-link" href="find_drink">Find Drink</a>
         </div>
-        <div class="col">
-            <a class="nav-link" href="../add_drink">Add Drink</a>
-        </div>
-        <div class="col">
-            <a class="nav-link" href="../drinks">All Drinks</a>
-        </div>
+        <check if="{{ @SESSION.admin }}">
+            <div class="col">
+                <a class="nav-link" href="add_drink">Add Drink</a>
+            </div>
+            <div class="col">
+                <a class="nav-link" href="drinks">All Drinks</a>
+            </div>
+            <div class="col">
+                <a class="btn" href="logout">Logout</a>
+            </div>
+        </check>
+        <check if="{{ !isset(@SESSION.admin) }}">
+            <div class="col">
+                <a class="btn" href="login">Login</a>
+            </div>
+        </check>
     </nav>
 </div>
 
 <div class="container">
     <form action="#" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class="row">
-        <h6 class="text-danger mx-auto">
-            <check if="{{ @errors['db'] }}">{{ @errors['db'] }}</check>
-        </h6>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md form-group">
-
                         <label for="name">Name</label>
                         <check if="{{ @errors['name'] }}">
                             <span class="text-danger">{{ @errors['name'] }}</span>
@@ -84,7 +88,7 @@
                         <div class="col-md-3 form-group ">
 
                             <label for="{{'qty'.@index }}">Qty</label>
-                            <check if="{{ @errors['qty'][@index] }}">
+                            <check if="{{ @errors[qty][@index] }}">
                                 <span class="text-danger">{{ @errors[qty][@index] }}</span>
                             </check>
                             <input id="{{'qty'.@index }}" type="text" name="qtys[]"
@@ -92,14 +96,14 @@
                         </div>
                         <div class="col-md-5 form-group">
                             <label for="{{ @ing }}">Ingredient</label>
-                            <check if="{{ @errors['ing'][@index] }}">
+                            <check if="{{ @errors[ing][@index] }}">
                                 <span class="text-danger">{{ @errors[ing][@index] }}</span>
                             </check>
                             <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}" required>
                         </div>
                         <div class="col-md-4 form-group">
                             <label for="{{ 'type'.@index }}">Category</label>
-                            <check if="{{ @errors['type'][@index] }}">
+                            <check if="{{ @errors[type][@index] }}">
                                 <span class="text-danger">{{ @errors[type][@index] }}</span>
                             </check>
                             <select name="types[]" id="{{ 'type'.@index }}" class="form-control" required>
