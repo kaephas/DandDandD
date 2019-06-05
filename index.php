@@ -463,18 +463,22 @@ $f3->route('GET|POST /login', function ($f3){
     global $f3;
     global $db;
 
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    if (isset($_POST['username'])) {
 
-    $f3->set('username', $username);
-    $f3->set('password', $password);
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-    if ($db->validAdmin($username, $password)) {
-        $_SESSION['admin'] = $username;
+        $f3->set('username', $username);
+        $f3->set('password', $password);
 
-        $f3->reroute('/');
-    } else {
-        echo '<div class="alert alert-danger">No Admin rights.</div>';
+        if ($db->validAdmin($username, $password)) {
+
+            $_SESSION['admin'] = $username;
+
+            $f3->reroute('/');
+        } else {
+            echo '<div class="alert alert-danger">No Admin rights.</div>';
+        }
     }
 
     $view = new Template();
