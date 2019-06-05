@@ -6,19 +6,15 @@
  *
  * Database class
  */
-
 $user = $_SERVER['USER'];
 require "/home/$user/config.php";
-
 class Database
 {
     private $_dbh;
-
     function __construct()
     {
         $this->connect();
     }
-
     function connect()
     {
         try {
@@ -29,7 +25,6 @@ class Database
             echo 'Unable to connect to database: ' . $e->getMessage();
         }
     }
-
     /**
      * Adds a new drink to the database
      *
@@ -39,9 +34,7 @@ class Database
     {   // insert
         $sql = "INSERT INTO drink (name, glass, image, recipe, alcoholic, shots)
                 VALUES (:name, :glass, :image, :recipe, :alcoholic, :shots)";
-
         $statement = $this->_dbh->prepare($sql);
-
         $name = $drink->getName();
         $glass = $drink->getGlass();
         $image = $drink->getImage();
@@ -59,7 +52,6 @@ class Database
         $_SESSION['recipe1'] = $recipe;
         $_SESSION['alcoholic1'] = $alcoholic;
         $_SESSION['shots1'] = $shots;
-
         $statement->bindParam(':name', $name);
         $statement->bindParam(':glass', $glass);
         $statement->bindParam(':image', $image);
@@ -74,13 +66,11 @@ class Database
             $sql = "INSERT into drink_ing (name, ing_name, qty)
                 VALUES (:name, :ing_name, :qty)";
             $statement = $this->_dbh->prepare($sql);
-
             $ings = $drink->getIngredients();
             // TODO: remove eventually -> displayed on test pages
             $_SESSION['allIngs'] = $ings;
             $qtys = $drink->getQty();
             $types = $drink->getType();
-
             $statement->bindParam(':name', $name);
             // add each ingredient to junction table
             $ingsFound = array();
@@ -88,7 +78,6 @@ class Database
                 $statement->bindParam(':ing_name', ucwords($ings[$i]));
                 $statement->bindParam(':qty', $qtys[$i]);
                 $statement->execute();
-
                 // check if ingredient is in ingredient table
                 $sqlIng = "SELECT ing_name FROM ingredient
                         WHERE ing_name=:ing";
@@ -110,17 +99,14 @@ class Database
             }
         }
     }
-
     /**
      * @param $drink    Drink   Drink Object to update from
      */
     function updateDrink($drink, $oldName) {
-
         $sql = "UPDATE drink
                 SET name=:name, glass=:glass, image=:image, recipe=:recipe, alcoholic=:alcoholic, shots=:shots
                 WHERE name=:old";
         $statement = $this->_dbh->prepare($sql);
-
         $name = $drink->getName();
         $glass = $drink->getGlass();
         $image = $drink->getImage();
@@ -149,18 +135,15 @@ class Database
             $statement->bindParam(':old', $oldName);
             // delete all entries in junction table matching old drink name (if it changed)
             $statement->execute();
-
             // then update with new values
             $sql = "INSERT into drink_ing (name, ing_name, qty)
                 VALUES (:name, :ing_name, :qty)";
             $statement = $this->_dbh->prepare($sql);
-
             $ings = $drink->getIngredients();
             // TODO: remove session variable when done testing
             $_SESSION['allIngs'] = $ings;
             $qtys = $drink->getQty();
             $types = $drink->getType();
-
             $statement->bindParam(':name', $name);
             // add each ingredient to junction table
             $ingsFound = array();
@@ -168,7 +151,6 @@ class Database
                 $statement->bindParam(':ing_name', $ings[$i]);
                 $statement->bindParam(':qty', $qtys[$i]);
                 $statement->execute();
-
                 // check if ingredient is in ingredient table
                 $sqlIng = "SELECT ing_name FROM ingredient
                         WHERE ing_name=:ing";
@@ -192,7 +174,6 @@ class Database
             $_SESSION['ingsFound'] = $ingsFound;
         }
     }
-
     /**
      * Loads a view that shows and allows for editing drink info
      * @param $drinkName string   The name of the drink to be queried
@@ -207,17 +188,13 @@ class Database
         $statement->bindParam(':name', $drinkName);
         $statement->execute();
         $drink = $statement->fetch(2);
-
         // get ingredients, qty, type
-
         $sql = "SELECT drink_ing.ing_name, qty, type FROM drink_ing, ingredient
                 WHERE drink_ing.name = :name AND drink_ing.ing_name = ingredient.ing_name";
         $statement = $this->_dbh->prepare($sql);
-
         $statement->bindParam(':name', $drinkName);
         $statement->execute();
         $rows = $statement->fetchAll(2);
-
         $qty = array();
         $type = array();
         $ingredients = array();
@@ -226,7 +203,6 @@ class Database
             $type[] = $ingredient['type'];
             $ingredients[] = $ingredient['ing_name'];
         }
-
         $drink['ingredients'] = $rows;
         if($drink['alcoholic'] == 0) {
             $newDrink = new Drink($drinkName, $drink['glass'], $qty, $ingredients, $type, $drink['recipe'], $drink['image']);
@@ -234,12 +210,8 @@ class Database
             $newDrink = new AlcoholDrink($drinkName, $drink['glass'], $qty, $ingredients, $type, $drink['recipe'], $drink['image']);
             $newDrink->setShots($drink['shots']);
         }
-
         return $newDrink;
-
-
     }
-
     /**
      * @param Character $character  Character Object storing all choices
      * @return string $match        The name of the drink match found
@@ -247,7 +219,6 @@ class Database
     function getDrinkMatch($character)
     {
         // get all types that match characteristics
-
         // get maximum stat
         $statsList = generateStats();
         $stats = array();
@@ -267,11 +238,9 @@ class Database
         }
         $index = rand(0, count($topStats) - 1);
         $trait[] = $topStats[$index];
-
         $trait[] = $character->getSubclass();
         $trait[] = $character->getAlignment();
         $trait[] = $character->getBackground();
-
         $_SESSION['allTraits'] = $trait;
         // iterate over all types
         $types = array();
@@ -285,15 +254,12 @@ class Database
             $types[] = $found['type'];
             $traitToType[$trait[$i]] = $found['type'];
         }
-
         $_SESSION['traitToType'] = $traitToType;
-
         // get all drinks that have each type
         $sql = "SELECT drink_ing.name AS name 
                 FROM drink_ing, ingredient
                 WHERE ingredient.type=:type AND drink_ing.ing_name = ingredient.ing_name";
         $statement = $this->_dbh->prepare($sql);
-
         $drinksList = array();
         foreach($types as $type) {
             $statement->bindParam(':type', $type);
@@ -303,9 +269,7 @@ class Database
                 $drinksList[] = $drink['name'];
             }
         }
-
         $drinks = array_unique($drinksList);
-
         // get non-alcoholic if necessary
         if($character->getAlcoholic() == 0) {
             $sql = "SELECT alcoholic from drink
@@ -333,13 +297,9 @@ class Database
             }
             $drinks = $nonAlc;
         }
-
         $match = $this->getBestDrink($drinks, $types);
-
         return $match;
     }
-
-
     /**
      * @param array $drinks
      * @param array $types
@@ -352,7 +312,6 @@ class Database
                 FROM drink_ing, ingredient
                 WHERE drink_ing.name=:name AND drink_ing.ing_name=ingredient.ing_name";
         $statement = $this->_dbh->prepare($sql);
-
         $maxTypes = 0;
         $maxDrink = array();
         $drinksToTypes = array();
@@ -380,7 +339,6 @@ class Database
                 $maxDrink = array($drink);
                 $maxTypes = $count;
             } elseif ($count == $maxTypes) {
-
                 $maxDrink[] = $drink;
             }
         }
@@ -394,8 +352,6 @@ class Database
         $match = $maxDrink[$index];
         return $match;
     }
-
-
 //    function testResult() {
 //        $sql = "SELECT drink_ing.name AS name, ingredient.type AS type
 //                FROM drink_ing, ingredient
@@ -409,25 +365,19 @@ class Database
 //        var_dump($result['type']);
 //
 //    }
-
-
     function getAllDrinks()
     {
         // select name
         $db = $this->_dbh;
-
         $sql = "SELECT name, glass, shots FROM drink";
         $statement = $db->prepare($sql);
         $statement->execute();
         $rows = $statement->fetchAll(2);
-
         for($i = 0; $i < count($rows); $i++) {
             $rows[$i]['shots'] = $rows[$i]['shots'] . " shots";
         }
-
         return $rows;
     }
-
     /**
      * Deletes a drink and it's ingredients from junction table
      *
@@ -436,11 +386,9 @@ class Database
      */
     function deleteDrink($drinkName) {
         $success = 'neither';
-
         $sql = "DELETE FROM drink
                 WHERE drink.name=:name";
         $statement = $this->_dbh->prepare($sql);
-
         $statement->bindParam(':name', $drinkName);
         if($statement->execute()) {
             $success = "first";
@@ -451,36 +399,7 @@ class Database
             if($statement->execute()) {
                 $success = "both";
             }
-
         }
-
         return $success;
     }
-
-    /**
-     *
-     */
-    function validAdmin($username, $password){
-
-        $sql = "SELECT username FROM USER
-                WHERE username=:username
-                AND password=:password";
-
-        $statement = $this->_dbh->prepare($sql);
-
-        $statement->bindParam(':username', $username, 2);
-        $statement->bindParam(':password', $password, 2);
-
-        $statement->execute();
-
-        $result = $statement->fetch(2);
-
-        if ($result->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
-        }
-
-    }
-
 }
