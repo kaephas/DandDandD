@@ -32,7 +32,7 @@ $db = new Database();
 //Define a default route (dating splash page)
 $f3->route('GET /', function($f3)
 {
-    session_destroy();
+//    session_destroy();
     $pageTitle = "D&D&D";
     $f3->set('pageTitle', $pageTitle);
 
@@ -227,17 +227,17 @@ $f3->route('GET /drinks', function($f3) {
     echo $view->render('views/view_drinks.html');
 
     // remove session data to prevent loading incorrect data
-//    unset($_SESSION['deletion']);
-//    unset($_SESSION['addition']);
-//    unset($_SESSION['image']);
-//    unset($_SESSION['editSuccess']);
-//    unset($_SESSION['newImage']);
-//    unset($_SESSION['old']);
-//    unset($_SESSION['new']);
-//    unset($_SESSION['drink']);
-//    unset($_SESSION['imageAlready']);
+    unset($_SESSION['deletion']);
+    unset($_SESSION['addition']);
+    unset($_SESSION['image']);
+    unset($_SESSION['editSuccess']);
+    unset($_SESSION['newImage']);
+    unset($_SESSION['old']);
+    unset($_SESSION['new']);
+    unset($_SESSION['drink']);
+    unset($_SESSION['imageAlready']);
     //TODO swap to commented if adding user logon
-    session_destroy();
+//    session_destroy();
 });
 
 // edit drinks route
@@ -481,6 +481,12 @@ $f3->route('GET|POST /login', function ($f3){
     echo $view->render('views/login.html');
 });
 
+$f3->route('GET /logout', function ($f3){
+
+    unset($_SESSION['admin']);
+
+   $f3->reroute('/');
+});
 
 //TODO: REMOVE test ajax view
 $f3->route('GET /testAjax', function($f3) {

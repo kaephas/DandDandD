@@ -528,7 +528,7 @@ class Database
      */
     function validAdmin($username, $password){
 
-        $sql = "SELECT username FROM USER
+        $sql = "SELECT username FROM admin
                 WHERE username=:username
                 AND password=:password";
 
@@ -541,7 +541,7 @@ class Database
 
         $result = $statement->fetch(2);
 
-        if ($result->rowCount() > 0) {
+        if ($statement->rowCount() > 0) {
             return true;
         } else {
             return false;
