@@ -1,3 +1,11 @@
+/*
+ * Kaephas & Zane
+ * 6-1-2019
+ * clientValid.js
+ *
+ * client-side validation of forms
+ */
+
 (function() {
     'use strict';
     window.addEventListener('load', function() {

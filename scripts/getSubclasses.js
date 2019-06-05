@@ -7,6 +7,7 @@
  */
 
 // store subclasses array (Still validate with php)
+// TODO: Make sure no longer in use before deleting
 
 let subclasses = [];
 subclasses['Artificer'] =

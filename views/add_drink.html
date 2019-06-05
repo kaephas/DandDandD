@@ -5,6 +5,11 @@
 <div class="container">
     <form action="#" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
         <div class="row">
+            <check if="{{ @errors['db'] }}">
+                <h6 class="text-danger mx-auto">{{ @errors['db'] }}</h6>
+            </check>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md form-group">
@@ -47,7 +52,7 @@
                             <div class="col-md-3 form-group ">
 
                                 <label for="{{'qty'.@index }}">Qty</label>
-                                <check if="{{ @errors[qty][@index] }}">
+                                <check if="{{ @errors['qty'][@index] }}">
                                     <span class="text-danger">{{ @errors[qty][@index] }}</span>
                                 </check>
                                 <input id="{{'qty'.@index }}" type="text" name="qtys[]"
@@ -55,14 +60,14 @@
                             </div>
                             <div class="col-md-5 form-group">
                                 <label for="{{ @ing }}">Ingredient</label>
-                                <check if="{{ @errors[ing][@index] }}">
+                                <check if="{{ @errors['ing'][@index] }}">
                                     <span class="text-danger">{{ @errors[ing][@index] }}</span>
                                 </check>
                                 <input id="{{ @ing }}" type="text" name="ings[]" class="form-control" value="{{ @ing }}" required>
                             </div>
                             <div class="col-md-4 form-group">
                                 <label for="{{ 'type'.@index }}">Category</label>
-                                <check if="{{ @errors[type][@index] }}">
+                                <check if="{{ @errors['type'][@index] }}">
                                     <span class="text-danger">{{ @errors[type][@index] }}</span>
                                 </check>
                                 <select name="types[]" id="{{ 'type'.@index }}" class="form-control" required>
@@ -113,7 +118,6 @@
                 <div class="row">
                     <div class="col">
                         <div class="form-group ml-auto">
-
                             <label for="image">Upload a new photo: &nbsp;</label>
                             <input type="file" name="drinkImg" id="image">
                             <check if="{{ @errors['image'] }}">

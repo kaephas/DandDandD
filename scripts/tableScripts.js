@@ -1,3 +1,12 @@
+/*
+ * Kaephas & Zane
+ * 6-1-2019
+ * tableScripts.js
+ *
+ * Script to load/style datatable and clickable rows
+ */
+
+// converts prev/next to < / >
 $(document).ready( function () {
     $('#drinkTable').DataTable( {
         "oLanguage": {
@@ -9,15 +18,14 @@ $(document).ready( function () {
     });
 
     $("#drinkTable tr").css('cursor', 'pointer');
+    // TODO: not working for some reason
     $("#headerRow").css('cursor', 'n-resize');
 
 } );
 
 let row = $(".clickableRow");
 
-// $("#drinkTable tr").hover(function() {
-// });
-
+// Clickable Table Rows, redirect to drink/drinkName
 row.click(function() {
     window.location = $(this).attr('data-href');
 });

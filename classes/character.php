@@ -15,6 +15,8 @@ class Character
     private $_age;
     private $_stats;
     private $_alcoholic;
+    private $_image;
+
     /**
      * Character constructor.
      * @param string $_name
@@ -27,7 +29,8 @@ class Character
      * @param bool $_alcoholic
      * @return void
      */
-    public function __construct($_name, $_class, $_subclass, $_alignment, $_background, $_age, $_stats, $_alcoholic)
+    public function __construct($_name, $_class, $_subclass, $_alignment, $_background,
+                                $_age, $_stats, $_alcoholic, $_image)
     {
         $this->_name = $_name;
         $this->_class = $_class;
@@ -37,7 +40,9 @@ class Character
         $this->_age = $_age;
         $this->_stats = $_stats;
         $this->_alcoholic = $_alcoholic;
+        $this->_image = $_image;
     }
+
     /**
      * @return mixed
      */
@@ -149,5 +154,21 @@ class Character
     public function setAlcoholic($alcoholic)
     {
         $this->_alcoholic = $alcoholic;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->_image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->_image = $image;
     }
 }

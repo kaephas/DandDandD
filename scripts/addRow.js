@@ -6,8 +6,8 @@
  * enables adding ingredient rows on button click
  */
 
-let typeList = ['cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice',
-    'liquor', 'milk/cream', 'mint', 'soft drink', 'sweetener', 'tonic', 'vermouth', 'misc'];
+let typeList = ['cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg',
+    'fruit/juice', 'liquor', 'milk/cream', 'mint', 'soft drink', 'sweetener', 'tonic', 'vermouth', 'misc'];
 
 $("#addRow").click(function(e) {
     e.preventDefault();

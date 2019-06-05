@@ -30,6 +30,24 @@ nav a:hover {
     color: orange;
 }
 
+#barImg {
+    /*background-image: url("../images/dndBar.jpg");*/
+    /*background-size: contain;*/
+    /*background-repeat: no-repeat;*/
+    /*background-color: unset;*/
+    /*height: auto;*/
+    /*width: 50vw;*/
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+#barBtn {
+    position: absolute;
+    width: 100%;
+    bottom: 40%;
+}
+
 h1{
     /*font-family: 'Cinzel', serif;*/
     /*font-family: 'Cinzel Decorative', cursive;*/
@@ -64,15 +82,23 @@ img {
     text-align: center;
 }
 
-.btn-home {
-    min-width: 100px;
-
-}
-
 .btn {
     font-family: 'Metamorphous', cursive;
     border: 1px solid palegoldenrod;
     box-shadow: 1px 1px 1px #2f4f4f91;
+}
+
+.btn-home {
+    min-width: 100px;
+    /*background: url('../images/cocktail.svg') no-repeat center;*/
+    /*background-color: rgba(74, 10, 10, 0.66);*/
+    /*background-size: cover;*/
+    /*width: 100px;*/
+    /*height: 100px;*/
+}
+
+.btn-home:hover {
+    cursor: pointer;
 }
 
 /*Fighting with bootstrap form control*/
@@ -109,6 +135,34 @@ td {
 td a {
     font-weight: normal;
 }
+
+.resultIngs {
+    /*font-weight: bold;*/
+    font-size: 1em;
+    background-color: #e9ecef;
+
+}
+
+.statResult {
+    max-width: 100px;
+}
+
+@media only screen and (min-width: 576px) {
+    .vl {
+        border-left: 1px solid #323232;
+        /*min-height: 100px;*/
+    }
+    .hideBig {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    .hideSmall {
+        display: none;
+    }
+}
+
 
 /*th {*/
     /*color: white !important;*/

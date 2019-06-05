@@ -4,40 +4,55 @@
 <div class="container text-center">
     <h1>DUNGEONS & DRAGONS & DRINKS</h1>
     <hr>
-    <h2>Find My Drink</h2>
-    <a class="btn btn-warning btn-lg btn-home mb-3" href="find_drink">Go</a>
+    <!--<h2>Find My Drink</h2>-->
+    <!--<a class="btn btn-warning btn-lg btn-home mb-3" href="find_drink">Find My Drink</a>-->
+    <!-- class="text-hide"-->
     <br>
-    <h2>Add a Drink</h2>
-    <a class="btn btn-warning btn-lg btn-home" href="add_drink">Go</a>
+    <!--<h2>Add a Drink</h2>-->
+    <!--<a class="btn btn-danger btn-lg btn-home" href="add_drink">Go</a>-->
+    <!--<div>Icons made by <a href="https://www.freepik.com/" title="Freepik">Freepik</a>-->
+    <!--from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a -->
+    <!--href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" -->
+    <!--target="_blank">CC 3.0 BY</a></div>-->
+    <div class="row mx-auto text-center" id="barImg">
+        <div class="col" id="btnCol">
+            <img src="images/dndBar.jpg" alt="d and d tavern" class="img-fluid">
+            <div id="barBtn">
+            <a class="btn btn-warning btn-lg btn-home mb-3" href="find_drink">Find My Drink</a>
+            </div>
+        </div>
+    </div>
 </div>
 <br>
 <hr>
 <div class="container">
     <h2>To do:</h2>
     <ul>
-        <li>
-            Fix edit drink image update--not updating if error found after initial upload
-        </li>
-        <li>
-            If we ajax load a php document with functions, can we then run a function/get variables?
-        </li>
-        <li>
-            <del>Client side js validation -- get more clarity on php/js/server-side</del>
-        </li>
-        <li>
-            Include header once for all pages?
-        </li>
-        <li>
-            Check with Tina re: database structure
-        </li>
-        <li>
-            Only logged-in users to add/edit drink / all drinks?
-        </li>
-        <li>Character Info Page
+        <li>Last week things:
             <ul>
-                <li>Validation</li>
-                <li>Post Data to Character Object</li>
-                <li>Store Character in Session</li>
+                <li><del>ing name in database: diff type on add drink => warning?</del></li>
+                <li>change home buttons to drink images?</li>
+                <li>
+                    Check with Tina re: database structure
+                </li>
+                <li>
+                    Only logged-in users to add/edit drink / all drinks?
+                </li>
+                <li>RE-TEST EVERYTHING LOTS OF TIMES
+                    <ul>
+                        <li>Next monday my D&D group will test it</li>
+                    </ul>
+                </li>
+                <li>
+                    When all else is done...Styles!
+                </li>
+            </ul>
+        </li>
+        <li><del>Character Info Page</del>
+            <ul>
+                <li><del>Validation</del></li>
+                <li><del>Post Data to Character Object</del></li>
+                <li><del>Store Character in Session</del></li>
             </ul>
         </li>
         <li><del>Add New Drink Page</del>
@@ -51,7 +66,7 @@
             <ul>
                 <li><del>Display as datatable</del></li>
                 <li><del>Ability to edit drinks</del></li>
-                <li><del>Edit/View -> Query DB & create new drink object from info</del> -> Store in session?</li>
+                <li><del>Edit/View -> Query DB & create new drink object from info</del></li>
             </ul>
         </li>
         <li><del>Edit/View Drink Page</del>
@@ -59,7 +74,6 @@
                 <li><del>Load Drink Object</del></li>
                 <li><del>Validation</del></li>
                 <li><del>Update Database</del></li>
-                <li>Run more tests to update</li>
             </ul>
         </li>
         <li><del>Delete Drink Page</del>
@@ -69,21 +83,13 @@
                 <li><del>Delete from DB</del></li>
             </ul>
         </li>
-        <li>Display Chosen Drink
+        <li><del>Display Chosen Drink</del>
             <ul>
-                <li>Load Character object from session</li>
-                <li>Query DB for matching drinks</li>
-                <li>Create Array of Drink objects for each possibility</li>
-                <li>Choose Best/Random from matches</li>
+                <li><del>Load Character object from session</del></li>
+                <li><del>Query DB for matching drinks</del></li>
+                <li><del>Create Array of Drink objects for each possibility</del></li>
+                <li><del>Choose Best/Random from matches</del></li>
             </ul>
-        </li>
-        <li>RE-TEST EVERYTHING LOTS OF TIMES
-            <ul>
-                <li>Next monday my D&D group will test it</li>
-            </ul>
-        </li>
-        <li>
-            When all else is done...Styles!
         </li>
     </ul>
     <hr>
@@ -96,6 +102,8 @@
         <li>Has a history of commits from both team members to a Git repository.</li>
         <li>Uses OOP, and defines multiple classes, including at least one inheritance relationship.</li>
         <li>Contains full Docblocks for all PHP files.</li>
+        <li><del>Has full validation on the client side through JavaScript and server through PHP</del></li>
+        <li><del>Incorporates jQuery and Ajax</del></li>
     </ul>
 </div>
 <!-- bootstrap scripts -->
