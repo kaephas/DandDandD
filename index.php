@@ -102,6 +102,10 @@ $f3->route('GET|POST /find_drink', function($f3)
 // add a new drink to DB route
 $f3->route('GET|POST /add_drink', function($f3)
 {
+    if(!isset($_SESSION['admin'])) {
+        $f3->reroute('/');
+    }
+
     global $db;
     $pageTitle = "Add a Drink";
     $f3->set('pageTitle', $pageTitle);
@@ -136,7 +140,7 @@ $f3->route('GET|POST /add_drink', function($f3)
             // get storage path to attempt
             $path = 'images/' . basename($image["name"]);
 
-            $f3->set('newImage', 0);
+            $f3->set('newImage', 2);
             $validateImg = validImage($image, $path);
             // if uploaded update Drink object
             if($validateImg) {
@@ -145,6 +149,8 @@ $f3->route('GET|POST /add_drink', function($f3)
                     // $_SESSION['newImage'] = $path;
                     unset($_SESSION['image']);
                 }
+            } else {
+                $f3->set('newImage', 0);
             }
         }
 
@@ -154,7 +160,7 @@ $f3->route('GET|POST /add_drink', function($f3)
         }
 
         $validate = $validate && $validateImg;
-        if($validateImg && !$validate && !isset($_SESSION['image'])){
+        if($validateImg && !$validate && $f3->get('newImage') == 2){
             $f3->set('errors["image"]', 'Form error. Re-select image.');
         }
 
@@ -164,6 +170,7 @@ $f3->route('GET|POST /add_drink', function($f3)
             if(!empty($_FILES['drinkImg']['name'])) {
                 if (move_uploaded_file($image['tmp_name'], $path)) {
                     $imageUpload = $path;
+                    $_SESSION['image'] = $path;
                 } else {
                     $upload = false;
                     $f3->set('errors["image"]', 'Error. Upload failed. Please try a different file.');
@@ -215,6 +222,10 @@ $f3->route('GET|POST /add_drink', function($f3)
 
 // view all drinks in datatable
 $f3->route('GET /drinks', function($f3) {
+    if(!isset($_SESSION['admin'])) {
+        $f3->reroute('/');
+    }
+
     global $db;
     $drinks = $db->getAllDrinks();
 
@@ -236,12 +247,14 @@ $f3->route('GET /drinks', function($f3) {
     unset($_SESSION['new']);
     unset($_SESSION['drink']);
     unset($_SESSION['imageAlready']);
-    //TODO swap to commented if adding user logon
-//    session_destroy();
 });
 
 // edit drinks route
 $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
+    if(!isset($_SESSION['admin'])) {
+        $f3->reroute('/');
+    }
+
     $drink = $params['drink'];
     global $db;
     $info = $db->getDrink($drink);
@@ -340,6 +353,7 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
             $upload = true;
             if(!empty($_FILES['drinkImg']['name'])) {
                 if (move_uploaded_file($image['tmp_name'], $path)) {
+                    $_SESSION['imageAlready'] = $path;
                     $newDrink->setImage($path);
                 } else {
                     $upload = false;
@@ -370,8 +384,7 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
 
                     $f3->reroute('/drinks');
                 } else {
-                    $f3->set("errors['db']", 'Database error: check ingredient and type matches and
-                     redo image choice if necessary, or try again later.');
+                    $f3->set("errors['db']", 'Database error: check ingredient and type matches, or try again later.');
                     // TODO: TEST -> set ing=>type wrong and change image to both already existing and new
                     $_SESSION['imageAlready'] = $newDrink->getImage();
                     // TODO does this fix?
@@ -404,6 +417,10 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
 
 
 $f3->route('GET|POST /delete/@drink', function($f3, $params) {
+    if(!isset($_SESSION['admin'])) {
+        $f3->reroute('/');
+    }
+
     global $db;
     $drinkName = $params['drink'];
     $info = $db->getDrink($drinkName);
@@ -417,7 +434,7 @@ $f3->route('GET|POST /delete/@drink', function($f3, $params) {
     $f3->set('recipe', $info->getRecipe());
     $f3->set('drinkImg', $info->getImage());
 
-    if(get_class($info) == 'AlcoholDrink') {
+    if($info instanceof AlcoholDrink) {
 
         $f3->set('shots', $info->getShots());
     } else {
@@ -460,7 +477,6 @@ $f3->route('GET /result', function($f3) {
 });
 
 $f3->route('GET|POST /login', function ($f3){
-    global $f3;
     global $db;
 
     if (isset($_POST['username'])) {
@@ -469,7 +485,6 @@ $f3->route('GET|POST /login', function ($f3){
         $password = $_POST['password'];
 
         $f3->set('username', $username);
-        $f3->set('password', $password);
 
         if ($db->validAdmin($username, $password)) {
 
@@ -477,13 +492,23 @@ $f3->route('GET|POST /login', function ($f3){
 
             $f3->reroute('/');
         } else {
-            echo '<div class="alert alert-danger">No Admin rights.</div>';
+//            echo '<div class="alert alert-danger">No Admin rights.</div>';
+            // display errors from $f3
         }
     }
 
     $view = new Template();
     echo $view->render('views/login.html');
 });
+
+// TODO: ONLY TO BE USED WITH INITIALIZING USER PASSWORDS
+$f3->route('GET /setPW', function($f3) {
+    global $db;
+    $db->runOnce();
+
+});
+
+
 
 $f3->route('GET /logout', function ($f3){
 
@@ -518,6 +543,8 @@ $f3->route('GET /test2', function($f3) {
     echo $view->render('views/test2.html');
     session_destroy();
 });
+
+
 
 
 $f3->run();
