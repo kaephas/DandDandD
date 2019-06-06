@@ -34,13 +34,13 @@
             <div class="col my-auto">
                 <a class="nav-link" href="../drinks">All Drinks</a>
             </div>
-            <div class="col my-auto">
-                <a class="btn btn-warning" href="../logout">Logout</a>
+            <div class="col ml-auto">
+                <a class="btn btn-warning adminBtn" href="../logout">Logout</a>
             </div>
         </check>
         <check if="{{ !isset(@SESSION.admin) }}">
-            <div class="col my-auto">
-                <a class="btn btn-warning" href="../login">Login</a>
+            <div class="col ml-auto">
+                <a class="btn btn-warning adminBtn" href="../login">Admin</a>
             </div>
         </check>
     </nav>
@@ -85,7 +85,8 @@
                             <span class="text-danger">{{ @errors['shots'] }}</span>
                         </check>
                         <input class="form-control" name="shots" id="shots"
-                               type="text" value="{{ @shots }}">
+                               type="text" value="{{ @shots }}" aria-describedby="shotsReq">
+                        <small id="shotsReq" class="form-text text-muted">Req. for Alc Bvgs.</small>
                     </div>
                 </div>
                 <repeat group="{{ @ings }}" key="{{ @index }}" value="{{ @ing }}">
