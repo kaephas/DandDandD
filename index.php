@@ -29,6 +29,7 @@ $f3->set('alcohols', array('cognac', 'gin', 'pisco', 'rum', 'tequila', 'vermouth
 
 $db = new Database();
 
+
 //Define a default route (dating splash page)
 $f3->route('GET /', function($f3)
 {
@@ -95,7 +96,6 @@ $f3->route('GET|POST /find_drink', function($f3)
     }
 
     $view = new Template();
-//    echo $view->render('views/character.html');
     echo $view->render('views/character.html');
 });
 
@@ -256,6 +256,7 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
     }
 
     $drink = $params['drink'];
+
     global $db;
     $info = $db->getDrink($drink);
 
@@ -411,6 +412,7 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
 
     }
     //$f3->set('ingTypes', $info->getType());
+
     $view = new Template();
     echo $view->render('views/edit_drink.html');
 });
