@@ -43,7 +43,8 @@
                             <span class="text-danger">{{ @errors['shots'] }}</span>
                         </check>
                         <input class="form-control" name="shots" id="shots"
-                               type="text" value="{{ @shots }}">
+                               type="text" value="{{ @shots }}" aria-describedby="shotsReq">
+                        <small id="shotsReq" class="form-text text-muted">Req. for Alc Bvgs.</small>
                     </div>
                 </div>
                 <check if="{{ @ings }}">
