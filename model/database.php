@@ -528,27 +528,53 @@ class Database
      */
     function validAdmin($username, $password){
 
-        $sql = "SELECT username FROM admin
-                WHERE username=:username
-                AND password=:password";
+        global $f3;
 
+        $sql = "SELECT username, password FROM admin
+                WHERE username=:username";
         $statement = $this->_dbh->prepare($sql);
 
-        $statement->bindParam(':username', $username, 2);
-        $statement->bindParam(':password', $password, 2);
+        $statement->bindParam(':username', $username);
 
-        $statement->execute();
+        if($statement->execute()) {
+            if($statement->rowCount() < 1) {
+                $f3->set('errors["login"]', 'Username not found.');
+                return false;
+            } else {
+                $result = $statement->fetch(2);
+                $pw = $result['password'];
 
-        $result = $statement->fetch(2);
-
-        if ($statement->rowCount() > 0) {
-            return true;
+                if(password_verify($password, $pw)) {
+                    return true;
+                } else {
+                    $f3->set('errors["login"]', "Password doesn't match.");
+                    return false;
+                }
+            }
         } else {
+            $f3->set('errors["login"]', "Database error.");
             return false;
         }
 
     }
 
+    // TODO look here for updating passwords
+    function runOnce() {
+        echo 'Inserting new password';
 
+        $sql = "INSERT INTO admin
+            VALUES(:username, :password)";
+        $statement = $this->_dbh->prepare($sql);
+        $username = 'Kaephas';
+        $password = password_hash("Kaephas", PASSWORD_DEFAULT);
+        $statement->bindParam(':password', $password);
+        $statement->bindParam(':username', $username);
+        if($statement->execute()) {
+            echo "<br>Inserted.";
+        } else {
+            echo "<br>Not inserted.";
+        }
+
+    }
 }
 
