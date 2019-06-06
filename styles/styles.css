@@ -30,6 +30,15 @@ nav a:hover {
     color: orange;
 }
 
+.adminBtn {
+    padding: .1rem .25rem;
+}
+
+#loginCont {
+    width: 90%;
+    max-width: 450px;
+}
+
 #barImg {
     /*background-image: url("../images/dndBar.jpg");*/
     /*background-size: contain;*/
@@ -45,7 +54,9 @@ nav a:hover {
 #barBtn {
     position: absolute;
     width: 100%;
-    bottom: 40%;
+    bottom: 25%;
+    left: 0;
+    right: 0;
 }
 
 h1{
@@ -135,6 +146,17 @@ td {
 td a {
     font-weight: normal;
 }
+
+
+#drinkTable tr {
+    cursor: pointer;
+}
+
+caption {
+    caption-side: top;
+    font-weight: bold;
+}
+
 
 .resultIngs {
     /*font-weight: bold;*/
