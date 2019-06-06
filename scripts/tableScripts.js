@@ -6,7 +6,7 @@
  * Script to load/style datatable and clickable rows
  */
 
-// converts prev/next to < / >
+// converts prev/next to < / >, resizes table properly
 $(document).ready( function () {
     $('#drinkTable').DataTable( {
         "oLanguage": {
@@ -14,36 +14,19 @@ $(document).ready( function () {
                 "sPrevious": "<",
                 "sNext": ">"
             }
-        }
+        },
+        "rowReorder": {
+            selector: 'td:nth-child(2)'
+        },
+        "responsive": true,
+        "autoWidth": false
     });
-
-    $("#drinkTable tr").css('cursor', 'pointer');
-    // TODO: not working for some reason
-    $("#headerRow").css('cursor', 'n-resize');
 
 } );
 
+// Clickable Table Rows, redirect to drink/drinkName
 let row = $(".clickableRow");
 
-// Clickable Table Rows, redirect to drink/drinkName
 row.click(function() {
     window.location = $(this).attr('data-href');
 });
-//
-// $(document).ready(function() {
-//    let table = $('#drinkTable').DataTable( {
-//        rowReorder: {
-//            selector: 'td:nth-child(2)'
-//        },
-//        responsive: true,
-//        "oLanguage": {
-//            "oPaginate": {
-//                "sPrevious": "<",
-//                "sNext": ">"
-//            }
-//        },
-//
-//    });
-//     let firstChild = $('#drinkTable_previous:first-child');
-//        // firstChild.children('a:first').html('Prev');
-// });
