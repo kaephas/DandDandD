@@ -7,15 +7,12 @@
 
 */
 
-body {
-    background-image: url("../images/bar_background.jpg");
-    background-size: auto, 100%;
-}
+/* Nav/Header styles */
 
 .jumbotron {
     background-color: black;
 }
-/* Nav styles */
+
 nav {
     background: #741112;
     font-family: 'Cinzel', serif;
@@ -40,12 +37,6 @@ nav a:hover {
 }
 
 #barImg {
-    /*background-image: url("../images/dndBar.jpg");*/
-    /*background-size: contain;*/
-    /*background-repeat: no-repeat;*/
-    /*background-color: unset;*/
-    /*height: auto;*/
-    /*width: 50vw;*/
     position: relative;
     display: inline-block;
     text-align: center;
@@ -59,18 +50,33 @@ nav a:hover {
     right: 0;
 }
 
-h1{
-    /*font-family: 'Cinzel', serif;*/
-    /*font-family: 'Cinzel Decorative', cursive;*/
-    /*font-family: 'Gabriela', serif;*/
-    font-family: 'Metamorphous', cursive;
-    /*font-family: 'UnifrakturCook', cursive;*/
-    /*font-family: 'MedievalSharp', cursive;*/
-    /*font-family: 'New Rocker', cursive;*/
-    /*font-family: 'Federant', cursive;*/
-}
 
 /* body styles */
+
+/* minimum add row button size */
+#addRow {
+    min-width: 50px;
+}
+
+body {
+    background-image: url("../images/bar_background.jpg");
+    background-size: auto, 100%;
+}
+
+.btn {
+    font-family: 'Metamorphous', cursive;
+    border: 1px solid palegoldenrod;
+    box-shadow: 1px 1px 1px #2f4f4f91;
+}
+
+/* home page button slightly larger */
+.btn-home {
+    min-width: 100px;
+}
+
+.btn-home:hover {
+    cursor: pointer;
+}
 
 /* rounded grey border, slight gap around contents*/
 .container {
@@ -85,6 +91,19 @@ h1{
     box-shadow: 2px 2px 5px darkslategrey;
 }
 
+.form-control-plaintext {
+    background-color: lightgrey;
+    padding-left: 5px;
+}
+
+h1{
+    font-family: 'Metamorphous', cursive;
+}
+
+h2{
+    font-family: 'Federant', cursive;
+}
+
 /* image styles - round edges, 15px from adjacent*/
 img {
     border-radius: 5px !important;
@@ -93,52 +112,26 @@ img {
     text-align: center;
 }
 
-.btn {
-    font-family: 'Metamorphous', cursive;
-    border: 1px solid palegoldenrod;
-    box-shadow: 1px 1px 1px #2f4f4f91;
-}
-
-.btn-home {
-    min-width: 100px;
-    /*background: url('../images/cocktail.svg') no-repeat center;*/
-    /*background-color: rgba(74, 10, 10, 0.66);*/
-    /*background-size: cover;*/
-    /*width: 100px;*/
-    /*height: 100px;*/
-}
-
-.btn-home:hover {
-    cursor: pointer;
-}
-
-/*Fighting with bootstrap form control*/
-/*.form-control{*/
-    /*width: 25vw;*/
-/*}*/
-
-h2{
-    font-family: 'Federant', cursive;
-}
-/*#btnText{*/
-    /*font-family: 'Metamorphous', cursive;*/
-    /*border: 1px solid palegoldenrod;*/
-    /*box-shadow: 1px 1px 1px #2f4f4f91;*/
-/*}*/
-
-textarea {
-    width: 100% !important;
-}
-
 label {
     font-weight: bold;
 }
 
-#addRow {
-    min-width: 50px;
+/* fill width of div/container */
+textarea {
+    width: 100% !important;
 }
 
+
 /* data table styles */
+caption {
+    caption-side: top;
+    font-weight: bold;
+}
+
+#drinkTable tr {
+    cursor: pointer;
+}
+
 td {
     font-weight: bold;
 }
@@ -148,16 +141,7 @@ td a {
 }
 
 
-#drinkTable tr {
-    cursor: pointer;
-}
-
-caption {
-    caption-side: top;
-    font-weight: bold;
-}
-
-
+/* ingredient display on result page */
 .resultIngs {
     /*font-weight: bold;*/
     font-size: 1em;
@@ -165,12 +149,14 @@ caption {
 
 }
 
+/* stats display on result page */
 .statResult {
     max-width: 100px;
 }
 
+/* change display layout based on screen size */
 @media only screen and (min-width: 576px) {
-    .vl {
+    .vl {   /* vertical line */
         border-left: 1px solid #323232;
         /*min-height: 100px;*/
     }
@@ -184,30 +170,3 @@ caption {
         display: none;
     }
 }
-
-
-/*th {*/
-    /*color: white !important;*/
-/*}*/
-
-/*thead th {*/
-    /*color: #8a25c3 !important;*/
-    /*text-align: center !important;*/
-/*}*/
-
-/*table {*/
-    /*background: white !important;*/
-/*}*/
-
-/*.dataTables_wrapper .dataTables_paginate .paginate_button {*/
-    /*color: white !important;*/
-/*}*/
-
-/*.dataTables_wrapper .dataTables_paginate .paginate_button.disabled {*/
-    /*color: #6D4285 !important;*/
-/*}*/
-
-/*.dataTables_wrapper .dataTables_paginate .paginate_button.current {*/
-    /*color: white !important;*/
-    /*background: #6D4285 !important;*/
-/*}*/
