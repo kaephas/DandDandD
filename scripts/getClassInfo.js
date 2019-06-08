@@ -17,6 +17,6 @@ $(window).on('load', function() {
 $('#class').on('change', function() {
 
     let charClass = $('#class').val();
-    imageDiv.load('model/getClassInfo.php', {char:charClass})
+    imageDiv.load('model/getClassInfo.php', {char:charClass});
     $("#sub").load('model/getClassInfo.php', {subs:charClass});
 });
