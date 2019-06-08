@@ -1,16 +1,22 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kaephas
- * Date: 5/18/2019
+ * Contains a set of validation functions for all forms on the d&d&d site
+ *
+ * @author Kaephas & Zane
+ * @version 1.0
+ *
  */
 
-//TODO: Validation functions
+/**
+ * Validates all drink info and sets errors messages as needed
+ * @return bool $isValid    if all info is valid
+ */
 function validInfo()
 {
     global $f3;
     $isValid = true;
 
+    // validate name
     if(!validName($f3->get('name'))) {
         $isValid = false;
         $f3->set('errors["name"]', 'Required');
@@ -20,29 +26,33 @@ function validInfo()
         }
     }
 
+    // validate quantities -- drink qty updated in function
     $qtyErrors = validQty($f3->get('qtys'));
     if(sizeof($qtyErrors) > 0) {
         $isValid = false;
         $f3->set('errors["qty"]', $qtyErrors);
-    } // drink qty updated in function
+    }
 
+    // validate ingredients -- drink ing updated in function
     $ingErrors = validIng($f3->get('ings'));
     if(sizeof($ingErrors) > 0) {
         $isValid = false;
         $f3->set('errors["ing"]', $ingErrors);
-    }   // drink ing updated in function
+    }
 
+    // validate types -- drink types updated in function
     $typeErrors = validType($f3->get('types'));
     if(sizeof($typeErrors) > 0) {
         $isValid = false;
         $f3->set('errors["type"]', $typeErrors);
-    }   // drink types updated in function
+    }
 
-    // check if drink type conversion necessary and do so
+    // check if drink type conversion necessary and do so (if occurring in edit drink page)
     if($f3->get('drink') instanceof Drink || $f3->get('drink') instanceof AlcoholDrink) {
         convertDrink();
     }
 
+    // validate shots
     $shotsError = validShots($f3->get('shots'), $f3->get('types'));
     if(strlen($shotsError) > 0) {
         $isValid = false;
@@ -53,6 +63,7 @@ function validInfo()
         }
     }
 
+    // validate recipe
     $recError = validRecipe($f3->get('recipe'));
     if(strlen($recError) > 0) {
         $isValid = false;
@@ -66,6 +77,10 @@ function validInfo()
     return $isValid;
 }
 
+/**
+ * Validates all character form values and sets error messages as needed
+ * @return bool $isValid    if all data is valid
+ */
 function validCharacter() {
     global $f3;
     $isValid = true;
@@ -94,11 +109,11 @@ function validCharacter() {
         $f3->set('errors["background"]', "Please choose a background");
         $isValid = false;
     }
-    // valid age/alcoholic
+    // valid age/alcoholic (errors set in function)
     if(!validAge($f3->get('age'), $f3->get('alcoholic'))) {
         $isValid = false;
     }
-    // valid stats
+    // valid stats (errors set in function)
     if(!validStats($f3->get('stats'))) {
         $isValid = false;
     }
@@ -107,7 +122,7 @@ function validCharacter() {
 }
 
 /**
- * Validates stat values chosen
+ * Validates stat values chosen and sets errors as needed
  *
  * @param string[] $stats   list of stats values
  * @return bool $valid      if stats are valid
@@ -115,6 +130,7 @@ function validCharacter() {
 function validStats($stats) {
     global $f3;
     $valid = true;
+    // allows numeric between 1-30 (incl)
     $regex = "/^\d{1,2}$/";
     for($i = 0; $i < count($stats); $i++) {
         $val = $stats[$i];
@@ -129,6 +145,12 @@ function validStats($stats) {
     return $valid;
 }
 
+/**
+ * Validates age, requiring >= 21 to choose alcoholic drink and sets errors as needed
+ * @param int $age  the age of the character
+ * @param string $alc   if the drink requested has alcohol
+ * @return bool $valid  if age validates
+ */
 function validAge($age, $alc) {
     global $f3;
     $valid = true;
@@ -147,6 +169,7 @@ function validAge($age, $alc) {
             $valid = false;
         }
     }
+    // validate radio button
     if($alc != 'no' && $alc != 'yes') {
         $f3->set("errors['alcoholic']", "Select one.");
         $valid = false;
@@ -154,6 +177,11 @@ function validAge($age, $alc) {
     return $valid;
 }
 
+/**
+ * Confirms that background chosen is in list of valid backgrounds
+ * @param string $back  background chosen
+ * @return bool $backs  if valid
+ */
 function validBack($back) {
     $backs = generateBackgrounds();
     if(in_array($back, $backs)) {
@@ -163,6 +191,11 @@ function validBack($back) {
     }
 }
 
+/**
+ * Confirms that alignment chosen is in list of valid alignments
+ * @param string $align     the alignment chosen
+ * @return bool $aligns     if valid
+ */
 function validAlign($align) {
     $aligns = generateAlignments();
     if(in_array($align, $aligns)) {
@@ -172,6 +205,11 @@ function validAlign($align) {
     }
 }
 
+/**
+ * Confirms that class chosen is in the list of valid classes
+ * @param string $class     the class chosen
+ * @return bool             if valid
+ */
 function validClass($class) {
     $classList = generateClasses();
     if(in_array($class, $classList)) {
@@ -181,6 +219,11 @@ function validClass($class) {
     }
 }
 
+/**
+ * Confirms that the subclass chosen is in the list of valid subclasses
+ * @param $sub
+ * @return bool
+ */
 function validSubclass($sub) {
     global $f3;
     $valid = true;
@@ -194,6 +237,11 @@ function validSubclass($sub) {
 }
 
 
+/**
+ * Confirms that the recipe is set
+ * @param string $dir   the recipe
+ * @return string   the error message
+ */
 function validRecipe($dir) {
     $error = '';
     if(empty($dir) || $dir == '') {
@@ -202,16 +250,23 @@ function validRecipe($dir) {
     return $error;
 }
 
+
+/**
+ * Confirms that name is set, alpha not required since robots often have numbers or symbols in name
+ * Also used for drinks, which can contain numerals--symbol acceptable
+ * @param string $name  the character's name
+ * @return bool     if set
+ */
 function validName($name)
 {
     // required field -- non-alpha ok since D&D people make weird names sometimes
     return isset($name) && $name != "";
-
 }
 
 /**
- * @param array $qtys    all qty options
- * @return array $errors    errors from each qty box
+ * Confirms that all quantities are set for all ingredients
+ * @param string[] $qtys    all qty options
+ * @return string[] $errors    errors for each qty box
  */
 function validQty($qtys) {
     global $f3;
@@ -221,7 +276,9 @@ function validQty($qtys) {
         if($qty == "" || empty($qty)) {
             $errors[$index] = "Required";
         } else {
+            // redundant condition but i'm scared to remove 2nd part...
             if($f3->get('drink') instanceof Drink || $f3->get('drink') instanceof AlcoholDrink) {
+                // if editing a drink and quantity is valid, set drinks quantity to new value (stickiness)
                 $newQty = $f3->get('drink')->getQty();
                 $newQty[$index] = $qty;
                 $f3->get('drink')->setQty($newQty);
@@ -231,6 +288,11 @@ function validQty($qtys) {
     return $errors;
 }
 
+/**
+ * Confirms each ingredient field is set
+ * @param string[] $ings    ingredients list
+ * @return string[] $errors errors for each ingredient
+ */
 function validIng($ings) {
     global $f3;
     $errors = array();
@@ -239,6 +301,7 @@ function validIng($ings) {
         if($ing == "" || empty($ing)) {
             $errors[$index] = "Required";
         } else {
+            // updates drink object for stickiness on edit drink page
             if($f3->get('drink') instanceof Drink || $f3->get('drink') instanceof AlcoholDrink) {
                 $newIng = $f3->get('drink')->getIngredients();
                 $newIng[$index] = $ing;
@@ -249,6 +312,11 @@ function validIng($ings) {
     return $errors;
 }
 
+/**
+ * Confirms each type is in valid list of types
+ * @param string[] $types   the list of types
+ * @return string[] $errors     errors for each type
+ */
 function validType($types) {
     global $f3;
     $errors = array();
@@ -268,6 +336,12 @@ function validType($types) {
     return $errors;
 }
 
+/**
+ * Confirms that shots is set and numeric if alcoholic beverage (contains alcohol types)
+ * @param int $shots    the number of shots
+ * @param string[] $types   the list of types
+ * @return string $error    the error message
+ */
 function validShots($shots, $types) {
     global $f3;
     $error = '';
@@ -292,22 +366,6 @@ function validShots($shots, $types) {
 
 
 /**
- * Checks if an age is valid
- *
- * must be numeric and between 19 and 118 inclusive
- *
- * @param int $age  the age to be checked
- * @return bool     if the age is valid
- */
-//function validAge($age)
-//{
-//    // required field
-//    return is_numeric($age) && $age >= 9 && $age <= 118;
-//
-//}
-
-
-/**
  * Checks if an image is valid for upload
  *
  * @param array $image      File info for profile image
@@ -327,15 +385,6 @@ function validImage($image, $path)
         // is an image
         // if filepath already exists
         if(file_exists($path)) {
-//            $f3->set("errors['image']", "Using existing file.");
-            // if already exists, set Drink image to the file
-            //$upload = false;
-            //if($f3->get('drink') instanceof Drink) {
-            if($newDrink instanceof Drink) {
-               //TODO check add drink: $f3->get('drink')->setImage($path);
-            } else {
-                //TODO check add drink: $f3->set('drinkImg', $path);
-            }
             // for add drink page
             $_SESSION['image'] = $path;
             // not uploaded, but can re-use path without uploading
@@ -358,10 +407,14 @@ function validImage($image, $path)
     return $upload;
 }
 
+/**
+ * Converts a drink to alcoholic or back if gaining or losing alcohol based types
+ * @return void
+ */
 function convertDrink() {
     global $f3;
     $alcohol = false;
-
+    // determine if any alcoholic ingredient types
     foreach($f3->get('drink')->getType() as $type) {
         if(in_array($type, $f3->get('alcohols'))) {
             $alcohol = true;

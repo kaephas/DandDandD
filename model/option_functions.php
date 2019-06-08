@@ -1,12 +1,16 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kaephas
- * Date: 5/18/2019
- * Time: 10:03
+ * Set of functions that store and return character and drink values
+ *
+ * @author Kaephas & Zane
+ * @version 1.0
+ *
  */
 
-// Create list of stats
+/**
+ * Returns the list of stat options
+ * @return string[] $stats  The list of stat options
+ */
 function generateStats()
 {
     $stats = array();
@@ -20,7 +24,10 @@ function generateStats()
     return $stats;
 }
 
-// Create list of classes
+/**
+ * Returns the list of class options
+ * @return string[] $classes    the list of classes
+ */
 function generateClasses()
 {
     $classes = array();
@@ -41,7 +48,10 @@ function generateClasses()
     return $classes;
 }
 
-// Create list of subclasses
+/**
+ * Returns the list of subclass options as associative array matching the appropriate classes
+ * @return string[][] $subclass     the list of subclasses
+ */
 function generateSubClasses()
 {
     $subClass = array();
@@ -82,7 +92,10 @@ function generateSubClasses()
     return $subClass;
 }
 
-// Create list of alignments
+/**
+ * Returns the list of alignments
+ * @return string[] $alignments     the list of alignments
+ */
 function generateAlignments()
 {
     $alignments = array();
@@ -99,7 +112,10 @@ function generateAlignments()
     return $alignments;
 }
 
-// list of backgrounds
+/**
+ * Returns the list of backgrounds
+ * @return string[] $backgrounds    the list of backgrounds
+ */
 function generateBackgrounds()
 {
     $backgrounds = array();
@@ -138,7 +154,10 @@ function generateBackgrounds()
     return $backgrounds;
 }
 
-// Glasses
+/**
+ * Returns the list of glasses
+ * @return string[] $glasses    the list of glasses
+ */
 function generateGlasses() {
     $glasses = array('Cocktail', 'Highball', 'Collins', 'Lowball', 'Mug', 'Margarita',
                         'Hurricane', 'Shotglass', 'Coupe', 'Pint', 'Julep'
@@ -147,7 +166,10 @@ function generateGlasses() {
     return $glasses;
 }
 
-// List of Ingredient Types
+/**
+ * Returns the list of trait types
+ * @return string[] $categories     the list of trait types
+ */
 function generateIngTypes() {
     $categories = array(
         'cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice',

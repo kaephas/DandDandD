@@ -26,6 +26,13 @@ CREATE TABLE characteristic (
   type VARCHAR(20) NOT NULL
 );
 
+CREATE TABLE admin
+(
+  username VARCHAR(40) PRIMARY KEY,
+  password VARCHAR(255) NOT NULL
+);
+
+
 # characteristics to ingredient type map
 INSERT INTO characteristic (trait, type) VALUES
 ('Alchemist', 'sweetener'),
@@ -545,13 +552,3 @@ VALUES
 ('Midori Sour', '1/2oz', 'Lemon Juice'),
 ('Midori Sour', '1/2oz', 'Lime Juice'),
 ('Midori Sour', 'Fill', 'Club Soda');
-
-
-CREATE TABLE admin
-(
-	username VARCHAR(255) PRIMARY KEY,
-	password VARCHAR(255)
-);
-
-INSERT INTO admin
-VALUES ('Zane', 'Zane'), ('Kaephas', 'Kaephas');

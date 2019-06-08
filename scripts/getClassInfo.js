@@ -6,6 +6,7 @@
  * loads image and subclass info on class change
  */
 
+// loads class image and subclass based on class value in select box (first load or after post)
 let imageDiv = $('#ajaxImg');
 $(window).on('load', function() {
 
@@ -14,6 +15,7 @@ $(window).on('load', function() {
     $("#sub").load('model/getClassInfo.php', {subs:charClass});
 });
 
+// changes class image and subclass when select option changes
 $('#class').on('change', function() {
 
     let charClass = $('#class').val();

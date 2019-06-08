@@ -1,64 +1,50 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kaephas
- * Date: 5/18/2019
- * Time: 10:11
+ * Represents an Drink that stores information about a Drink
+ *
+ * @author Kaephas & Zane
+ * @version 1.0
  */
 
+/**
+ * Class Drink
+ *
+ * Represents a Drink
+ */
 class Drink
 {
-    private $_name;
     private $_glass;
     private $_image;
-    private $_qty;
     private $_ingredients;
-    private $_type;
+    private $_name;
+    private $_qty;
     private $_recipe;
+    private $_type;
 
-    // ingredients[] field: store associative array of ingredient => qty
-
-    // type[] field associative array of ingredient => type
-
+    /**
+     * Drink constructor.
+     * @param string $glass
+     * @param string $image
+     * @param string[] $ingredients
+     * @param string $name
+     * @param string[] $qty
+     * @param string $recipe
+     * @param string[] $type
+     */
     function __construct($name, $glass, $qty, $ingredients, $type, $recipe, $image='images/default.jpg')
     {
-        $this->_name = $name;
         $this->_glass = $glass;
         $this->_image = $image;
-        $this->_qty = $qty;
         $this->_ingredients = $ingredients;
-        $this->_type = $type;
+        $this->_name = $name;
+        $this->_qty = $qty;
         $this->_recipe = $recipe;
-
-//        // $this->_ingredients[$ingredients[0]] = $qty[0], etc.
-//        for($i = 0; $i < count($ingredients); $i++) {
-//            $this->_ingredients[$ingredients[$i]] = $qty[$i];
-//        }
-//        // $this->_type[$ingredients[0] = $type[0], etc.
-//        for($i = 0; $i < count($ingredients); $i++) {
-//            $this->_type[$ingredients[$i]] = $type[$i];
-//        }
-
+        $this->_type = $type;
     }
 
     /**
-     * @return string
-     */
-    public function getImage()
-    {
-        return $this->_image;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
-    {
-        return $this->_name;
-    }
-
-    /**
-     * @return mixed
+     * Gets the type of glass the Drink uses
+     * @return string $_glass   type of glass
      */
     public function getGlass()
     {
@@ -66,14 +52,17 @@ class Drink
     }
 
     /**
-     * @return mixed
+     * Gets the image path of the drink
+     * @return string $_image   the path of the image
      */
-    public function getQty() {
-        return $this->_qty;
+    public function getImage()
+    {
+        return $this->_image;
     }
 
     /**
-     * @return array
+     * Gets the Ingredients list of the drink
+     * @return string[] $_ingredients   the ingredients list
      */
     public function getIngredients()
     {
@@ -81,15 +70,25 @@ class Drink
     }
 
     /**
-     * @return array
+     * Gets the name of the drink
+     * @return string $_name    the name of the drink
      */
-    public function getType()
+    public function getName()
     {
-        return $this->_type;
+        return $this->_name;
     }
 
     /**
-     * @return string
+     * Gets the quantity list mapped to same indices as matched ingredient
+     * @return string[] $_qty     the quantity list
+     */
+    public function getQty() {
+        return $this->_qty;
+    }
+
+    /**
+     * Gets the Drink recipe
+     * @return string $_recipe  the recipe
      */
     public function getRecipe()
     {
@@ -97,23 +96,20 @@ class Drink
     }
 
     /**
-     * @param string $image
+     * Gets the type list mapped to same indices as matched ingredient
+     * @return string[] $_type      the type list
      */
-    public function setImage($image)
+    public function getType()
     {
-        $this->_image = $image;
+        return $this->_type;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name)
-    {
-        $this->_name = $name;
-    }
+    // setters
 
     /**
-     * @param mixed $glass
+     * Sets the drink's glass
+     * @param string $glass     the new type of glass
+     * @return void
      */
     public function setGlass($glass)
     {
@@ -121,15 +117,19 @@ class Drink
     }
 
     /**
-     * @param mixed $qty
+     * Sets the drinks image
+     * @param string $image      the new image path
+     * @return void
      */
-    public function setQty($qty)
+    public function setImage($image)
     {
-        $this->_qty = $qty;
+        $this->_image = $image;
     }
 
     /**
-     * @param mixed $ingredients
+     * Sets the ingredient list of the drink
+     * @param string[] $ingredients     the new list of ingredients
+     * @return void
      */
     public function setIngredients($ingredients)
     {
@@ -137,21 +137,52 @@ class Drink
     }
 
     /**
-     * @param mixed $type
+     * Sets the drink's name
+     * @param string $name  the new name
+     * @return void
      */
-    public function setType($type)
+    public function setName($name)
     {
-        $this->_type = $type;
+        $this->_name = $name;
     }
 
     /**
-     * @param mixed $recipe
+     * Sets the quantity list mapped to same indices as matched ingredients
+     * @param string[] $qty     the new list of quantities
+     * @return void
+     */
+    public function setQty($qty)
+    {
+        $this->_qty = $qty;
+    }
+
+    /**
+     * Sets the drink's recipe
+     * @param string $recipe    the new recipe
+     * @return void
      */
     public function setRecipe($recipe)
     {
         $this->_recipe = $recipe;
     }
 
+    /**
+     * Sets the type list mapped to the same indices as matched ingredients
+     * @param string[] $type    the new type list
+     * @return void
+     */
+    public function setType($type)
+    {
+        $this->_type = $type;
+    }
+
+    // methods
+
+    /**
+     * Outputs all data in an easily read format used for testing
+     * (json output doesn't work due to private fields)
+     * @return string $output   the prettified string form of all class fields
+     */
     public function prettify() {
         $tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
         $output = get_class($this) . " { ";

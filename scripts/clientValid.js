@@ -6,6 +6,9 @@
  * client-side validation of forms
  */
 
+/**
+ * with "novalidate" on form and "required" on fields, highlights good and bad inputs
+ */
 (function() {
     'use strict';
     window.addEventListener('load', function() {

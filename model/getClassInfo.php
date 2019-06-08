@@ -1,10 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: Kaephas & Zane
- * Date: 6/1/2019
- * Time: 10:46
+ * Loaded dynamically on class change on character page
+ * and updates class image and subclass
+ *
+ * @author Kaephas & Zane
+ * @version 1.0
  */
+// gain access to function to populate subclass list
 include 'option_functions.php';
 
 $subList = generateSubClasses();
@@ -20,14 +22,18 @@ if(isset($_POST['char'])) {
 
 
 /**
- * @param $className
+ * Generates the class image for character page
+ * @param string $className     the name of the class
+ * @return void
  */
 function generateImage($className) {
     echo '<img src="images/' . strtolower($className) . '.jpg" alt="class image" class="img-fluid mx-auto">';
 }
 
 /**
- * @param $subclasses
+ * Generates the select options for the character page
+ * @param string[] $subclasses  the list of subclasses that match the current class
+ * @return void
  */
 function generateSubs($subclasses) {
     $output = "";
