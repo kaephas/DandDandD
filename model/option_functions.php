@@ -158,7 +158,8 @@ function generateBackgrounds()
  * Returns the list of glasses
  * @return string[] $glasses    the list of glasses
  */
-function generateGlasses() {
+function generateGlasses()
+{
     $glasses = array('Cocktail', 'Highball', 'Collins', 'Lowball', 'Mug', 'Margarita',
                         'Hurricane', 'Shotglass', 'Coupe', 'Pint', 'Julep'
     );
@@ -170,7 +171,8 @@ function generateGlasses() {
  * Returns the list of trait types
  * @return string[] $categories     the list of trait types
  */
-function generateIngTypes() {
+function generateIngTypes()
+{
     $categories = array(
         'cognac', 'gin', 'pisco', 'rum', 'tequila', 'vodka', 'whiskey', 'bitters', 'club soda', 'egg', 'fruit/juice',
         'liquor', 'milk/cream', 'mint', 'soft drink', 'sweetener', 'tonic', 'vermouth', 'misc'

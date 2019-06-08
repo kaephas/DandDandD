@@ -183,7 +183,8 @@ class Drink
      * (json output doesn't work due to private fields)
      * @return string $output   the prettified string form of all class fields
      */
-    public function prettify() {
+    public function prettify()
+    {
         $tab = "&nbsp;&nbsp;&nbsp;&nbsp;";
         $output = get_class($this) . " { ";
         $output .= "<br>{$tab} Name: $this->_name";

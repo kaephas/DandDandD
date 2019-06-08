@@ -189,7 +189,8 @@ class Database
      * @param string    $oldName previous drink name to reference if drink name changed
      * @return bool     Indicates db update success
      */
-    function updateDrink($drink, $oldName) {
+    function updateDrink($drink, $oldName)
+    {
         //  make sure ingredient => type matches existing pairs in database
         if(!$this->_compareIngType($drink)) {
             return false;
@@ -277,7 +278,8 @@ class Database
      * @param Drink|AlcoholDrink $drink     The drink to be checked
      * @return bool $match      Whether the ingredient types match
      */
-    private function _compareIngType($drink) {
+    private function _compareIngType($drink)
+    {
         $sql = "SELECT ing_name, type FROM ingredient
                 WHERE ing_name=:ing";
         $statement = $this->_dbh->prepare($sql);
@@ -334,7 +336,7 @@ class Database
             $type[] = $ingredient['type'];
             $ingredients[] = $ingredient['ing_name'];
         }
-        // TODO I dont' see drink['ingredients'] ever used => I believe matches old Drink structure
+        // TODO I don't see drink['ingredients'] ever used => I believe matches old Drink structure
         $drink['ingredients'] = $rows;
         // create a new Drink or Alcoholic drink appropriately
         if($drink['alcoholic'] == 0) {
@@ -527,7 +529,8 @@ class Database
      * @param string $drinkName    Name of drink to be deleted
      * @return string $success       Indicates which step(s) were successful
      */
-    function deleteDrink($drinkName) {
+    function deleteDrink($drinkName)
+    {
         $success = 'neither';
 
         $sql = "DELETE FROM drink
@@ -556,8 +559,8 @@ class Database
      * @param string $password  the password to check
      * @return bool     if password matches
      */
-    function validAdmin($username, $password){
-
+    function validAdmin($username, $password)
+    {
         global $f3;
 
         $sql = "SELECT username, password FROM admin
@@ -597,7 +600,8 @@ class Database
      * change $username and $password to desired values
      * @return void
      */
-    function runOnce() {
+    function runOnce()
+    {
         echo 'Inserting new password';
 
         $sql = "INSERT INTO admin

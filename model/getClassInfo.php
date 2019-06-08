@@ -26,7 +26,8 @@ if(isset($_POST['char'])) {
  * @param string $className     the name of the class
  * @return void
  */
-function generateImage($className) {
+function generateImage($className)
+{
     echo '<img src="images/' . strtolower($className) . '.jpg" alt="class image" class="img-fluid mx-auto">';
 }
 
@@ -35,7 +36,8 @@ function generateImage($className) {
  * @param string[] $subclasses  the list of subclasses that match the current class
  * @return void
  */
-function generateSubs($subclasses) {
+function generateSubs($subclasses)
+{
     $output = "";
     foreach($subclasses as $sub) {
         $select = "";

@@ -223,7 +223,8 @@ $f3->route('GET|POST /add_drink', function($f3)
 });
 
 // view all drinks in datatable
-$f3->route('GET /drinks', function($f3) {
+$f3->route('GET /drinks', function($f3)
+{
     // only viewable by admin
     if(!isset($_SESSION['admin'])) {
         $f3->reroute('/');
@@ -254,7 +255,8 @@ $f3->route('GET /drinks', function($f3) {
 });
 
 // edit drinks route
-$f3->route('GET|POST /drinks/@drink', function($f3, $params) {
+$f3->route('GET|POST /drinks/@drink', function($f3, $params)
+{
     // cannot edit drinks unless admin
     if(!isset($_SESSION['admin'])) {
         $f3->reroute('/');
@@ -411,7 +413,8 @@ $f3->route('GET|POST /drinks/@drink', function($f3, $params) {
 });
 
 // drink deletion confirmation route
-$f3->route('GET|POST /delete/@drink', function($f3, $params) {
+$f3->route('GET|POST /delete/@drink', function($f3, $params)
+{
     // only admins
     if(!isset($_SESSION['admin'])) {
         $f3->reroute('/');
@@ -458,7 +461,8 @@ $f3->route('GET|POST /delete/@drink', function($f3, $params) {
 });
 
 // matched drink route
-$f3->route('GET /result', function($f3) {
+$f3->route('GET /result', function($f3)
+{
     // if somehow here without visiting character page
     if(!isset($_SESSION['drinkMatch']) || !isset($_SESSION['character'])) {
         $f3->reroute('/');
@@ -473,7 +477,8 @@ $f3->route('GET /result', function($f3) {
 });
 
 // login page
-$f3->route('GET|POST /login', function ($f3){
+$f3->route('GET|POST /login', function ($f3)
+{
     global $db;
 
     if (isset($_POST['username'])) {
@@ -497,7 +502,8 @@ $f3->route('GET|POST /login', function ($f3){
 });
 
 // TODO: ONLY TO BE USED WITH INITIALIZING USER PASSWORDS
-$f3->route('GET /setPW', function($f3) {
+$f3->route('GET /setPW', function($f3)
+{
     // should only be run intentionally and definitely only by an admin
     if(!isset($_SESSION['admin'])) {
         $f3->reroute('/');
@@ -508,7 +514,8 @@ $f3->route('GET /setPW', function($f3) {
 });
 
 // unsets admin session then re-reroutes back home
-$f3->route('GET /logout', function ($f3){
+$f3->route('GET /logout', function ($f3)
+{
 
     unset($_SESSION['admin']);
 

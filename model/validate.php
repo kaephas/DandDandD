@@ -81,7 +81,8 @@ function validInfo()
  * Validates all character form values and sets error messages as needed
  * @return bool $isValid    if all data is valid
  */
-function validCharacter() {
+function validCharacter()
+{
     global $f3;
     $isValid = true;
     // valid name
@@ -127,7 +128,8 @@ function validCharacter() {
  * @param string[] $stats   list of stats values
  * @return bool $valid      if stats are valid
  */
-function validStats($stats) {
+function validStats($stats)
+{
     global $f3;
     $valid = true;
     // allows numeric between 1-30 (incl)
@@ -151,7 +153,8 @@ function validStats($stats) {
  * @param string $alc   if the drink requested has alcohol
  * @return bool $valid  if age validates
  */
-function validAge($age, $alc) {
+function validAge($age, $alc)
+{
     global $f3;
     $valid = true;
     if(!is_numeric($age)) {
@@ -182,7 +185,8 @@ function validAge($age, $alc) {
  * @param string $back  background chosen
  * @return bool $backs  if valid
  */
-function validBack($back) {
+function validBack($back)
+{
     $backs = generateBackgrounds();
     if(in_array($back, $backs)) {
         return true;
@@ -196,7 +200,8 @@ function validBack($back) {
  * @param string $align     the alignment chosen
  * @return bool $aligns     if valid
  */
-function validAlign($align) {
+function validAlign($align)
+{
     $aligns = generateAlignments();
     if(in_array($align, $aligns)) {
         return true;
@@ -210,7 +215,8 @@ function validAlign($align) {
  * @param string $class     the class chosen
  * @return bool             if valid
  */
-function validClass($class) {
+function validClass($class)
+{
     $classList = generateClasses();
     if(in_array($class, $classList)) {
         return true;
@@ -224,7 +230,8 @@ function validClass($class) {
  * @param $sub
  * @return bool
  */
-function validSubclass($sub) {
+function validSubclass($sub)
+{
     global $f3;
     $valid = true;
     $classSubs = generateSubClasses();
@@ -242,7 +249,8 @@ function validSubclass($sub) {
  * @param string $dir   the recipe
  * @return string   the error message
  */
-function validRecipe($dir) {
+function validRecipe($dir)
+{
     $error = '';
     if(empty($dir) || $dir == '') {
         $error = 'Required';
@@ -268,7 +276,8 @@ function validName($name)
  * @param string[] $qtys    all qty options
  * @return string[] $errors    errors for each qty box
  */
-function validQty($qtys) {
+function validQty($qtys)
+{
     global $f3;
     $errors = array();
 
@@ -293,7 +302,8 @@ function validQty($qtys) {
  * @param string[] $ings    ingredients list
  * @return string[] $errors errors for each ingredient
  */
-function validIng($ings) {
+function validIng($ings)
+{
     global $f3;
     $errors = array();
 
@@ -317,7 +327,8 @@ function validIng($ings) {
  * @param string[] $types   the list of types
  * @return string[] $errors     errors for each type
  */
-function validType($types) {
+function validType($types)
+{
     global $f3;
     $errors = array();
     $validTypes = $f3->get('typeList');
@@ -342,7 +353,8 @@ function validType($types) {
  * @param string[] $types   the list of types
  * @return string $error    the error message
  */
-function validShots($shots, $types) {
+function validShots($shots, $types)
+{
     global $f3;
     $error = '';
     $alcoholic = false;
@@ -411,7 +423,8 @@ function validImage($image, $path)
  * Converts a drink to alcoholic or back if gaining or losing alcohol based types
  * @return void
  */
-function convertDrink() {
+function convertDrink()
+{
     global $f3;
     $alcohol = false;
     // determine if any alcoholic ingredient types
